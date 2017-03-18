@@ -1,52 +1,42 @@
 package it.synapta.tellmequality;
 
-import it.synapta.tellmequality.metrics.Accurancy_I_1;
-import it.synapta.tellmequality.metrics.Completness_I_2;
-import it.synapta.tellmequality.metrics.Test;
-import java.util.Iterator;
 import org.apache.jena.rdf.model.Model;
 import org.apache.jena.rdf.model.ModelFactory;
 import org.apache.jena.util.FileManager;
-import org.json.JSONArray;
+import java.io.IOException;
+
+import com.sun.jersey.api.container.httpserver.HttpServerFactory;
+import com.sun.jersey.api.core.PackagesResourceConfig;
+import com.sun.jersey.api.core.ResourceConfig;
+import com.sun.net.httpserver.HttpServer;
+import static it.synapta.tellmequality.Scheduler.schedule;
 import org.json.JSONObject;
 
 
 public class TellMeQuality {
 
-    public static void main(String[] args) {
+    public static Model mainGraph;
+
+    public static void main(String[] args) throws IOException {
         Model inputData = FileManager.get().loadModel("/home/alessio/Scrivania/tmq/pay-example.ttl", null, "TURTLE");
         Model shape = FileManager.get().loadModel("/home/alessio/Scrivania/tmq/shape.ttl", null, "TURTLE");
-        
-        Model mainGraph = ModelFactory.createDefaultModel();
+
+        mainGraph = ModelFactory.createDefaultModel();
         mainGraph.add(inputData);
         mainGraph.add(shape);
         
         JSONObject conf = new JSONObject("{\"Com-I-2\":[\"tmq:payment\"],\"Acc-I-1\":[\"tmq:payment\",\"tmq:id\"]}");
-        scheduler(conf, mainGraph);
-    }
+        System.out.println(schedule(conf).toString(4));
 
-    private static void scheduler(JSONObject conf, Model mainGraph) {
-        //Test.run(mainGraph);
-        Iterator<?> keys = conf.keys();
-
-        while( keys.hasNext() ) {
-            String key = (String)keys.next();
-            JSONArray array = conf.getJSONArray(key);
-            for(int i = 0 ; i < array.length() ; i++){
-                switch(key) {
-                    case "Acc-I-1":
-                        Accurancy_I_1 AccI1 = new Accurancy_I_1(array.get(i).toString());
-                        AccI1.run(mainGraph);
-                        break;
-
-                    case "Com-I-2":
-                        Completness_I_2 ComI2 = new Completness_I_2(array.get(i).toString());
-                        ComI2.run(mainGraph);
-                        break;
-                    default:
-                }
-            }
-        }       
+        /*System.out.println("Starting HTTPServer...\n");
+        HttpServer HTTPServer = createHttpServer();
+        HTTPServer.start();
+        System.out.println("Started HTTPServer Successfully!!!");*/
     }
     
+    private static HttpServer createHttpServer() throws IOException {
+        ResourceConfig ResourceConfig = new PackagesResourceConfig("it.synapta.tellmequality.rest");
+        return HttpServerFactory.create("http://localhost:8085/", ResourceConfig);
+    }
+
 }

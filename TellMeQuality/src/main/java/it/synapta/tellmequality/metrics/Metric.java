@@ -14,7 +14,7 @@ public class Metric {
         this("");
     }
     
-    public void run (Model graph) {
-        SparqlToText.run(query, graph);
+    public String run (Model graph) {
+        return SparqlToText.run(query, graph);
     }
 }
