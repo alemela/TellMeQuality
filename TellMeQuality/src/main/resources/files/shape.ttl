@@ -1,0 +1,28 @@
+@prefix tmq: <http://tmq.com/> .
+@prefix sh: <https://www.w3.org/TR/shacl/> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+
+
+tmq:IdentifierShape
+	a sh:Shape ;
+	sh:property [
+		sh:predicate tmq:id ;
+                sh:nodeKind sh:Literal ;
+		sh:pattern "(^[0-9]{7}[A-Fa-f0-9]{3}$)|(^[X-Zx-z]{1}[A-Fa-f0-9]{9}$)|(^[A-Wa-w]{1}[A-Fa-f0-9]{4}[0-9]{5}$)|([a-f0-9]{40})" ;
+		sh:minCount 1 ;
+		sh:maxCount 1 ;
+                rdfs:comment "L'identificativo deve essere un CIG valido o un hash di 40 caratteri." ;
+	] .
+
+tmq:PaymentShape
+	a sh:Shape ;
+	sh:property [
+		sh:predicate tmq:payment ;
+                sh:datatype xsd:float ;
+                sh:maxExclusive 0 ;
+		sh:nodeKind sh:Literal ;
+                rdfs:comment "Valore in euro." ;
+	] .
+

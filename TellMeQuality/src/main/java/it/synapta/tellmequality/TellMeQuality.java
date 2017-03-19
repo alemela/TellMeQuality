@@ -18,8 +18,8 @@ public class TellMeQuality {
     public static void main(String[] args) throws IOException {
 
         Loader loader = new Loader();
-        Model inputData = loader.loadRdfData("/home/alessio/Scrivania/tmq/pay-example.ttl");
-        Model shape = loader.loadRdfShape("/home/alessio/Scrivania/tmq/shape.ttl");
+        Model inputData = loader.loadRdfData("src/main/resources/files/pay-example.ttl");
+        Model shape = loader.loadRdfShape("src/main/resources/files/shape.ttl");
         loader.mergeDataWithShape(inputData, shape);
         
         JSONObject conf = new JSONObject("{\"Com-I-2\":[\"tmq:payment\"],\"Acc-I-1\":[\"tmq:payment\",\"tmq:id\"]}");
