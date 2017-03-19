@@ -1,8 +1,6 @@
 package it.synapta.tellmequality;
 
 import org.apache.jena.rdf.model.Model;
-import org.apache.jena.rdf.model.ModelFactory;
-import org.apache.jena.util.FileManager;
 import java.io.IOException;
 
 import com.sun.jersey.api.container.httpserver.HttpServerFactory;
@@ -18,12 +16,11 @@ public class TellMeQuality {
     public static Model mainGraph;
 
     public static void main(String[] args) throws IOException {
-        Model inputData = FileManager.get().loadModel("/home/alessio/Scrivania/tmq/pay-example.ttl", null, "TURTLE");
-        Model shape = FileManager.get().loadModel("/home/alessio/Scrivania/tmq/shape.ttl", null, "TURTLE");
 
-        mainGraph = ModelFactory.createDefaultModel();
-        mainGraph.add(inputData);
-        mainGraph.add(shape);
+        Loader loader = new Loader();
+        Model inputData = loader.loadRdfData("/home/alessio/Scrivania/tmq/pay-example.ttl");
+        Model shape = loader.loadRdfShape("/home/alessio/Scrivania/tmq/shape.ttl");
+        loader.mergeDataWithShape(inputData, shape);
         
         JSONObject conf = new JSONObject("{\"Com-I-2\":[\"tmq:payment\"],\"Acc-I-1\":[\"tmq:payment\",\"tmq:id\"]}");
         System.out.println(schedule(conf).toString(4));

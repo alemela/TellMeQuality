@@ -1,6 +1,6 @@
 package it.synapta.tellmequality;
 
-import static it.synapta.tellmequality.TellMeQuality.mainGraph;
+import static it.synapta.tellmequality.Loader.mainGraph;
 import it.synapta.tellmequality.metrics.Accurancy_I_1;
 import it.synapta.tellmequality.metrics.Completness_I_2;
 import java.util.Iterator;
