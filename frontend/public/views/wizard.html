@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html ng-app>
    <head>
       <meta charset="utf-8">
       <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -33,110 +33,71 @@
   <div class="container-fluid ">
 
 
-
       <div class="lato">
          <h2> Configuration of your Shape File</h2>
       </div>
       <div class="lato">
          <h3><p>In this page you have the possibility to insert informations regarding your data.</p><p> Remember that the number information you provide will change the accuracy of the measurement</p></h3>
       </div>
-      <div class="row top-buffer">
 
-         <div class=" col-sm-3">
-            <h2><u>ID</u></h2>
+      <div id="form">
       </div>
-    </div>
-      <div class="row">
-        <div class=" col-sm-2">
-          <div class="select">
-              <select id="metadata0">
-                  <option value="hide">-- Meta Data --</option>
-                  <option value="Data type" rel="icon-temperature">Data Type</option>
-                  <option value="Max Exclusie">Max Exclusive</option>
-              </select>
-            </div>
-          </div>
 
-              <div class=" col-sm-3 string" >
-            		<form id="tfnewsearch" method="get" action="">
-            		        <input id="tfnewsearch0" type="text" class="tftextinput" name="q" size="21" maxlength="120" >
-            		</form>
-            	<div class="tfclear"></div>
-            	</div>
+      <div class="row top-buffer down-buffer">
+        <div class="col-sm-offset-5 col-sm-5">
+          <button id="show" type="button" class="semi-transparent-button large lato upload">ADD THE METADATA</button>
         </div>
-        <div class="row top-buffer">
-          <div class=" col-sm-2">
-            <div class="select">
-                <select id="metadata1">
-                    <option value="hide">-- Meta Data --</option>
-                    <option value="Data Type" rel="icon-temperature">Data Type</option>
-                    <option value="Max Exclusive">Max Exlusive</option>
-                </select>
-              </div>
-            </div>
-
-                <div class="col-sm-3 string ">
-              		<form  method="get" action="">
-              		        <input id="tfnewsearch1" type="text" class="tftextinput" name="q" size="21" maxlength="120">
-              		</form>
-              	<div class="tfclear"></div>
-              	</div>
-          </div>
-
-
-          <div class="row top-buffer">
-
-             <div class=" col-sm-3">
-                <h2><u>PAYEMENTS</u></h2>
-          </div>
-          </div>
-          <div class="row">
-            <div class=" col-sm-2">
-              <div class="select">
-                  <select id="metadata2">
-                      <option value="hide">-- Meta Data --</option>
-                      <option value="Data Type" rel="icon-temperature">Data Type</option>
-                      <option value="Max Exclusive">Max Exlusive</option>
-                  </select>
-                </div>
-              </div>
-
-              <div class="col-sm-3 string ">
-                <form  method="get" action="">
-                        <input id="tfnewsearch2" type="text" class="tftextinput" name="q" size="21" maxlength="120">
-                </form>
-              <div class="tfclear"></div>
-              </div>
-            </div>
-            <div class="row top-buffer">
-              <div class=" col-sm-2">
-                <div class="select">
-                    <select id="metadata3">
-                        <option value="hide">-- Meta Data --</option>
-                        <option value="Data Type" rel="icon-temperature">Data Type</option>
-                        <option value="Max Exclusive">Max Exclusive</option>
-                    </select>
-                  </div>
-                </div>
-
-                    <div class="col-sm-3 string ">
-                      <form  method="get">
-                              <input id="tfnewsearch3" type="text" class="tftextinput" name="q" size="21" maxlength="120">
-                      </form>
-                    <div class="tfclear"></div>
-                    </div>
-              </div>
-              <div class="row top-buffer down-buffer">
-                <div class="col-sm-offset-5 col-sm-5">
-                  <button id="add" type="button" class="semi-transparent-button large lato upload">ADD THE METADATA</button>
-                </div>
-            </div>
+      </div>
 
          </div><!--End of Container!-->
 
 
+         <div id="template" style="display:none">
+         </div>
+         <div id="template1" style="">
+         </div>
+
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-  <script src="../js/animation.js"></script>
-  <script src="../js/js.js"></script>
+<script src="/node_modules/angular/angular.js"></script>
+<script src="../js/animation.js"></script>
+<script src="../js/js.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/mustache.js/0.7.2/mustache.min.js"></script>
+<script>
+  var objectData =[ {"name":"ID"},{"name":"Payements"},{"name":"Chart"}];
+  var foo;
+  function drawTemplate () {
+      $("#template").load("/public/views/template.html", function(res, status, xhr) {
+          var template = document.getElementById('form-template').innerHTML;
+          for (var i=0; i<objectData.length; i++)
+        {
+          var output = Mustache.render(template, objectData[i]);
+          $("#form").append(output).fadeIn(2000);
+        }
+
+      })
+  }
+  function drawForm (section) {
+      $("#template1").load("/public/views/template_form.html", function(res, status, xhr) {
+          var template = document.getElementById('form-block').innerHTML;
+          var output = Mustache.render(template, foo);
+          $("#form-" + section).append(output).fadeIn(2000);
+
+
+      })
+  }
+
+  $('document').ready( function (){
+
+    drawTemplate();
+ })
+
+
+   $('#form').on( "click",".show-button",function (){
+     console.log(this.id)
+     drawForm(this.id)
+  });
+
+
+  </script>
   </body>
 </html>
