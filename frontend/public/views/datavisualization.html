@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <meta charset="utf-8">
+      <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.5.0/pure-min.css">
+      <link rel="stylesheet" href="https://rawgit.com/tpreusse/radar-chart-d3/master/src/radar-chart.css">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+      <title>Bootstrap 101 Template</title>
+      <!-- Bootstrap -->
+      <link href="/public/css/bootstrap.min.css" rel="stylesheet">
+      <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+      <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+      <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+      <![endif]-->
+      <link rel="stylesheet" type="text/css" href="../css/mystyle.css">
+      <link rel="stylesheet" href="/public/css/style_animation.css">
+      <link href="https://fonts.googleapis.com/css?family=Lato:100,100i,300,300i,400" rel="stylesheet">
+   </head>
+   <body>
+      <div class="animation_height">
+      <canvas></canvas>
+    </div>
+    <div class="lato">
+      <ul>
+      <li><a class="active" href="../../../homepage.html">Home</a></li>
+      <li><a class="active" href="/public/views/tell_me_quality_client.html">Upload</a></li>
+      <li><a class="active" href="/public/views/result.html">Results</a></li>
+      <li><a class="active" href="/public/views/datavisualization.html">Data Visualization</a></li>
+
+      <div class="stick-to-right" >
+        <li><a href="">Documentation</a></li>
+    </div>
+      </ul>
+    </div>
+  <div class="container-fluid ">
+    <div class="lato">
+      <center><h2> DATA VISUALIZATION </h2></center>
+       <center><h3>In this page you can find the reulst related to the measurements. The data length of a spoke is proportional to the magnitude of the variable for the data point relative to the maximum magnitude of the variable across all data points.. A line is drawn connecting the data values for each spoke. Click on the Details button to have more information.
+      </h3></center>
+    </div>
+    <div class="row top-buffer">
+      <div class="col-sm-offset-2 col-sm-3">
+        <h2>ACCURACY</h2>
+      </div>
+      <div class="col-sm-offset-3 col-sm-3">
+        <h2>COMPLETNESS</h2>
+      </div>
+    </div>
+    <div class="row lato">
+      <div class="col-sm-offset-0 col-sm-5 left-padding-acc">
+        <div class="accuracy_graph left-buffer">
+    </div>
+    </div>
+    <div class="col-sm-offset-1 col-sm-3 left-padding-comp">
+      <div class="completness_graph left-buffer">
+      </div>
+    </div>
+  </div>
+
+  <div class="row lato">
+    <div class="col-sm-offset-2 col-sm-3">
+      <div class="left-padding-d1">
+        <button type="button" onclick="location.href='/public/views/data_details/accuracy_horizontal_graph.html';" class="semi-transparent-button large lato upload">DETAILS</button>
+      </div>
+    </div>
+  <div class="col-sm-offset-3 col-sm-3">
+    <button type="button" class="semi-transparent-button large lato upload">DETAILS</button>
+    </div>
+  </div>
+
+
+  <div class="row top-buffer">
+    <div class="col-sm-offset-2 col-sm-3">
+      <h2>CONSISTENCY</h2>
+    </div>
+    <div class="col-sm-offset-3 col-sm-3">
+      <h2>CREDIBILITY</h2>
+    </div>
+  </div>
+  <div class="row lato">
+    <div class="col-sm-offset-0 col-sm-5 left-padding-acc">
+      <div class="consistency_graph left-buffer">
+  </div>
+  </div>
+  <div class="col-sm-offset-1 col-sm-3 left-padding-comp">
+    <div class="credibility_graph left-buffer">
+    </div>
+  </div>
+</div>
+
+<div class="row lato">
+  <div class="col-sm-offset-2 col-sm-3 down-buffer">
+    <div class="left-padding-d1">
+      <button type="button" class="semi-transparent-button large lato upload">DETAILS</button>
+    </div>
+  </div>
+<div class="col-sm-offset-3 col-sm-3">
+  <button type="button" class="semi-transparent-button large lato upload">DETAILS</button>
+  </div>
+</div>
+
+</div> <!--Container!-->
+
+
+</body>
+
+
+
+<style>
+.radar-chart .area {
+  fill-opacity: 0.7;
+}
+.radar-chart.focus .area {
+  fill-opacity: 0.3;
+}
+.radar-chart.focus .area.focused {
+  fill-opacity: 0.9;
+}
+.area.accuracy {
+  fill: blue;
+  stroke: none;
+}
+.area.completness{
+  fill: #ADD8E6;
+  stroke: none;
+}
+.area.credibility{
+  fill: #00ffbb;
+  stroke: none;
+}
+.area.consistency{
+  fill: #d2a5ff;
+  stroke: none;
+}
+</style>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+      <script src="../js/animation.js"></script>
+      <script src="http://d3js.org/d3.v3.js"></script>
+      <script src="https://rawgit.com/tpreusse/radar-chart-d3/master/src/radar-chart.js"></script>
+
+      <script>
+      RadarChart.defaultConfig.color = function() {};
+      RadarChart.defaultConfig.radius = 3;
+      RadarChart.defaultConfig.w = 300;
+      RadarChart.defaultConfig.h = 300;
+      </script>
+
+      <span></span>
+      <script>
+      var data = [
+        {
+          className: 'accuracy', // optional can be used for styling
+          axes: [
+            {axis: "Syntactic", value: 12},
+            {axis: "Semantic", value: 6},
+            {axis: "Data Assurance", value: 5},
+            {axis: "Risk of Inaccuracy", value: 9},
+            {axis: "Data Model Accuracy", value: 7},
+
+          ]
+        }
+      ];
+
+      function Dataset() {
+        return data.map(function(d) {
+          return {
+            className: d.className,
+            axes: d.axes.map(function(d) {
+              return d;
+            })
+          };
+        });
+      }
+      </script>
+<!--COMPLETNESS GRAPH!-->
+      <script>
+      var chart = RadarChart.chart();
+      var cfg = chart.config(); // retrieve default config
+      var svg = d3.select('.accuracy_graph').append('svg')
+        .attr('width', cfg.w + cfg.w + 60)
+        .attr('height', cfg.h + cfg.h / 50)
+      svg.append('g').classed('single', 1).datum(Dataset()).call(chart);
+
+      // many radars
+      chart.config({w: cfg.w / 4, h: cfg.h / 4, axisText: false, levels: 0, circles: false});
+      cfg = chart.config();
+      </script>
+
+      <script>
+      RadarChart.defaultConfig.color = function() {};
+      RadarChart.defaultConfig.radius = 3;
+      RadarChart.defaultConfig.w = 300;
+      RadarChart.defaultConfig.h = 300;
+      </script>
+
+      <span></span>
+
+      <script>
+      //COMPLETNESS
+      var data = [
+        {
+          className: 'completness', // optional can be used for styling
+          axes: [
+            {axis: "Record", value: 14},
+            {axis: "Attribute", value: 16},
+            {axis: "Data File", value: 13},
+            {axis: "Risk Values", value: 11},
+            {axis: "Empty Records", value: 30},
+
+          ]
+        }
+      ];
+
+      function randomDataset() {
+        return data.map(function(d) {
+          return {
+            className: d.className,
+            axes: d.axes.map(function(d) {
+              return d;
+            })
+          };
+        });
+      }
+      </script>
+
+      <script>
+      var chart = RadarChart.chart();
+      var cfg = chart.config(); // retrieve default config
+      var svg = d3.select('.completness_graph').append('svg')
+        .attr('width', cfg.w + cfg.w -200 )
+        .attr('height', cfg.h + cfg.h / 50)
+      svg.append('g').classed('single', 1).datum(randomDataset()).call(chart);
+
+      // many radars
+      chart.config({w: cfg.w / 4, h: cfg.h / 4, axisText: false, levels: 0, circles: false});
+      cfg = chart.config();
+      </script>
+
+  <!--Consistency graph!-->
+  <script>
+  var chart = RadarChart.chart();
+  var cfg = chart.config(); // retrieve default config
+  var svg = d3.select('.consistency_graph').append('svg')
+    .attr('width', cfg.w + cfg.w + 60)
+    .attr('height', cfg.h + cfg.h / 50)
+  svg.append('g').classed('single', 1).datum(Dataset()).call(chart);
+
+  // many radars
+  chart.config({w: cfg.w / 4, h: cfg.h / 4, axisText: false, levels: 0, circles: false});
+  cfg = chart.config();
+  </script>
+
+  <script>
+  RadarChart.defaultConfig.color = function() {};
+  RadarChart.defaultConfig.radius = 3;
+  RadarChart.defaultConfig.w = 300;
+  RadarChart.defaultConfig.h = 300;
+  </script>
+
+  <span></span>
+  <script>
+  var data = [
+    {
+      className: 'consistency', // optional can be used for styling
+      axes: [
+        {axis: "Record", value: 14},
+        {axis: "Attribute", value: 16},
+        {axis: "Data File", value: 13},
+        {axis: "Risk Values", value: 11},
+        {axis: "Empty Records", value: 30},
+
+      ]
+    }
+  ];
+
+  function randomDataset() {
+    return data.map(function(d) {
+      return {
+        className: d.className,
+        axes: d.axes.map(function(d) {
+          return d;
+        })
+      };
+    });
+  }
+  </script>
+
+<!--Credibility Graph!-->
+  <script>
+  RadarChart.defaultConfig.color = function() {};
+  RadarChart.defaultConfig.radius = 3;
+  RadarChart.defaultConfig.w = 300;
+  RadarChart.defaultConfig.h = 300;
+  </script>
+
+  <span></span>
+  <script>
+  var data = [
+    {
+      className: 'credibility', // optional can be used for styling
+      axes: [
+        {axis: "Record", value: 14},
+        {axis: "Attribute", value: 16},
+        {axis: "Data File", value: 13},
+        {axis: "Risk Values", value: 11},
+        {axis: "Empty Records", value: 3},
+
+      ]
+    }
+  ];
+
+  function randomDataset() {
+    return data.map(function(d) {
+      return {
+        className: d.className,
+        axes: d.axes.map(function(d) {
+          return d;
+        })
+      };
+    });
+  }
+  </script>
+<script>
+  var chart = RadarChart.chart();
+  var cfg = chart.config(); // retrieve default config
+  var svg = d3.select('.credibility_graph').append('svg')
+    .attr('width', cfg.w + cfg.w -200)
+    .attr('height', cfg.h + cfg.h / 50)
+  svg.append('g').classed('single', 1).datum(Dataset()).call(chart);
+
+  // many radars
+  chart.config({w: cfg.w / 4, h: cfg.h / 4, axisText: false, levels: 0, circles: false});
+  cfg = chart.config();
+  </script>
+
+
+
+  </html>
