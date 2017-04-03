@@ -57,6 +57,7 @@
          <div id="template1" style="display:none">
          </div>
 
+
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 <script src="/node_modules/angular/angular.js"></script>
 <script src="../js/animation.js"></script>
@@ -64,6 +65,7 @@
 <script src="//cdnjs.cloudflare.com/ajax/libs/mustache.js/0.7.2/mustache.min.js"></script>
 <script>
   var objectData =[ {"name":"ID"},{"name":"Payements"},{"name":"Chart"}];
+  var ListID =[ {"data0":"Datatype"},{"data1":"MaxExcluse"},{"data2":"MinExclusive"}];
   var counter=0;
   function drawTemplate () {
       $("#template").load("/public/views/template.html", function(res, status, xhr) {
@@ -77,14 +79,16 @@
       })
   }
 
-  function drawForm (section) {
+  function drawForm (section,listID) {
       $("#template1").load("/public/views/template_form.html", function(res, status, xhr) {
           var template = document.getElementById('form-block').innerHTML;
-          var output = Mustache.render(template, {"name": section + counter++},{"name":"Payements"},{"name":"Charts"});
+          var output = Mustache.render(template, {"name": section + counter++,"form":"id","data0":"THIS TYPE"});
           $("#form-" + section).append(output).fadeIn(2000);
 
       })
   }
+
+
   function removeForm(section) {
   $("#"+section).remove()
 }
@@ -94,10 +98,19 @@
     drawTemplate();
  })
 
-
+ function replaceTemplate(section){
+   $( "#select").replaceWith( drawForm(section) );
+ }
+ function reverseTemplate(section,string){
+   $( "#"+section ).replaceWith(string );
+ }
    $('#form').on( "click",".show-button",function (){
      console.log(this.id)
      drawForm(this.id)
+     var s=$(this).parent().parent().parent().attr('id');
+     var name=($("#id").val())
+     reverseTemplate("id",name)
+
   });
 
   $('#form').on("click",".remove-button",function (){
