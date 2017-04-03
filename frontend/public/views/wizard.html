@@ -54,7 +54,7 @@
 
          <div id="template" style="display:none">
          </div>
-         <div id="template1" style="">
+         <div id="template1" style="display:none">
          </div>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
@@ -64,7 +64,7 @@
 <script src="//cdnjs.cloudflare.com/ajax/libs/mustache.js/0.7.2/mustache.min.js"></script>
 <script>
   var objectData =[ {"name":"ID"},{"name":"Payements"},{"name":"Chart"}];
-  var foo;
+  var counter=0;
   function drawTemplate () {
       $("#template").load("/public/views/template.html", function(res, status, xhr) {
           var template = document.getElementById('form-template').innerHTML;
@@ -76,15 +76,18 @@
 
       })
   }
+
   function drawForm (section) {
       $("#template1").load("/public/views/template_form.html", function(res, status, xhr) {
           var template = document.getElementById('form-block').innerHTML;
-          var output = Mustache.render(template, foo);
+          var output = Mustache.render(template, {"name": section + counter++},{"name":"Payements"},{"name":"Charts"});
           $("#form-" + section).append(output).fadeIn(2000);
-
 
       })
   }
+  function removeForm(section) {
+  $("#"+section).remove()
+}
 
   $('document').ready( function (){
 
@@ -96,6 +99,12 @@
      console.log(this.id)
      drawForm(this.id)
   });
+
+  $('#form').on("click",".remove-button",function (){
+    var id1=$(this).parent().parent().parent().attr('id');
+    alert("Removing"+" "+id1)
+    removeForm(id1)
+ });
 
 
   </script>

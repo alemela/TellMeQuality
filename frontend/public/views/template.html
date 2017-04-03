@@ -1,7 +1,7 @@
 <div id="form-template">
   <div class="row top-buffer">
 
-     <div class=" col-sm-3">
+     <div id="{{name}}" class=" col-sm-3">
         <h2><u>{{name}}</u></h2>
   </div>
   </div>
@@ -24,14 +24,15 @@
           <div class="tfclear"></div>
           </div>
     </div>
-    <div class="row top-buffer down-buffer">
-      <div class="col-sm-offset-0 col-sm-5">
-        <button id="button-{{name}}" type="button" class="show-button semi-transparent-button large lato upload">ADD THE METADATA</button>
-      </div>
-  </div>
+
   <div class="row">
     <div id="form-button-{{name}}">
     </div>
   </div>
+  <div class="row top-buffer down-buffer">
+    <div class="col-sm-offset-0 col-sm-5">
+      <button id="button-{{name}}" type="button" class="show-button semi-transparent-button large lato upload">ADD THE METADATA</button>
+    </div>
+</div>
   </div>
 </div>
