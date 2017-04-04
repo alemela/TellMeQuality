@@ -58,6 +58,7 @@
          </div>
 
 
+
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 <script src="/node_modules/angular/angular.js"></script>
 <script src="../js/animation.js"></script>
@@ -99,25 +100,26 @@
  })
 
  function replaceTemplate(section){
-   $( "#select").replaceWith( drawForm(section) );
+   drawForm(section)
  }
  function reverseTemplate(section,string){
    $( "#"+section ).replaceWith(string );
  }
    $('#form').on( "click",".show-button",function (){
-     console.log(this.id)
+     alert(this.id)
      drawForm(this.id)
      var s=$(this).parent().parent().parent().attr('id');
      var name=($("#id").val())
-     reverseTemplate("id",name)
-
   });
 
   $('#form').on("click",".remove-button",function (){
     var id1=$(this).parent().parent().parent().attr('id');
-    alert("Removing"+" "+id1)
+    var pId=id1.substr(0,9);
+    var n=id1.substr(9,10);
+    n--;
+    alert("Removing"+" "+id1+" and changing " +pId+n)
     removeForm(id1)
- });
+});
 
 
   </script>
