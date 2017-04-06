@@ -99,16 +99,13 @@
     drawTemplate();
  })
 
- function replaceTemplate(section){
-   $("#"+section).update("New text");
- }
+
  function reverseTemplate(section,string){
    $( "#"+section ).replaceWith(string );
  }
    $('#form').on( "click",".show-button",function (){
      drawForm(this.id)
-     var s=$(this).parent().parent().parent().attr('id');
-     var name=($("#id").val())
+     var name=($("select#id option:checked").val())
      reverseTemplate("id",name)
   });
 
