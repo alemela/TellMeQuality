@@ -28,7 +28,8 @@
       <li><a class="active" href="/public/views/tell_me_quality_client.html">Upload</a></li>
       <div class="stick-to-right" >
         <li><a href="">Documentation</a></li>
-    </div>      </ul>
+      </div>
+      </ul>
     </div>
   <div class="container-fluid ">
 
@@ -45,7 +46,7 @@
 
       <div class="row top-buffer down-buffer">
         <div class="col-sm-offset-5 col-sm-5">
-          <button id="show" type="button" class="semi-transparent-button large lato upload">ADD THE METADATA</button>
+          <button id="add" type="button" class="semi-transparent-button large lato upload">ADD THE METADATA</button>
         </div>
       </div>
 
@@ -58,11 +59,10 @@
          </div>
 
 
-
+<script src="/public/js/animation.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 <script src="/node_modules/angular/angular.js"></script>
-<script src="../js/animation.js"></script>
-<script src="../js/js.js"></script>
+<script src="/public/js/js.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/mustache.js/0.7.2/mustache.min.js"></script>
 <script>
   var objectData =[ {"name":"ID"},{"name":"Payements"},{"name":"Chart"}];
@@ -100,16 +100,16 @@
  })
 
  function replaceTemplate(section){
-   drawForm(section)
+   $("#"+section).update("New text");
  }
  function reverseTemplate(section,string){
    $( "#"+section ).replaceWith(string );
  }
    $('#form').on( "click",".show-button",function (){
-     alert(this.id)
      drawForm(this.id)
      var s=$(this).parent().parent().parent().attr('id');
      var name=($("#id").val())
+     reverseTemplate("id",name)
   });
 
   $('#form').on("click",".remove-button",function (){
@@ -117,10 +117,67 @@
     var pId=id1.substr(0,9);
     var n=id1.substr(9,10);
     n--;
-    alert("Removing"+" "+id1+" and changing " +pId+n)
     removeForm(id1)
 });
 
+$('#add').click(function(){
+
+   var id = document.getElementById("form-button-ID")
+   var x = id.getElementsByClassName("tftextinput");
+   var select = document.getElementsByClassName("select");
+
+
+   var formArrayID=[];
+   var dataArrayID=[];
+   for (var i = 0; i < x.length; i++) {
+
+                  if($(select[i]).text().length<100){
+                  dataArrayID.push($(select[i]).text())}
+
+                  formArrayID.push($(x[i]).val());
+
+          }
+
+    var payements = document.getElementById("form-button-Payements")
+    var x = payements.getElementsByClassName("tftextinput");
+    var select = document.getElementsByClassName("select");
+    var formArrayPAY=[];
+    var dataArrayPAY=[];
+    for (var i = 0; i < x.length; i++) {
+
+                   if($(select[i]).text().length<100){
+                   dataArrayPAY.push($(select[i]).text())}
+
+                   formArrayPAY.push($(x[i]).val());
+
+           }
+
+
+  $.ajax({
+  type: 'POST',
+  url: 'http://localhost:8070/load',
+  data: {
+
+    "ID":
+    {
+    "type":dataArrayID,
+    "values":formArrayID
+  },
+
+  "PAYEMENTS":
+  {
+  "type":dataArrayPAY,
+  "values":formArrayPAY
+  }
+
+
+  },
+  success: function(msg){
+  }
+  })
+
+
+});
 
   </script>
   </body>
