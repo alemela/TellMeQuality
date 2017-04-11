@@ -66,15 +66,17 @@
 <script src="//cdnjs.cloudflare.com/ajax/libs/mustache.js/0.7.2/mustache.min.js"></script>
 <script>
   var objectData =[ {"name":"ID"},{"name":"Payements"},{"name":"Chart"}];
-  var ListID =[ {"data0":"Datatype"},{"data1":"MaxExcluse"},{"data2":"MinExclusive"}];
+  var ListID =[ {"data0":"Datatype"},{"data1":"MaxExclusivee"},{"data2":"MinExclusive"}];
   var counter=0;
+
   function drawTemplate () {
       $("#template").load("/public/views/template.html", function(res, status, xhr) {
           var template = document.getElementById('form-template').innerHTML;
           for (var i=0; i<objectData.length; i++)
         {
           var output = Mustache.render(template, objectData[i]);
-          $("#form").append(output).fadeIn(2000);
+          $("#form").append(output);
+
         }
 
       })
@@ -83,8 +85,8 @@
   function drawForm (section,listID) {
       $("#template1").load("/public/views/template_form.html", function(res, status, xhr) {
           var template = document.getElementById('form-block').innerHTML;
-          var output = Mustache.render(template, {"name": section + counter++,"form":"id","data0":"THIS TYPE"});
-          $("#form-" + section).append(output).fadeIn(2000);
+          var output = Mustache.render(template, {"name": section + counter++,"form":"id","List":ListID});
+          $("#form-" + section).append(output);
 
       })
   }
@@ -104,9 +106,15 @@
    $( "#"+section ).replaceWith(string );
  }
    $('#form').on( "click",".show-button",function (){
-     drawForm(this.id)
+
      var name=($("select#id option:checked").val())
-     reverseTemplate("id",name)
+     var value=($("tfnewsearch").val())
+
+       drawForm(this.id)
+       reverseTemplate("id",name)
+    
+
+
   });
 
   $('#form').on("click",".remove-button",function (){
@@ -175,6 +183,7 @@ $('#add').click(function(){
 
 
 });
+
 
   </script>
   </body>
