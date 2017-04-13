@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html ng-app>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>TellMeQuality</title>
+
+  <link rel="stylesheet" type="text/css" href="/public/css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="/public/css/style_animation.css">
+  <link rel="stylesheet" type="text/css" href="/public/css/mystyle.css">
+
+  <link href="https://fonts.googleapis.com/css?family=Lato:200,200i,300,300i,400" rel="stylesheet">
+</head>
+<body>
+  <div id="header-menu"></div>
+
+  <div class="container-fluid ">
+
+
+    <div class="lato">
+      <h2> Configuration of your Shape File</h2>
+    </div>
+    <div class="lato">
+      <h3><p>In this page you have the possibility to insert informations regarding your data.</p><p> Remember that the number information you provide will change the accuracy of the measurement</p></h3>
+    </div>
+
+    <div id="shape-fields">
+    </div>
+
+    <div class="row top-buffer down-buffer">
+      <div class="col-sm-offset-5 col-sm-5">
+        <button id="add" type="button" class="semi-transparent-button large lato upload">SEND ALL THE METADATA!</button>
+      </div>
+    </div>
+
+  </div><!--End of Container!-->
+
+
+  <div id="shape-fields-hidden" style="display:none"></div>
+  <div id="metadata-lines-hidden" style="display:none"></div>
+
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <script src="/public/js/js.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/mustache.js/0.7.2/mustache.min.js"></script>
+  <script>
+  var shapeResult = {"ID":{}, "Payements":{}, "Chart":{}};
+  var objectData =[ {"name":"ID"},{"name":"Payements"},{"name":"Chart"}];
+  var ListID =[ {"data0":"Datatype"},{"data1":"MaxExclusivee"},{"data2":"MinExclusive"}];
+  var counter=0;
+
+  function drawTemplate () {
+    $("#shape-fields-hidden").load("/views/template/shape-field.html", function(res, status, xhr) {
+      var template = document.getElementById('form-template').innerHTML;
+      for (var i=0; i<objectData.length; i++)
+      {
+        var output = Mustache.render(template, objectData[i]);
+        $("#shape-fields").append(output);
+
+      }
+
+    })
+  }
+
+  function drawForm (section,listID) {
+    $("#metadata-lines-hidden").load("/views/template/metadata-line.html", function(res, status, xhr) {
+      var template = document.getElementById('form-block').innerHTML;
+      var output = Mustache.render(template, {"name": section + "§" + counter++,"form":"id","List":ListID});
+      $("#form-" + section).append(output);
+
+    })
+  }
+
+
+  function removeForm(section) {
+    $("#"+section).remove()
+  }
+
+  $('document').ready( function (){
+
+    drawTemplate();
+  })
+
+
+  function reverseTemplate(section,string){
+    $( "#"+section ).replaceWith(string );
+  }
+
+  $('#shape-fields').on("click",".confirm-button", function () {
+    var name=($("select#id option:checked").val())
+    var value=($("tfnewsearch").val())
+    reverseTemplate("id",name)
+
+    $("#"+this.id).addClass("hidden-menu");
+    $("#"+this.id.replace("confirm-","").replace(/§.*/,"")).removeClass("hidden-menu");
+
+    var typeSelected = $(this).parent().find('#select').text().replace(/\n\s{0,}/g,"");
+    var value = $(this).parent().find('#tfnewsearch0').val();
+    var fieldName = $(this).parent().attr('id').replace(/§.*/,"").replace("button-","");
+
+    shapeResult[fieldName][typeSelected] = value;
+
+  });
+
+  $('#shape-fields').on("click",".remove-button",function (){
+    var typeSelected = $(this).parent().find('#select').text().replace(/\n\s{0,}/g,"");
+    var fieldName = $(this).parent().attr('id').replace(/§.*/,"").replace("button-","");
+
+    delete shapeResult[fieldName][typeSelected];
+
+    var id1=$(this).parent().attr('id');
+    removeForm(id1);
+
+    $("#"+this.id.replace("remove-","").replace(/§.*/,"")).removeClass("hidden-menu");
+  });
+
+  $('#shape-fields').on( "click",".show-button",function (){
+    $("#"+this.id).addClass("hidden-menu");
+    drawForm(this.id)
+  });
+
+  $('#add').click(function(){
+    $.ajax({
+      type: 'POST',
+      url: 'http://localhost:8070/load',
+      data: shapeResult,
+      success: function(msg){
+      }
+    })
+
+
+  });
+
+
+  </script>
+  <script>
+  $("#header-menu").load("/views/template/header.html", function() {
+    $("#menu-upload").removeClass("hidden-menu");
+  });
+  </script>
+</body>
+</html>

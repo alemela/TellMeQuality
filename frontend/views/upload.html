@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>TellMeQuality</title>
+
+  <link rel="stylesheet" type="text/css" href="/public/css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="/public/css/style_animation.css">
+  <link rel="stylesheet" type="text/css" href="/public/css/mystyle.css">
+
+  <link href="https://fonts.googleapis.com/css?family=Lato:200,200i,300,300i,400" rel="stylesheet">
+</head>
+<body>
+  <div id="header-menu"></div>
+
+  <div class="container-fluid" style="text-align:center;">
+    <div class="lato">
+      <h2>Insert a Dataset</h2>
+    </div>
+    <div class="lato">
+      <h3>You can upload many different formats: CSV, txt, JSON, Excel.</h3>
+    </div>
+    <div class="row top-buffer">
+      <div class="col-sm-12">
+        <input id="upload-input" type="file" name="uploads[]" multiple="multiple">
+        <button id="upload" type="button" class="semi-transparent-button lato large upload">UPLOAD</button>
+      </div>
+    </div>
+    <div class="row top-buffer">
+      <div class="col-sm-offset-4 col-sm-4">
+          <div class="hr"></div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-12">
+          <h2>Shape Your File</h2>
+          <h3>
+            <p>In order to Shape your file you can either decide to use your own configuration or use our</p>
+            Wizard clicking on the Shape File Menu.
+          </h3>
+      </div>
+    </div>
+    <div class="row top-buffer">
+      <div class="col-sm-offset-3 col-sm-3">
+        <button type="button" class="semi-transparent-button large lato upload">UPLOAD CONFIGURATION</button>
+      </div>
+      <div class="col-sm-offset-0 col-sm-3">
+        <button id="req_homepage" type="button" onclick="location.href='/views/wizard.html';" class="semi-transparent-button large lato ">CONFIGURE SHAPE FILE</button>
+      </div>
+    </div>
+    <div class="row top-buffer">
+      <div class="col-sm-12">
+        <div class="row">
+          <div class="col-sm-offset-4 col-sm-4">
+              <div class="hr"></div>
+          </div>
+        </div>
+          <h2>Start the Measure</h2>
+      </div>
+    </div>
+    <center>
+      <h3>Click the button below when you're re ready to get your result!</h3>
+    </center>
+    <div class="row top-buffer down-buffer">
+      <div class="col-sm-12">
+        <button id="req_homepage1"  type="button" onclick="location.href='/views/measure.html';" class="semi-transparent-button large lato">RUN THE MEASUREMENT</button>
+      </div>
+    </div>
+  </div>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <script src="/public/js/js.js"></script>
+  <script>
+    $("#header-menu").load("/views/template/header.html", function() {
+      $("#menu-upload").removeClass("hidden-menu");
+    });
+  </script>
+</body>
+</html>

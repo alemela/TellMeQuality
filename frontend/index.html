@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>TellMeQuality</title>
+
+  <link rel="stylesheet" type="text/css" href="/public/css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="/public/css/style_animation.css">
+  <link rel="stylesheet" type="text/css" href="/public/css/mystyle.css">
+
+  <link href="https://fonts.googleapis.com/css?family=Lato:200,200i,300,300i,400" rel="stylesheet">
+</head>
+<body>
+  <div id="header-menu"></div>
+  <div class="text lato_title">TELL ME QUALITY</div>
+  <div class="animation_height_full">
+    <canvas></canvas>
+  </div>
+
+  <div class="container-fluid lato" style="text-align:center;">
+    <div class="row">
+      <div class="col-sm-offset-3 col-sm-6" >
+        <h2>The Best Way to Measure the Quality of your Data</h2>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-offset-4 col-sm-4 down-buffer">
+        <h3>Tell Me Quality is a Tool that is able to measure the standard of quality of a data according to ISO/IEC 25024</h3>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-12">
+        <button id="req_homepage" type="button" onclick="location.href='/views/upload.html';" class="semi-transparent-button large lato ">START UPLOADING</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <script src="/public/js/animation.js"></script>
+  <script>$("#header-menu").load("/views/template/header.html");</script>
+</body>
+</html>

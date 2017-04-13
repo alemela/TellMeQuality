@@ -53,13 +53,13 @@
 h2
 {   font-family: 'Lato', sans-serif;
     color: black;
-    font-weight: 100;
+    font-weight: 200;
 
 }
 h3
 {   font-family: 'Lato', sans-serif;
     color: black;
-    font-weight: 100;
+    font-weight: 300;
     font-size: 130%;
     font-style: italic;
 
@@ -68,22 +68,25 @@ h3
 h5
 {   font-family: 'Lato', sans-serif;
     color: black;
-    font-weight: 100;
+    font-weight: 200;
     font-size: 200%;
 
 
 }
 .text{
-  position:absolute;
   font-family: 'Lato', sans-serif;
-  font-weight: 100;
+  font-weight: 200;
   color:white;
   font-size: 300%;
   position: absolute;
-     top: 20%;
-     bottom:150%;
-     left: 35%;
-
+  top: 20%;
+  bottom:150%;
+  left: 0;
+  right: 0;
+  margin-left: auto;
+  margin-right: auto;
+  width: 500px;
+  text-align: center;
 }
 .semi-transparent-button {
   box-sizing: border-box;
@@ -163,8 +166,9 @@ li a {
 }
 
 li a:hover {
-    background-color: #111;
-
+    font-weight: 400;
+    text-decoration: none;
+    color: white;
 }
     .stick-to-right {
         width: 120px;
@@ -209,3 +213,8 @@ body {
     color:#fff;
 }
 .hr { width:100%; height:1px; background: #000 }
+
+
+.hidden-menu {
+  display: none;
+}
