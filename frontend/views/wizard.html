@@ -31,7 +31,7 @@
 
     <div class="row top-buffer down-buffer">
       <div class="col-sm-offset-5 col-sm-5">
-        <button id="add" type="button" class="semi-transparent-button large lato upload">SEND ALL THE METADATA!</button>
+       <button id="send" type="button" class="semi-transparent-button large lato upload">SEND ALL THE METADATA!</button>
       </div>
     </div>
 
@@ -50,6 +50,35 @@
   var objectData =[ {"name":"ID"},{"name":"Payements"},{"name":"Chart"}];
   var ListID =[ {"data0":"Datatype"},{"data1":"MaxExclusivee"},{"data2":"MinExclusive"}];
   var counter=0;
+
+  function getUrlParameter () {
+      var sPageURL = decodeURIComponent(window.location.search.substring(1)),
+          sURLVariables = sPageURL.split('&'),
+          sParameterName,
+          i;
+
+          if(sURLVariables.length>1)
+          {
+          sParameterName = sURLVariables[0].split('=');
+          var file=sParameterName[1];
+          sParameterName = sURLVariables[1].split('=');
+          var shape=sParameterName[1];
+          var url = "location.href='/views/upload.html?file="+file+"&shape="+shape+"'";
+          $('#send').attr('onclick', url);
+        }else
+        {
+          sParameterName = sURLVariables[0].split('=');
+          var file=sParameterName[1];
+          var url = "location.href='/views/upload.html?file="+file+"'";
+          $('#send').attr('onclick', url);
+
+        }
+  };
+  getUrlParameter();
+
+
+
+
 
   function drawTemplate () {
     $("#shape-fields-hidden").load("/views/template/shape-field.html", function(res, status, xhr) {

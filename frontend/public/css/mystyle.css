@@ -218,3 +218,16 @@ body {
 .hidden-menu {
   display: none;
 }
+.opacity
+{
+  background-color:#3CB371
+  filter: alpha(opacity=30);
+ filter: progid: DXImageTransform.Microsoft.Alpha(opacity=30);
+ -moz-opacity: 0.30;
+ opacity: 0.3;
+ zoom: 1;
+}
+.italic
+{
+ font-style: italic; 
+}

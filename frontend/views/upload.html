@@ -23,42 +23,51 @@
     <div class="lato">
       <h3>You can upload many different formats: CSV, txt, JSON, Excel.</h3>
     </div>
-    <div class="row top-buffer">
-      <div class="col-sm-12">
+    <div class="row top-buffer lato">
+      <div id="button-line" class="col-sm-12">
         <input id="upload-input" type="file" name="uploads[]" multiple="multiple">
         <button id="upload" type="button" class="semi-transparent-button lato large upload">UPLOAD</button>
+        <button id="remove-button" type="button" class="remove-button semi-transparent-button large lato hidden-menu">REMOVE</button>
+
       </div>
     </div>
-    <div class="row top-buffer">
-      <div class="col-sm-offset-4 col-sm-4">
+    <div id="shape-file" class="hidden-menu">
+      <div class="row top-buffer">
+        <div class="col-sm-offset-4 col-sm-4">
           <div class="hr"></div>
+        </div>
       </div>
-    </div>
-    <div class="row">
-      <div class="col-sm-12">
+      <div class="row">
+        <div class="col-sm-12">
           <h2>Shape Your File</h2>
           <h3>
             <p>In order to Shape your file you can either decide to use your own configuration or use our</p>
             Wizard clicking on the Shape File Menu.
           </h3>
+        </div>
+      </div>
+      <div class="row top-buffer lato">
+        <div id="config-line" class="col-sm-offset-3 col-sm-3">
+          <button id="upl-config" type="button" class="semi-transparent-button large lato ">UPLOAD CONFIGURATION</button>
+          <input id="upload-input-config" style="display: none" type="file" name="uploads[]" multiple="multiple">
+
+          <button id="remove-button-config" type="button" class="remove-button semi-transparent-button large lato hidden-menu">REMOVE</button>
+
+        </div>
+        <div id="shape-line" class="col-sm-offset-0 col-sm-3">
+          <button id="config-file" type="button" class="semi-transparent-button large lato ">CONFIGURE SHAPE FILE</button>
+        </div>
       </div>
     </div>
-    <div class="row top-buffer">
-      <div class="col-sm-offset-3 col-sm-3">
-        <button type="button" class="semi-transparent-button large lato upload">UPLOAD CONFIGURATION</button>
-      </div>
-      <div class="col-sm-offset-0 col-sm-3">
-        <button id="req_homepage" type="button" onclick="location.href='/views/wizard.html';" class="semi-transparent-button large lato ">CONFIGURE SHAPE FILE</button>
-      </div>
-    </div>
+    <div id="start-measure" class="hidden-menu">
     <div class="row top-buffer">
       <div class="col-sm-12">
         <div class="row">
           <div class="col-sm-offset-4 col-sm-4">
-              <div class="hr"></div>
+            <div class="hr"></div>
           </div>
         </div>
-          <h2>Start the Measure</h2>
+        <h2>Start the Measure</h2>
       </div>
     </div>
     <center>
@@ -70,12 +79,197 @@
       </div>
     </div>
   </div>
+
+  </div>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-  <script src="/public/js/js.js"></script>
   <script>
-    $("#header-menu").load("/views/template/header.html", function() {
-      $("#menu-upload").removeClass("hidden-menu");
-    });
+
+  $("#header-menu").load("/views/template/header.html", function() {
+    $("#menu-upload").removeClass("hidden-menu");
+  });
+  var file;
+  //Script per tell_me_quality_client
+  //Sript per il primo pulsante upload
+  $('.upload').on('click', function (){//Attiva il pulsante con CSS
+    $('#upload-input').click();
+  });
+  //Seleziona il file caricato
+
+  $('#upload-input').on('change', function(){
+    var files = $(this).get(0).files;
+
+    if (files.length > 0){
+      // One or more files selected, process the file upload
+
+      // create a FormData object which will be sent as the data payload in the
+      // AJAX request
+      var formData = new FormData();
+
+      // loop through all the selected files
+      for (var i = 0; i < files.length; i++) {
+        var file = files[i];
+
+        // add the files to formData object for the data payload
+        formData.append('uploads[]', file, file.name);
+        var string=file.name
+        file=string;
+        $("#button-line").append('<div id="string" class="italic">'+ string +'</div>');
+
+        $("#remove-button").removeClass("hidden-menu");
+        $("#upload").addClass("hidden-menu");
+        $("#shape-file").removeClass("hidden-menu");
+
+        var fileName=$("#string").text()
+        var url = "location.href='/views/wizard.html?file="+fileName+"'"
+        $('#config-file').attr('onclick', url);
+
+
+      }
+      $.ajax({
+        url: '/upload',
+        type: 'POST',
+        data: formData,
+        processData: false,
+        contentType: false,
+        success: function(data){
+          console.log('upload successful!');
+        }
+      })
+    }
+  });
+
+  $('#upl-config').on('click', function (){//Attiva il pulsante con CSS
+    $('#upload-input-config').click();
+  });
+  //Seleziona il file caricato
+  $('#upload-input-config').on('change', function(){
+    var files = $(this).get(0).files;
+
+    if (files.length > 0){
+      // One or more files selected, process the file upload
+
+      // create a FormData object which will be sent as the data payload in the
+      // AJAX request
+      var formData = new FormData();
+
+      // loop through all the selected files
+      for (var i = 0; i < files.length; i++) {
+        var file = files[i];
+
+        // add the files to formData object for the data payload
+        formData.append('uploads[]', file, file.name);
+        var string=file.name
+        $("#config-line").append('<div id="string1" class="italic">'+ string +'</div>');
+        $("#remove-button-config").removeClass("hidden-menu");
+        $("#upl-config").addClass("hidden-menu");
+        $("#start-measure").removeClass("hidden-menu");
+
+
+        var fileName=$("#string").text()
+        var shapeFile=$("#string1").text()
+        var url = "location.href='/views/wizard.html?file="+fileName+"&shapefile="+shapeFile+"'"
+        $('#config-file').attr('onclick', url);
+
+
+      }
+      $.ajax({
+        url: '/upload',
+        type: 'POST',
+        data: formData,
+        processData: false,
+        contentType: false,
+        success: function(data){
+          console.log('upload successful!');
+        }
+      })
+
+    }
+  });
+
+/*('#config-file').on('click',function(){
+  alert("YES")
+  var fileName=$("#string").text()
+  var shapeFile=$("#string1").text()
+  var url = "location.href='/views/wizard.html?file="+"fileName"+"&shapefile="+"shapeFile"+"'"
+  $('#req_homepage').attr('onclick', url);
+});*/
+
+function getUrlParameter () {
+    var sPageURL = decodeURIComponent(window.location.search.substring(1)),
+        sURLVariables = sPageURL.split('&'),
+        sParameterName,
+        i;
+        if(location.search.substr(1).length>0)
+        {
+            if(sURLVariables.length>1)
+            {
+
+              sParameterName = sURLVariables[0].split('=');
+              var file=sParameterName[1];
+              sParameterName = sURLVariables[1].split('=');
+              var shape=sParameterName[1];
+
+                  $("#remove-button-config").removeClass("hidden-menu");
+                  $("#upl-config").addClass("hidden-menu");
+                  $("#remove-button").removeClass("hidden-menu");
+                  $("#upload").addClass("hidden-menu");
+                  $("#shape-file").removeClass("hidden-menu");
+                  $("#start-measure").removeClass("hidden-menu");
+                  $("#config-line").append('<div id="string1">'+ shape+"  Modified"+'</div>');
+                  $('#config-file').addClass("opacity");
+
+                  $("#shape-line").append('<div class="italic">File configured</div>');
+
+
+
+                  var url = "location.href='/views/wizard.html?file="+file+"&shapefile="+shape+"'"
+                  $('#config-file').attr('onclick', url);
+
+
+
+            }
+              if(sURLVariables.length>0) {
+              sParameterName = sURLVariables[0].split('=');
+              var file=sParameterName[1];
+              $("#remove-button").removeClass("hidden-menu");
+              $("#upload").addClass("hidden-menu");
+
+              $("#shape-file").removeClass("hidden-menu");
+              $("#button-line").append('<div id="string">'+ file+'</div>');
+              $("#start-measure").removeClass("hidden-menu");
+              var url = "location.href='/views/wizard.html?file="+file+"'"
+              $('#config-file').addClass("opacity");
+              $('#config-file').attr('onclick', url);
+              $('#upl-config').addClass("opacity");
+              $("#shape-line").append('<div class="italic">File configured</div>');
+
+
+
+            }
+          }
+
+};
+getUrlParameter();
+
+
+  //script per wizard.html
+  $('#remove-button').on('click', function (){
+    $("#remove-button").addClass("hidden-menu");
+    $("#upload").removeClass("hidden-menu");
+    $("#string").remove();
+    $("#shape-file").addClass("hidden-menu");
+
+
+  });
+  $('#remove-button-config').on('click', function (){
+    $("#remove-button-config").addClass("hidden-menu");
+    $("#upl-config").removeClass("hidden-menu");
+    $("#string1").remove();
+    $("#start-measure").addClass("hidden-menu");
+
+
+  });
+
   </script>
 </body>
 </html>
