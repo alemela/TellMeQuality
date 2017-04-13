@@ -1,0 +1,12 @@
+tarql/target/appassembler/bin/tarql pay.map pay-example.csv 
+
+
+PREFIX tmq: <http://tmq.com/>
+PREFIX sh: <https://www.w3.org/TR/shacl/>
+
+SELECT ?cond ?value
+WHERE {
+  ?shape sh:property ?bn .
+  ?bn sh:predicate tmq:payment .
+  ?bn ?cond ?value
+}

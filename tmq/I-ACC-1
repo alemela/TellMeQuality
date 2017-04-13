@@ -1,0 +1,43 @@
+PREFIX tmq: <http://tmq.com/>
+PREFIX sh: <https://www.w3.org/TR/shacl/>
+
+SELECT ?datatype ?pattern
+WHERE {
+  ?shape sh:property ?bn .
+  ?bn sh:predicate tmq:payment .
+  OPTIONAL { ?bn sh:datatype ?datatype }
+  OPTIONAL { ?bn sh:pattern ?pattern }
+}
+
+
+
+
+PREFIX tmq: <http://tmq.com/>
+PREFIX sh: <https://www.w3.org/TR/shacl/>
+
+SELECT (xsd:integer(?correctValues)/xsd:integer(?totalValues) as ?result)
+WHERE {
+  {
+    SELECT (COUNT(?o) as ?correctValues)
+    WHERE {
+      {
+        SELECT ?datatype ?pattern
+        WHERE {
+          ?shape sh:property ?bn .
+          ?bn sh:predicate tmq:id .
+          OPTIONAL { ?bn sh:datatype ?datatype }
+          OPTIONAL { ?bn sh:pattern ?pattern }
+        }
+      }
+      ?s tmq:id ?o .
+      FILTER regex(?o, ?pattern, "i")
+      #TODO FILTER isDataType(?o, ?datatype)
+    }
+  }
+  {
+    SELECT (COUNT(?o) as ?totalValues)
+    WHERE {
+      ?s tmq:id ?o .
+    }
+  }
+}

@@ -1,0 +1,42 @@
+PREFIX tmq: <http://tmq.com/>
+
+SELECT ?record
+WHERE {
+  ?record a tmq:csvLine
+  MINUS {?record tmq:id ?o}
+}
+
+
+
+
+
+PREFIX tmq: <http://tmq.com/>
+
+SELECT (COUNT(DISTINCT ?record) as ?recordWithNull)
+WHERE {
+  ?record a tmq:csvLine
+  MINUS {?record tmq:id ?o}
+}
+
+
+
+
+
+PREFIX tmq: <http://tmq.com/>
+
+SELECT ((xsd:integer(?recordCount) - xsd:integer(?recordWithNull)) / xsd:integer(?recordCount) as ?result)
+WHERE {
+  {
+    SELECT (COUNT(DISTINCT ?record) as ?recordWithNull)
+    WHERE {
+      ?record a tmq:csvLine
+      MINUS {?record tmq:id ?o}
+    }
+  }
+  {
+    SELECT (COUNT(DISTINCT ?record) as ?recordCount)
+    WHERE {
+      ?record a tmq:csvLine
+    }
+  }
+}

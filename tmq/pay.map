@@ -1,0 +1,10 @@
+PREFIX tmq: <http://tmq.com/>
+
+CONSTRUCT {
+    ?subject a tmq:csvLine;
+             tmq:id      ?id;
+	     tmq:payment ?payment;
+}
+WHERE {
+    BIND (URI(CONCAT('http://tmq.com/', STR(?ROWNUM))) AS ?subject)
+}
