@@ -1,5 +1,56 @@
 <div id="available">
-  <div class="col-sm-offset-0 col-sm-3">
-<h3>{{number}} Measurement Available</h3>
-</div>
-</div>
+  <div class="row top-buffer">
+    <div class="col-sm-offset-2 col-sm-3">
+      <button id ="accuracy" type="button" onclick="location.href='/views/detail/detail_accuracy.html';" class="semi-transparent-button large lato upload">Accuracy</button>
+    </div>
+    <div class="col-sm-offset-0 col-sm-3">
+      <button id="completness" type="button" onclick="location.href='/public/views/detail_completness.html';" class="semi-transparent-button large lato ">Completness</button>
+
+    </div>
+    <div class="col-sm-offset-0 col-sm-3">
+      <button id="consistency" type="button" onclick="location.href='/public/views/detail_consistency.html';" class="semi-transparent-button large lato top-buffer">Consistency</button>
+    </div>
+
+    <div class="col-sm-offset-0 col-sm-4">
+
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-offset-2 col-sm-3 accuracy_available">
+      <h3>{{accuracy}} Measurement Available</h3>
+    </div>
+    <div class="col-sm-offset-0 col-sm-3">
+      <h3>{{completness}} Measurement Available</h3>
+    </div>
+    <div class="col-sm-offset-0 col-sm-3">
+      <h3>{{consistency}} Measurement Available</h3>
+    </div>
+  </div>
+
+
+
+  <div class="row top-buffer">
+    <div class="col-sm-offset-2 col-sm-3">
+      <button id ="crediblity" type="button" onclick="location.href='/public/views/detail_credibility.html';" class="semi-transparent-button large lato upload">Credibility</button>
+    </div>
+    <div class="col-sm-offset-0 col-sm-3">
+      <button id="compliance" type="button" onclick="location.href='/public/views/detail_compliance.html';" class="semi-transparent-button large lato ">Compliance</button>
+
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-offset-2 col-sm-3">
+      <h3>{{credibility}} Measurement Available</h3>
+    </div>
+    <div class="col-sm-offset-0 col-sm-3">
+      <h3>{{compliance}} Measurement Available</h3>
+    </div>
+  </div>
+  <div class="row top-buffer">
+  </div>
+  <div class="row top-buffer">
+    <div class=" col-sm-offset-5 col-sm-6 down-buffer">
+      <button  type="button" onclick="location.href='/public/views/datavisualization.html';" class="semi-transparent-button large lato ">RUN THEM ALL</button>
+
+    </div>
+  </div>
