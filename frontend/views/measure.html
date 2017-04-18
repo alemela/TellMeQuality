@@ -19,19 +19,8 @@
       <link href="https://fonts.googleapis.com/css?family=Lato:100,100i,300,300i,400" rel="stylesheet">
    </head>
    <body>
-      <div class="animation_height">
-      <canvas></canvas>
-    </div>
-    <div class="lato">
-      <ul>
-      <li><a class="active" href="../../../homepage.html">Home</a></li>
-      <li><a class="active" href="/public/views/tell_me_quality_client.html">Upload</a></li>
-      <li><a class="active" href="/public/views/result.html">Results</a></li>
+     <div id="header-menu"></div>
 
-      <div class="stick-to-right" >
-        <li><a href="">Documentation</a></li>
-    </div>      </ul>
-    </div>
   <div class="container-fluid ">
     <div class="lato">
        <h3>In this page you can find all the possible type of measurements you can perform.
@@ -54,16 +43,12 @@
         </div>
     </div>
     <div class="row">
-       <div class="col-sm-offset-2 col-sm-3 accuracy_available">
-         <h3>Measurement Available</h3>
-       </div>
-       <div class="col-sm-offset-0 col-sm-3">
-         <h3>Measurement Available</h3>
-       </div>
-        <div class="col-sm-offset-0 col-sm-3">
-          <h3>Measurement Available</h3>
-        </div>
+      <div class="col-sm-2">
       </div>
+         <div id="measurement"></div>
+      </div>
+    </div>
+
 
 
 
@@ -93,10 +78,38 @@
       </div>
     </div>
 
+    <div id="av-measurement"></div>
+
+
   </div><!--Container!-->
 
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-    <script src="../js/animation.js"></script>
+    <script>  $("#header-menu").load("/views/template/header.html", function() {
+        $("#menu-upload").removeClass("hidden-menu");
+        $("#menu-measure").removeClass("hidden-menu");
+      });</script>
+      <script src="//cdnjs.cloudflare.com/ajax/libs/mustache.js/0.7.2/mustache.min.js"></script>
+<script>
+var objectData =[ {"number":"1"},{"number":"2"},{"number":"3"}];
+function drawTemplate () {
+  $("#av-measurement").load("/views/template/available.html", function(res, status, xhr) {
+      var template = document.getElementById('available').innerHTML;
+      for (var i=0; i<objectData.length; i++)
+      {
+      var output = Mustache.render(template, objectData[i]);
+      $("#measurement").append(output);
+    }
+
+
+
+  })
+}
+$('document').ready( function (){
+
+  drawTemplate();
+})
+</script>
+
 </body>
 </html>

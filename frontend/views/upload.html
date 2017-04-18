@@ -216,7 +216,6 @@ function getUrlParameter () {
                   $("#shape-file").removeClass("hidden-menu");
                   $("#start-measure").removeClass("hidden-menu");
                   $("#config-line").append('<div id="string1">'+ shape+"  Modified"+'</div>');
-                  $('#config-file').addClass("opacity");
 
                   $("#shape-line").append('<div class="italic">File configured</div>');
 
@@ -228,7 +227,7 @@ function getUrlParameter () {
 
 
             }
-              if(sURLVariables.length>0) {
+              if(sURLVariables.length===1) {
               sParameterName = sURLVariables[0].split('=');
               var file=sParameterName[1];
               $("#remove-button").removeClass("hidden-menu");
@@ -238,9 +237,7 @@ function getUrlParameter () {
               $("#button-line").append('<div id="string">'+ file+'</div>');
               $("#start-measure").removeClass("hidden-menu");
               var url = "location.href='/views/wizard.html?file="+file+"'"
-              $('#config-file').addClass("opacity");
               $('#config-file').attr('onclick', url);
-              $('#upl-config').addClass("opacity");
               $("#shape-line").append('<div class="italic">File configured</div>');
 
 
@@ -263,7 +260,7 @@ getUrlParameter();
 
 
   });
-  $('#remove-button-config').on('click', function (){
+  $('#remove-button-config').on('cl080ick', function (){
     $("#remove-button-config").addClass("hidden-menu");
     $("#upl-config").removeClass("hidden-menu");
     $("#string1").remove();
