@@ -57,8 +57,13 @@
         <div id="shape-line" class="col-sm-offset-0 col-sm-3">
           <button id="config-file" type="button" class="semi-transparent-button large lato ">CONFIGURE SHAPE FILE</button>
         </div>
+        <div class="col-sm-offset-0 col-sm-3">
+          <button id="remove-config-file" type="button" class="hidden-menu semi-transparent-button large lato ">REMOVE</button>
+        </div>
+
+        </div>
       </div>
-    </div>
+
     <div id="start-measure" class="hidden-menu">
     <div class="row top-buffer">
       <div class="col-sm-12">
@@ -83,7 +88,7 @@
   </div>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
   <script>
-
+  var fileName=""
   $("#header-menu").load("/views/template/header.html", function() {
     $("#menu-upload").removeClass("hidden-menu");
   });
@@ -165,7 +170,7 @@
         $("#start-measure").removeClass("hidden-menu");
 
 
-        var fileName=$("#string").text()
+        fileName=$("#string").text()
         var shapeFile=$("#string1").text()
         var url = "location.href='/views/wizard.html?file="+fileName+"&shapefile="+shapeFile+"'"
         $('#config-file').attr('onclick', url);
@@ -201,9 +206,10 @@ function getUrlParameter () {
         i;
         if(location.search.substr(1).length>0)
         {
-            if(sURLVariables.length>1)
-            {
 
+            if(sURLVariables.length==2)
+            {
+              alert(sURLVariables.length + "Arguments")
               sParameterName = sURLVariables[0].split('=');
               var file=sParameterName[1];
               sParameterName = sURLVariables[1].split('=');
@@ -216,8 +222,9 @@ function getUrlParameter () {
                   $("#shape-file").removeClass("hidden-menu");
                   $("#start-measure").removeClass("hidden-menu");
                   $("#config-line").append('<div id="string1">'+ shape+"  Modified"+'</div>');
+                  $("#button-line").append('<div id="string">'+ file+'</div>');
 
-                  $("#shape-line").append('<div class="italic">File configured</div>');
+                  $("#shape-line").append('<div id="configured" class="italic">File configured</div>');
 
 
 
@@ -228,17 +235,20 @@ function getUrlParameter () {
 
             }
               if(sURLVariables.length===1) {
+                alert(sURLVariables.length + "Arguments")
               sParameterName = sURLVariables[0].split('=');
               var file=sParameterName[1];
+              $("#remove-config-file").removeClass("hidden-menu");
               $("#remove-button").removeClass("hidden-menu");
-              $("#upload").addClass("hidden-menu");
 
+              $("#upload").addClass("hidden-menu");
               $("#shape-file").removeClass("hidden-menu");
               $("#button-line").append('<div id="string">'+ file+'</div>');
               $("#start-measure").removeClass("hidden-menu");
               var url = "location.href='/views/wizard.html?file="+file+"'"
               $('#config-file').attr('onclick', url);
-              $("#shape-line").append('<div class="italic">File configured</div>');
+              $("#shape-line").append('<div id="configured" class="italic">File configured</div>');
+              $("#upl-config").addClass("hidden-menu");
 
 
 
@@ -260,11 +270,26 @@ getUrlParameter();
 
 
   });
-  $('#remove-button-config').on('cl080ick', function (){
+    $("#remove-config-file").on('click', function (){
+      $("#remove-button-config").addClass("hidden-menu");
+      $("#upl-config").removeClass("hidden-menu");
+      $("#string1").remove();
+      $("#start-measure").addClass("hidden-menu");
+      $("#configured").addClass("hidden-menu");
+      $("#remove-config-file").addClass("hidden-menu");
+
+
+    });
+  $('#remove-button-config').on('click', function (){
     $("#remove-button-config").addClass("hidden-menu");
     $("#upl-config").removeClass("hidden-menu");
     $("#string1").remove();
     $("#start-measure").addClass("hidden-menu");
+    $("#configured").addClass("hidden-menu");
+    $('#config-file').removeAttr('onclick', url);
+    fileName=$("#string").text();
+    var url = "location.href='/views/wizard.html?file="+fileName+"'"
+    $('#config-file').attr('onclick', url);
 
 
   });

@@ -50,6 +50,7 @@
   var objectData =[ {"name":"ID"},{"name":"Payements"},{"name":"Chart"}];
   var ListID =[ {"data0":"Datatype"},{"data1":"MaxExclusivee"},{"data2":"MinExclusive"}];
   var counter=0;
+  var i=0;
 
   function getUrlParameter () {
       var sPageURL = decodeURIComponent(window.location.search.substring(1)),
@@ -70,11 +71,11 @@
           sParameterName = sURLVariables[0].split('=');
           var file=sParameterName[1];
           var url = "location.href='/views/upload.html?file="+file+"'";
-          $('#send').attr('onclick', url);
-
+          $('#send').attr('onclick', url)
         }
+
   };
-  getUrlParameter();
+
 
 
 
@@ -119,9 +120,15 @@
 
   $('#shape-fields').on("click",".confirm-button", function () {
     var name=($("select#id option:checked").val())
-    var value=($("tfnewsearch").val())
+    var value=$("form#tfnewsearch input[type=text]").val()
+    if(value=="" || name=="hide")
+    {
+      alert("Complete the fields in order to proceed")
+    }
+    else
+    {
     reverseTemplate("id",name)
-
+    reverseTemplate("tfnewsearch",value)
     $("#"+this.id).addClass("hidden-menu");
     $("#"+this.id.replace("confirm-","").replace(/§.*/,"")).removeClass("hidden-menu");
 
@@ -130,6 +137,8 @@
     var fieldName = $(this).parent().attr('id').replace(/§.*/,"").replace("button-","");
 
     shapeResult[fieldName][typeSelected] = value;
+    i++;
+  }
 
   });
 
@@ -143,6 +152,7 @@
     removeForm(id1);
 
     $("#"+this.id.replace("remove-","").replace(/§.*/,"")).removeClass("hidden-menu");
+    i--;
   });
 
   $('#shape-fields').on( "click",".show-button",function (){
@@ -160,6 +170,19 @@
     })
 
 
+  });
+
+  $('#send').click(function(){
+    if(i==0)
+    {
+      var url='/views/upload.html?file=Ore_Tirocinio.pdf&shape=Ore_Tirocinio.pdf'
+      $('#send').removeAttr('onclick', url);
+      alert("You need to feel at least one form")}
+    else
+    {
+      getUrlParameter();
+      $('#send').trigger("click")
+     }
   });
 
 
