@@ -23,6 +23,10 @@ app.get('/Tell_Me_Quality_Client', function (req, res) {
    res.sendFile( __dirname + "/" + "Tell_Me_Quality_Client.html" );
 })
 
+app.get('/measure/accuracy', function (req, res) {
+   res.sendFile( __dirname + "/views/detail/detail_accuracy.html" );
+})
+
 app.post('/file-upload', function(req, res) {
     console.log("File Uploaded");
     console.log(req.body);

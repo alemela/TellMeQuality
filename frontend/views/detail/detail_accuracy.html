@@ -24,7 +24,7 @@
     </div>
 
     <div id="accuracy-tmp">
-      <div  id="syntactic">
+      <div  id="syntactic" class="hidden-menu">
         <div class="row top-buffer">
           <div class=" col-sm-2">
             <h5>Syntactic</h5>
@@ -34,139 +34,143 @@
           <div class="col-sm-4">
             <h3>Ratio of closeness of the data values to a set of values defined in a domain</h3>
           </div>
-          <div id="field-render">
+          <div id="field-render-syntactic">
           </div>
-      </div>
+        </div>
 
-      <div id="semantic" class="hidden-menu">
+        <div id="semantic" class="hidden-menu">
+          <div class="row top-buffer">
+            <div class=" col-sm-2">
+              <h5>Semantic</h5>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-4">
+              <h3>Ratio of closeness of the data values to a set of values defined in a domaratio of how accurate are the data values in terms of semantics in a specific context</h3>
+            </div>
+            <div  id="field-render-semantic">
+            </div>
+          </div>
+        </div>
+
+        <div class="hidden-menu"  id="data-assurance">
+          <div class="row top-buffer">
+            <div class=" col-sm-2">
+              <h5>Data Assurance</h5>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-4">
+              <h3>ratio of measurement coverage for accurate data</h3>
+            </div>
+            <div id="field-render-data-assurance">
+            </div>
+          </div>
+        </div>
+
+        <div class="hidden-menu"  id="risk">
+          <div class="row top-buffer">
+            <div class=" col-sm-2">
+              <h5>Risk of data set inaccuracy</h5>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-4">
+              <h3>the number of outliers in values is indicating a risk of inaccuracy for data values in a data set</h3>
+            </div>
+            <div  id="field-render-risk">
+
+            </div>
+          </div>
+        </div>
         <div class="row top-buffer">
-          <div class=" col-sm-2">
-            <h5>Semantic</h5>
+          <div class=" col-sm-offset-5 col-sm-2 down-buffer">
+            <button  type="button" onclick="location.href='/public/views/result.html';" class="semi-transparent-button large lato ">OK</button>
           </div>
         </div>
-        <div class="row">
-          <div class="col-sm-4">
-            <h3>Ratio of closeness of the data values to a set of values defined in a domaratio of how accurate are the data values in terms of semantics in a specific context</h3>
-          </div>
-          <div class=" col-sm-1">
-            <label class="checkbox-inline lato"><input type="checkbox" value="">ID</label>
-          </div>
-          <div class=" col-sm-1">
-            <label class="checkbox-inline lato "><input type="checkbox" value="">NAME</label>
-          </div>
-          <div class=" col-sm-1">
-            <label class="checkbox-inline lato"><input type="checkbox" value="">ORG</label>
-          </div>
-          <div class=" col-sm-1">
-            <label class="checkbox-inline lato"><input type="checkbox" value="">ADD</label>
-          </div>
-          <div class=" col-sm-1">
-            <label class="checkbox-inline lato"><input type="checkbox" value="">EMAIL</label>
-          </div>
+        <div id="hidden-template" style="display:none">
         </div>
-      </div>
 
-      <div class="hidden-menu"  id="data-assurance">
-        <div class="row top-buffer">
-          <div class=" col-sm-2">
-            <h5>Data Assurance</h5>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-sm-4">
-            <h3>ratio of measurement coverage for accurate data</h3>
-          </div>
-          <div class=" col-sm-1">
-            <label class="checkbox-inline lato"><input type="checkbox" value="">ID</label>
-          </div>
-          <div class=" col-sm-1">
-            <label class="checkbox-inline lato "><input type="checkbox" value="">NAME</label>
-          </div>
-          <div class=" col-sm-1">
-            <label class="checkbox-inline lato"><input type="checkbox" value="">ORG</label>
-          </div>
-          <div class=" col-sm-1">
-            <label class="checkbox-inline lato"><input type="checkbox" value="">ADD</label>
-          </div>
-          <div class=" col-sm-1">
-            <label class="checkbox-inline lato"><input type="checkbox" value="">EMAIL</label>
-          </div>
-        </div>
-      </div>
-
-      <div class="hidden-menu"  id="risk">
-        <div class="row top-buffer">
-          <div class=" col-sm-2">
-            <h5>Risk of data set inaccuracy</h5>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-sm-4">
-            <h3>the number of outliers in values is indicating a risk of inaccuracy for data values in a data set</h3>
-          </div>
-          <div class=" col-sm-1">
-            <label class="checkbox-inline lato"><input type="checkbox" value="">ID</label>
-          </div>
-          <div class=" col-sm-1">
-            <label class="checkbox-inline lato "><input type="checkbox" value="">NAME</label>
-          </div>
-          <div class=" col-sm-1">
-            <label class="checkbox-inline lato"><input type="checkbox" value="">ORG</label>
-          </div>
-          <div class=" col-sm-1">
-            <label class="checkbox-inline lato"><input type="checkbox" value="">ADD</label>
-          </div>
-          <div class=" col-sm-1">
-            <label class="checkbox-inline lato"><input type="checkbox" value="">EMAIL</label>
-          </div>
-        </div>
-      </div>
-      <div class="row top-buffer">
-        <div class=" col-sm-offset-5 col-sm-2 down-buffer">
-          <button  type="button" onclick="location.href='/public/views/result.html';" class="semi-transparent-button large lato ">OK</button>
-        </div>
-      </div>
-      <div id="hidden-template" style="display:none">
-      </div>
-      <div id="field-render">
-      </div>
-
-    </div><!--End of container !-->
-  </div>
+      </div><!--End of container !-->
+    </div>
 
 
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-  <script>  $("#header-menu").load("/views/template/header.html", function() {
-    $("#menu-upload").removeClass("hidden-menu");
-    $("#menu-measure").removeClass("hidden-menu");
-  });
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script>  $("#header-menu").load("/views/template/header.html", function() {
+      $("#menu-upload").removeClass("hidden-menu");
+      $("#menu-measure").removeClass("hidden-menu");
+    });
 
-  </script>
-  <script src="//cdnjs.cloudflare.com/ajax/libs/mustache.js/0.7.2/mustache.min.js"></script>
+    </script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/mustache.js/0.7.2/mustache.min.js"></script>
 
-  <script>
-  var objectData =[ {"value":"syntactic"},{"value":"semantic"}];
+    <script>
+    var objectData =[ {"accuracy":["syntactic","semantic","data-assurance","risk"]},
+    {"completness":["record","attribute","completness"]},
+    {"consistency":["Integrity"]},
+    {"credibility":["Values","Source credibility"]},
+    {"compliance":["Regulatory"]},
+  ];
 
-  function drawTemplate () {
-    $("#hidden-template").load("/views/template/field-tmp.html", function(res, status, xhr) {
-      var template = document.getElementById('field-tmp').innerHTML;
-      var output = Mustache.render(template,{"value":"ID"});
-      $("#field-render").append(output);
+  var classes =
+  {"accuracy":
+  [{"syntactic":"Ratio of closeness of the data values to a set of values defined in a domain"},
+  {"semantic":"Ratio of closeness of the data values to a set of values defined in a domain"},
+  {"data-assurance":"Ratio of closeness of the data values to a set of values defined in a domain"},
+  {"risk":"Ratio of closeness of the data values to a set of values defined in a domain"},
+],
+"completness": []
+}
+var accuracy_fields={"syntactic":["ID","NAME","EMAIL"], "semantic":["ID"], "data-assurance":["EMAIL"],"risk":["NAME"]}
 
+var list_field=["ID","NAME","DATE","EMAIL"]
 
-    })
-  }
-  $('document').ready( function (){
+var current = window.location.pathname.replace("/measure/","");
 
-    drawTemplate();
+/*for (var k in classes[current]) {
+var field = Object.keys(classes[current][k])[0];
+console.log(accuracy_fields[field])
+}*/
 
-    for(var i=0;i<objectData.length;i++)
-    {
-      $("#"+objectData[i].value).removeClass("hidden-menu");
+function drawTemplate () {
+  $("#hidden-template").load("/views/template/field-tmp.html", function(res, status, xhr) {
+    var template = document.getElementById('field-tmp').innerHTML;
+    //LOOP that cycles on different type of measurements (Syntactic, Semanc)
+    for (var k in classes[current]){
+      var field = Object.keys(classes[current][k])[0];
+      for(var i=0; i<list_field.length; i++)
+      {
+        var output = Mustache.render(template,{"value":list_field[i],"field":field});
+        $("#field-render-"+field).append(output);
+        var target="#"+field+"-"+list_field[i]
+
+        //Remove opacity for fields that can't be measured and for the others add the title
+        if(accuracy_fields[field].includes(list_field[i]))
+        {
+          $(target).removeClass("opacity")
+          $(target+"-box").prop("disabled", false)
+
+        }
+        else {
+          $(target).prop('title', 'Can\'t choose this option');
+
+        }
+      }
     }
 
   })
-  </script>
+}
+$('document').ready( function (){
+
+  drawTemplate();
+  for(var i=0;i<objectData[0].accuracy.length;i++)
+  {
+
+    $("#"+objectData[0].accuracy[i]).removeClass("hidden-menu");
+  }
+
+})
+</script>
 
 
 

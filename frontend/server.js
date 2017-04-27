@@ -19,6 +19,10 @@ app.use(morgan('common'))
   res.sendFile(path.join(__dirname, '/Tell_Me_Quality_Client.html'));
 });*/
 
+app.get('/measure/accuracy', function (req, res) {
+   res.sendFile( __dirname + "/views/detail/detail_accuracy.html" );
+})
+
 app.get('/Tell_Me_Quality_Client', function (req, res) {
    console.log("Got a Tell_Me_Quality_Client request");
    res.sendFile( __dirname + "/" + "Tell_Me_Quality_Client.html" );

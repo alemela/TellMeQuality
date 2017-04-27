@@ -31,10 +31,9 @@
 
     <div class="row top-buffer down-buffer">
       <div class="col-sm-offset-5 col-sm-5">
-       <button id="send" type="button" class="semi-transparent-button large lato upload">SEND ALL THE METADATA!</button>
+        <button id="send" type="button" class="semi-transparent-button large lato upload">SEND ALL THE METADATA!</button>
       </div>
     </div>
-
   </div><!--End of Container!-->
 
 
@@ -53,26 +52,23 @@
   var i=0;
 
   function getUrlParameter () {
-      var sPageURL = decodeURIComponent(window.location.search.substring(1)),
-          sURLVariables = sPageURL.split('&'),
-          sParameterName,
-          i;
+    var sPageURL = decodeURIComponent(window.location.search.substring(1)),
+    sURLVariables = sPageURL.split('&'),
+    sParameterName,
+    i;
 
-          if(sURLVariables.length>1)
-          {
-          sParameterName = sURLVariables[0].split('=');
-          var file=sParameterName[1];
-          sParameterName = sURLVariables[1].split('=');
-          var shape=sParameterName[1];
-          var url = "location.href='/views/upload.html?file="+file+"&shape="+shape+"'";
-          $('#send').attr('onclick', url);
-        }else
-        {
-          sParameterName = sURLVariables[0].split('=');
-          var file=sParameterName[1];
-          var url = "location.href='/views/upload.html?file="+file+"'";
-          $('#send').attr('onclick', url)
-        }
+    if(sURLVariables.length>1) {
+      sParameterName = sURLVariables[0].split('=');
+      var file=sParameterName[1];
+      sParameterName = sURLVariables[1].split('=');
+      var shape=sParameterName[1];
+      var url = "location.href='/views/upload.html?file="+file+"&shape="+shape+"'";
+    } else {
+      sParameterName = sURLVariables[0].split('=');
+      var file=sParameterName[1];
+      var url = "location.href='/views/upload.html?file="+file+"'";
+    }
+    return url;
 
   };
 
@@ -127,18 +123,20 @@
     }
     else
     {
-    reverseTemplate("id",name)
-    reverseTemplate("tfnewsearch",value)
-    $("#"+this.id).addClass("hidden-menu");
-    $("#"+this.id.replace("confirm-","").replace(/§.*/,"")).removeClass("hidden-menu");
 
-    var typeSelected = $(this).parent().find('#select').text().replace(/\n\s{0,}/g,"");
-    var value = $(this).parent().find('#tfnewsearch0').val();
-    var fieldName = $(this).parent().attr('id').replace(/§.*/,"").replace("button-","");
+      $("#"+this.id).addClass("hidden-menu");
+      $("#"+this.id.replace("confirm-","").replace(/§.*/,"")).removeClass("hidden-menu");
 
-    shapeResult[fieldName][typeSelected] = value;
+      var value = $(this).parent().find('#tfnewsearch0').val();
+      var fieldName = $(this).parent().attr('id').replace(/§.*/,"").replace("button-","");
+
+      shapeResult[fieldName][name] = value;
+
+      reverseTemplate("id",name)
+      reverseTemplate("tfnewsearch",value)
+
+    }
     i++;
-  }
 
   });
 
@@ -160,37 +158,35 @@
     drawForm(this.id)
   });
 
-  $('#add').click(function(){
-    $.ajax({
-      type: 'POST',
-      url: 'http://localhost:8070/load',
-      data: shapeResult,
-      success: function(msg){
-      }
-    })
 
 
-  });
+
 
   $('#send').click(function(){
     if(i==0)
     {
-      var url='/views/upload.html?file=Ore_Tirocinio.pdf&shape=Ore_Tirocinio.pdf'
-      $('#send').removeAttr('onclick', url);
       alert("You need to feel at least one form")}
-    else
-    {
-      getUrlParameter();
-      $('#send').trigger("click")
-     }
-  });
+      else
+      {
+        console.log(shapeResult)
+        $.ajax({
+          type: 'POST',
+          url: 'http://localhost:8070/load',
+          data: shapeResult,
+          success: function(msg){
+          }})
+          window.location.assign(getUrlParameter());
 
 
-  </script>
-  <script>
-  $("#header-menu").load("/views/template/header.html", function() {
-    $("#menu-upload").removeClass("hidden-menu");
-  });
-  </script>
-</body>
-</html>
+        }
+      });
+
+
+      </script>
+      <script>
+      $("#header-menu").load("/views/template/header.html", function() {
+        $("#menu-upload").removeClass("hidden-menu");
+      });
+      </script>
+    </body>
+    </html>

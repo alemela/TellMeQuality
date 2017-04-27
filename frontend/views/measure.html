@@ -34,15 +34,31 @@
       });</script>
       <script src="//cdnjs.cloudflare.com/ajax/libs/mustache.js/0.7.2/mustache.min.js"></script>
 <script>
-var objectData =[ {"accuracy":"1", "completness":"2","consistency":"3","credibility":"4","compliance":"5"}];
+$.getJSON("http://localhost:8070/measure/all", function( data ) {
+  console.log(data)
+})
+var objectData = {"accuracy":["syntactic","semantic"],
+                  "completness":["record","attribute","completness"],
+                  "consistency":["Integrity"],
+                  "credibility":["Values","Source credibility"],
+                  "compliance":["Regulatory"]}
+                ;
+var n_of_measurement= {"accuracy":objectData["accuracy"].length ,
+                       "completness":objectData["completness"].length,
+                       "consistency":objectData["consistency"].length,
+                       "credibility":objectData["credibility"].length,
+                       "compliance":objectData["compliance"].length};               ;
+
+
+
+
 function drawTemplate () {
   $("#av-measurement").load("/views/template/available.html", function(res, status, xhr) {
       var template = document.getElementById('available').innerHTML;
-      for (var i=0; i<objectData.length; i++)
-      {
-      var output = Mustache.render(template, objectData[i]);
+
+      var output = Mustache.render(template, n_of_measurement);
       $("#measurement").append(output);
-    }
+
 
 
 
