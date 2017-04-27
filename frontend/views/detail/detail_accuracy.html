@@ -22,7 +22,13 @@
         represent the true value of the intendet attribute of a concept or event in a specific context of use.
       </h3>
     </div>
-
+    <div class="row top-buffer">
+      <div class="col-sm-4">
+        <h3></h3>
+      </div>
+    <div id="select-all">
+  </div>
+  </div>
     <div id="accuracy-tmp">
       <div  id="syntactic" class="hidden-menu">
         <div class="row top-buffer">
@@ -88,7 +94,10 @@
             <button  type="button" onclick="location.href='/public/views/result.html';" class="semi-transparent-button large lato ">OK</button>
           </div>
         </div>
+
         <div id="hidden-template" style="display:none">
+          </div>
+          <div id="hidden-template-all" >
         </div>
 
       </div><!--End of container !-->
@@ -143,7 +152,6 @@ function drawTemplate () {
         var output = Mustache.render(template,{"value":list_field[i],"field":field});
         $("#field-render-"+field).append(output);
         var target="#"+field+"-"+list_field[i]
-
         //Remove opacity for fields that can't be measured and for the others add the title
         if(accuracy_fields[field].includes(list_field[i]))
         {
@@ -160,9 +168,20 @@ function drawTemplate () {
 
   })
 }
+function drawTemplateAll () {
+  $("#hidden-template-all").load("/views/template/field-tmp-all.html", function(res, status, xhr) {
+    var temp = document.getElementById('field-tmp-all').innerHTML;
+    for(var i=0; i<list_field.length; i++)
+    {
+        var output = Mustache.render(temp,{"value":list_field[i]});
+        $("#select-all").append(output);
+    }
+  })
+}
 $('document').ready( function (){
 
   drawTemplate();
+  drawTemplateAll();
   for(var i=0;i<objectData[0].accuracy.length;i++)
   {
 
@@ -170,8 +189,18 @@ $('document').ready( function (){
   }
 
 })
-</script>
+$("#select-all").on('click',".select-all",function(){
+  var tocheck=$("body").find(".check-ID")
+  console.log(tocheck)
+for(t in tocheck)
+{
+  if(!tocheck[t].disabled)
+    tocheck[t].checked=true
+}
 
+})
+
+</script>
 
 
 
