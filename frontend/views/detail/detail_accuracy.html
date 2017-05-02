@@ -190,13 +190,27 @@ $('document').ready( function (){
 
 })
 $("#select-all").on('click',".select-all",function(){
-  var tocheck=$("body").find(".check-ID")
-  console.log(tocheck)
-for(t in tocheck)
-{
-  if(!tocheck[t].disabled)
-    tocheck[t].checked=true
-}
+  var name=$(this).closest('div').attr('id')
+  name=name.split("-")[0]
+  var tocheck=$("body").find(".check-"+name)
+
+  if($('#-'+name+'-box-ALL').is(":checked"))
+  {
+    for(t in tocheck)
+    {
+      if(!tocheck[t].disabled)
+        tocheck[t].checked=true
+    }
+  }
+  else {
+    for(t in tocheck)
+    {
+      if(!tocheck[t].disabled)
+        tocheck[t].checked=false
+    }
+
+  }
+
 
 })
 
