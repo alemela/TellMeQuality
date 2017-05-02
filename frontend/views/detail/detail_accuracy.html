@@ -91,17 +91,18 @@
         </div>
         <div class="row top-buffer">
           <div class=" col-sm-offset-5 col-sm-2 down-buffer">
-            <button  type="button" onclick="location.href='/public/views/result.html';" class="semi-transparent-button large lato ">OK</button>
+         <button id="ok" type="button" onclick="" class="semi-transparent-button large lato ">OK</button>
+</div>
           </div>
         </div>
-
+  </div>
         <div id="hidden-template" style="display:none">
           </div>
-          <div id="hidden-template-all" >
+          <div id="hidden-template-all" style="display:none" >
         </div>
 
-      </div><!--End of container !-->
-    </div>
+      <!--End of container !-->
+
 
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
@@ -135,6 +136,8 @@ var accuracy_fields={"syntactic":["ID","NAME","EMAIL"], "semantic":["ID"], "data
 var list_field=["ID","NAME","DATE","EMAIL"]
 
 var current = window.location.pathname.replace("/measure/","");
+var shapeResult={"syntactic":[], "semantic":[], "data-assurance":[],"risk":[]}
+
 
 /*for (var k in classes[current]) {
 var field = Object.keys(classes[current][k])[0];
@@ -189,6 +192,7 @@ $('document').ready( function (){
   }
 
 })
+//Press a select-all button
 $("#select-all").on('click',".select-all",function(){
   var name=$(this).closest('div').attr('id')
   name=name.split("-")[0]
@@ -208,11 +212,57 @@ $("#select-all").on('click',".select-all",function(){
       if(!tocheck[t].disabled)
         tocheck[t].checked=false
     }
+  }
+})
+
+
+$('[id^="field-render-"]').click(function(){
+
+  var id=$(this).children().children().attr('id')
+  /*var id=$(this).attr('id')
+  field=$("#"+id+" :input")[0].id;
+  var measure=$(this).closest('div').attr('id')
+  measure=measure.split("-")[2]
+  alert(id+" "+field)*/
+})
+//Check all the values in the checkbox and modify the shapeResult object
+$("#ok").click(function(){
+  var tocheck=$("#accuracy-tmp").find("input[type=checkbox]")
+  var value;
+  var field;
+  var temp;
+  console.log(shapeResult)
+  for(t in tocheck)
+  {
+    var id=tocheck[t].id
+    if($("#"+id).is(":checked"))
+      {
+          temp=id.split("-")
+          value=temp[0]
+          field=temp[1]
+          shapeResult[value][field];
+      }
+
+      if(!tocheck[t].disabled && !$("#"+id).is(":checked"))
+      {
+        temp=id.split("-")
+        value=temp[0]
+        field=temp[1]
+        delete  shapeResult[value][field]
+      }
+
+      $.ajax({
+        type: 'POST',
+        url: 'http://localhost:8070/load',
+        data: shapeResult,
+        success: function(msg){
+        }})
 
   }
 
+  });
 
-})
+
 
 </script>
 
