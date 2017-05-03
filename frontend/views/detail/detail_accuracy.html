@@ -240,7 +240,7 @@ $("#ok").click(function(){
           temp=id.split("-")
           value=temp[0]
           field=temp[1]
-          shapeResult[value][field];
+          shapeResult[value][field]=1;
       }
 
       if(!tocheck[t].disabled && !$("#"+id).is(":checked"))
