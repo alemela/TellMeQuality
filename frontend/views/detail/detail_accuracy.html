@@ -179,6 +179,7 @@ function drawTemplateAll () {
         var output = Mustache.render(temp,{"value":list_field[i]});
         $("#select-all").append(output);
     }
+
   })
 }
 $('document').ready( function (){
@@ -243,7 +244,7 @@ $("#ok").click(function(){
           shapeResult[value][field]=1;
       }
 
-      if(!tocheck[t].disabled && !$("#"+id).is(":checked"))
+      if(!tocheck[t].disabled && $("#"+id).is(":checked")=="false")
       {
         temp=id.split("-")
         value=temp[0]

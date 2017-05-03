@@ -12,7 +12,7 @@
     margin-bottom:40px;
   }
   .left-buffer {
-     margin-left:140px;
+     margin-left:-40px;
    }
    .left-padding-acc {
       margin-left:10px;
@@ -229,5 +229,5 @@ body {
 }
 .italic
 {
- font-style: italic; 
+ font-style: italic;
 }
