@@ -26,9 +26,9 @@
       <div class="col-sm-4">
         <h3></h3>
       </div>
-    <div id="select-all">
-  </div>
-  </div>
+      <div id="select-all">
+      </div>
+    </div>
     <div id="accuracy-tmp">
       <div  id="syntactic" class="hidden-menu">
         <div class="row top-buffer">
@@ -43,6 +43,7 @@
           <div id="field-render-syntactic">
           </div>
         </div>
+      </div>
 
         <div id="semantic" class="hidden-menu">
           <div class="row top-buffer">
@@ -91,17 +92,21 @@
         </div>
         <div class="row top-buffer">
           <div class=" col-sm-offset-5 col-sm-2 down-buffer">
-         <button id="ok" type="button" onclick="" class="semi-transparent-button large lato ">OK</button>
-</div>
+            <button id="ok" type="button" onclick="" class="semi-transparent-button large lato ">OK</button>
           </div>
         </div>
-  </div>
-        <div id="hidden-template" style="display:none">
-          </div>
-          <div id="hidden-template-all" style="display:none" >
-        </div>
+      </div>
+    </div>
 
-      <!--End of container !-->
+    <div id="new-home"></div>
+
+    <div id="hidden-template" style="display:none">
+    </div>
+    <div id="hidden-template-all" style="display:none" >
+    </div>
+
+    <!--End of container !-->
+    <div id="hidden-field-template"></div>
 
 
 
@@ -129,14 +134,19 @@
   {"data-assurance":"Ratio of closeness of the data values to a set of values defined in a domain"},
   {"risk":"Ratio of closeness of the data values to a set of values defined in a domain"},
 ],
-"completness": []
+"completness":
+[{"category 1":"Ratio of closeness of the data values to a set of values defined in a domain"},
+{"category 2":"Ratio of closeness of the data values to a set of values defined in a domain"},
+{"category 3":"Ratio of closeness of the data values to a set of values defined in a domain"},
+{"category4":"Ratio of closeness of the data values to a set of values defined in a domain"},
+]
 }
 var accuracy_fields={"syntactic":["ID","NAME","EMAIL"], "semantic":["ID"], "data-assurance":["EMAIL"],"risk":["NAME"]}
 
 var list_field=["ID","NAME","DATE","EMAIL"]
 
 var current = window.location.pathname.replace("/measure/","");
-var shapeResult={"syntactic":[], "semantic":[], "data-assurance":[],"risk":[]}
+var shapeResult={"syntactic":[], "semantic":[], "data":[],"risk":[]}
 
 
 /*for (var k in classes[current]) {
@@ -149,6 +159,7 @@ function drawTemplate () {
     var template = document.getElementById('field-tmp').innerHTML;
     //LOOP that cycles on different type of measurements (Syntactic, Semanc)
     for (var k in classes[current]){
+
       var field = Object.keys(classes[current][k])[0];
       for(var i=0; i<list_field.length; i++)
       {
@@ -176,8 +187,8 @@ function drawTemplateAll () {
     var temp = document.getElementById('field-tmp-all').innerHTML;
     for(var i=0; i<list_field.length; i++)
     {
-        var output = Mustache.render(temp,{"value":list_field[i]});
-        $("#select-all").append(output);
+      var output = Mustache.render(temp,{"value":list_field[i]});
+      $("#select-all").append(output);
     }
 
   })
@@ -204,70 +215,56 @@ $("#select-all").on('click',".select-all",function(){
     for(t in tocheck)
     {
       if(!tocheck[t].disabled)
-        tocheck[t].checked=true
+      tocheck[t].checked=true
     }
   }
   else {
     for(t in tocheck)
     {
       if(!tocheck[t].disabled)
-        tocheck[t].checked=false
+      tocheck[t].checked=false
     }
   }
 })
 
 
-$('[id^="field-render-"]').click(function(){
 
-  var id=$(this).children().children().attr('id')
-  /*var id=$(this).attr('id')
-  field=$("#"+id+" :input")[0].id;
-  var measure=$(this).closest('div').attr('id')
-  measure=measure.split("-")[2]
-  alert(id+" "+field)*/
-})
 //Check all the values in the checkbox and modify the shapeResult object
 $("#ok").click(function(){
   var tocheck=$("#accuracy-tmp").find("input[type=checkbox]")
   var value;
   var field;
   var temp;
-  console.log(shapeResult)
-  for(t in tocheck)
+  for(var t=0; t<tocheck.length; t++)
   {
     var id=tocheck[t].id
-    if($("#"+id).is(":checked"))
-      {
-          temp=id.split("-")
-          value=temp[0]
-          field=temp[1]
-          shapeResult[value][field]=1;
-      }
-
-      if(!tocheck[t].disabled && $("#"+id).is(":checked")=="false")
-      {
-        temp=id.split("-")
-        value=temp[0]
-        field=temp[1]
-        delete  shapeResult[value][field]
-      }
-
-      $.ajax({
-        type: 'POST',
-        url: 'http://localhost:8070/load',
-        data: shapeResult,
-        success: function(msg){
-        }})
-
+    if($("#"+id).is(":checked")){
+      temp=id.split("-")
+      value=temp[0]
+      field=temp[1]
+      shapeResult[value][field]=1;
+    } else if (!tocheck[t].disabled) {
+      temp=id.split("-")
+      value=temp[0]
+      field=temp[1]
+      shapeResult[value][field]=0;
+    }
   }
+
+  $.ajax({
+    type: 'POST',
+    url: 'http://localhost:8070/load',
+    data: shapeResult,
+    success: function(msg){
+    }})
 
   });
 
 
 
-</script>
+  </script>
 
-
+<script src="/public/js/tmp-value.js"></script>
 
 </body>
 </html>

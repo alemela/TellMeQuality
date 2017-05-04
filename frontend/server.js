@@ -20,7 +20,10 @@ app.use(morgan('common'))
 });*/
 
 app.get('/measure/accuracy', function (req, res) {
-   res.sendFile( __dirname + "/views/detail/detail_accuracy.html" );
+   res.sendFile( __dirname + "/views/detail/detail_fields.html" );
+})
+app.get('/measure/completness', function (req, res) {
+   res.sendFile( __dirname + "/views/detail/detail_fields.html" );
 })
 
 app.get('/Tell_Me_Quality_Client', function (req, res) {
