@@ -25,6 +25,16 @@ app.get('/measure/accuracy', function (req, res) {
 app.get('/measure/completness', function (req, res) {
    res.sendFile( __dirname + "/views/detail/detail_fields.html" );
 })
+app.get('/measure/consistency', function (req, res) {
+   res.sendFile( __dirname + "/views/detail/detail_fields.html" );
+})
+app.get('/measure/credibility', function (req, res) {
+   res.sendFile( __dirname + "/views/detail/detail_fields.html" );
+})
+app.get('/measure/compliance', function (req, res) {
+   res.sendFile( __dirname + "/views/detail/detail_fields.html" );
+})
+
 
 app.get('/Tell_Me_Quality_Client', function (req, res) {
    console.log("Got a Tell_Me_Quality_Client request");

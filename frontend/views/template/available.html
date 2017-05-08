@@ -8,7 +8,7 @@
 
     </div>
     <div class="col-sm-offset-0 col-sm-3">
-      <button id="consistency" type="button" onclick="location.href='/views/detail/detail_consistency.html';" class="semi-transparent-button large lato top-buffer">Consistency</button>
+      <button id="consistency" type="button" onclick="location.href='/measure/consistency';" class="semi-transparent-button large lato top-buffer">Consistency</button>
     </div>
 
     <div class="col-sm-offset-0 col-sm-4">
@@ -17,13 +17,13 @@
   </div>
   <div class="row">
     <div class="col-sm-offset-2 col-sm-3 accuracy_available">
-      <h3>{{accuracy}}/10 Measurement Available</h3>
+      <h3>{{accuracy}}/{{total-accuracy}} Measurement Available</h3>
     </div>
     <div class="col-sm-offset-0 col-sm-3">
-      <h3>{{completness}}/10 Measurement Available</h3>
+      <h3>{{completness}}/{{total-completness}} Measurement Available</h3>
     </div>
     <div class="col-sm-offset-0 col-sm-3">
-      <h3>{{consistency}}/10 Measurement Available</h3>
+      <h3>{{consistency}}/{{total-consistency}} Measurement Available</h3>
     </div>
   </div>
 
@@ -31,26 +31,26 @@
 
   <div class="row top-buffer">
     <div class="col-sm-offset-2 col-sm-3">
-      <button id ="crediblity" type="button" onclick="location.href='/views/detail/detail_credibility.html';" class="semi-transparent-button large lato upload">Credibility</button>
+      <button id ="crediblity" type="button" onclick="location.href='/measure/credibility';" class="semi-transparent-button large lato upload">Credibility</button>
     </div>
     <div class="col-sm-offset-0 col-sm-3">
-      <button id="compliance" type="button" onclick="location.href='/views/detail/detail_compliance.html';" class="semi-transparent-button large lato ">Compliance</button>
+      <button id="compliance" type="button" onclick="location.href='/measure/compliance';" class="semi-transparent-button large lato ">Compliance</button>
 
     </div>
   </div>
   <div class="row">
     <div class="col-sm-offset-2 col-sm-3">
-      <h3>{{credibility}}/10 Measurement Available</h3>
+      <h3>{{credibility}}/{{total-credibility}} Measurement Available</h3>
     </div>
     <div class="col-sm-offset-0 col-sm-3">
-      <h3>{{compliance}}/10 Measurement Available</h3>
+      <h3>{{compliance}}/{{total-compliance}} Measurement Available</h3>
     </div>
   </div>
   <div class="row top-buffer">
   </div>
   <div class="row top-buffer">
     <div class=" col-sm-offset-5 col-sm-6 down-buffer">
-      <button  type="button" onclick="location.href='/views/datavisualization.html';" class="semi-transparent-button large lato ">RUN THEM ALL</button>
+      <button  type="button" onclick="location.href='/views/datavisualization';" class="semi-transparent-button large lato ">RUN THEM ALL</button>
 
     </div>
   </div>

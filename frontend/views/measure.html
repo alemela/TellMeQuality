@@ -33,6 +33,8 @@
         $("#menu-measure").removeClass("hidden-menu");
       });</script>
       <script src="//cdnjs.cloudflare.com/ajax/libs/mustache.js/0.7.2/mustache.min.js"></script>
+      <script src="/public/js/object.js"></script>
+
 <script>
 
 $.getJSON("http://localhost:8070/measure/all", function( data ) {
@@ -44,13 +46,18 @@ var objectData = {"accuracy":["syntactic","semantic"],
                   "credibility":["Values","Source credibility"],
                   "compliance":["Regulatory"]}
                 ;
-var n_of_measurement= {"accuracy":objectData["accuracy"].length ,
-                       "completness":objectData["completness"].length,
-                       "consistency":objectData["consistency"].length,
-                       "credibility":objectData["credibility"].length,
-                       "compliance":objectData["compliance"].length};               ;
 
-
+//Number of possible measurement to perform and total number of possible measurement
+var n_of_measurement= {"accuracy":Object.keys(fields["accuracy"]).length,
+                       "completness":Object.keys(fields["completness"]).length,
+                       "consistency":Object.keys(fields["consistency"]).length,
+                       "credibility":Object.keys(fields["credibility"]).length,
+                       "compliance":Object.keys(fields["compliance"]).length,
+                       "total-accuracy":Object.keys(classes["accuracy"]).length,
+                       "total-completness":Object.keys(classes["completness"]).length,
+                       "total-consistency":Object.keys(classes["consistency"]).length,
+                       "total-credibility":Object.keys(classes["credibility"]).length,
+                       "total-compliance":Object.keys(classes["compliance"]).length};
 
 
 function drawTemplate () {
