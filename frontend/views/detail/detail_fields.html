@@ -80,7 +80,6 @@ function drawTemplate () {
       var field = Object.keys(fields[current])[k]
       for(var i=0; i<list_field.length; i++)
       {
-        console.log(field)
         var output = Mustache.render(template,{"value":list_field[i],"field":field});
         $("#field-render-"+field).append(output);
         var target="#"+field+"-"+list_field[i]

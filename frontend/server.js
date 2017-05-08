@@ -36,6 +36,22 @@ app.get('/measure/compliance', function (req, res) {
 })
 
 
+app.get('/datavisualization/accuracy', function (req, res) {
+   res.sendFile( __dirname + "/views/data_detail.html" );
+})
+app.get('/datavisualization/completness', function (req, res) {
+   res.sendFile( __dirname + "/views/data_detail.html"  );
+})
+app.get('/datavisualization/consistency', function (req, res) {
+   res.sendFile( __dirname + "/views/data_detail.html" );
+})
+app.get('/datavisualization/credibility', function (req, res) {
+   res.sendFile( __dirname + "/views/data_detail.html"  );
+})
+app.get('/datavisualization/compliance', function (req, res) {
+   res.sendFile( __dirname + "/views/data_detail.html"  );
+})
+
 app.get('/Tell_Me_Quality_Client', function (req, res) {
    console.log("Got a Tell_Me_Quality_Client request");
    res.sendFile( __dirname + "/" + "Tell_Me_Quality_Client.html" );

@@ -59,7 +59,7 @@
           <h2>Accuracy measures provide the degree to which data has attributes that correctly represent the true value of the intended attribute of a concept or event in a specific context of use. </h2>
           <div class="top-buffer">
             <center>
-              <button type="button" onclick="location.href='/public/views/data_details/accuracy_horizontal_graph.html';" class="semi-transparent-button large lato upload ">SHOW VALUES FOR FIELDS</button>
+              <button type="button" onclick="location.href='/datavisualization/accuracy';" class="semi-transparent-button large lato upload ">SHOW VALUES FOR FIELDS</button>
             </center>
           </div>
         </div>
@@ -84,7 +84,7 @@
           <h2>Completness measures provide the degree to which data associated with a target entity has expected values for all related properties of target entity in a specific context of use</h2>
           <div class="top-buffer">
             <center>
-              <button type="button" onclick="location.href='/public/views/data_details/accuracy_horizontal_graph.html';" class="semi-transparent-button large lato upload ">SHOW VALUES FOR FIELDS</button>
+              <button type="button" onclick="location.href='/datavisualization/completness';" class="semi-transparent-button large lato upload ">SHOW VALUES FOR FIELDS</button>
             </center>
           </div>
         </div>
@@ -119,7 +119,7 @@
           <h2>Accuracy measures provide the degree to which data has attributes that correctly represent the true value of the intended attribute of a concept or event in a specific context of use. </h2>
           <div class="top-buffer">
             <center>
-              <button type="button" onclick="location.href='/public/views/data_details/accuracy_horizontal_graph.html';" class="semi-transparent-button large lato upload ">SHOW VALUES FOR FIELDS</button>
+              <button type="button" onclick="location.href='/datavisualization/consistency';"class="semi-transparent-button large lato upload ">SHOW VALUES FOR FIELDS</button>
             </center>
           </div>
         </div>
@@ -144,7 +144,7 @@
           <h2>Completness measures provide the degree to which data associated with a target entity has expected values for all related properties of target entity in a specific context of use</h2>
           <div class="top-buffer">
             <center>
-              <button type="button" onclick="location.href='/public/views/data_details/accuracy_horizontal_graph.html';" class="semi-transparent-button large lato upload ">SHOW VALUES FOR FIELDS</button>
+              <button type="button" onclick="location.href='/datavisualization/credibility';" class="semi-transparent-button large lato upload ">SHOW VALUES FOR FIELDS</button>
             </center>
           </div>
         </div>
@@ -178,7 +178,7 @@
           <h2>Accuracy measures provide the degree to which data has attributes that correctly represent the true value of the intended attribute of a concept or event in a specific context of use. </h2>
           <div class="top-buffer">
             <center>
-              <button type="button" onclick="location.href='/public/views/data_details/accuracy_horizontal_graph.html';" class="semi-transparent-button large lato upload ">SHOW VALUES FOR FIELDS</button>
+              <button type="button" onclick="location.href='/datavisualization/compliance';" class="semi-transparent-button large lato upload ">SHOW VALUES FOR FIELDS</button>
             </center>
           </div>
         </div>
@@ -284,6 +284,8 @@
   <script>  $("#header-menu").load("/views/template/header.html", function() {
     $("#menu-upload").removeClass("hidden-menu");
     $("#menu-measure").removeClass("hidden-menu");
+    $("#data-visualization").removeClass("hidden-menu");
+
   });</script>
   <script src="//cdnjs.cloudflare.com/ajax/libs/mustache.js/0.7.2/mustache.min.js"></script>
   <script src="http://d3js.org/d3.v3.min.js"></script>
