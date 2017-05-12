@@ -1,0 +1,110 @@
+#%RAML 1.0
+title: TellMeQuality
+version: v1
+baseUri: http://tellmequality.com/api/{version}/
+protocols:
+  - HTTP
+  - HTTPS
+mediaType: application/json
+/upload:
+  displayName: Upload
+  description: Send useful data to the backend.
+  /data:
+    displayName: Upload dataset
+    description: Send the dataset to the server.
+    post:
+      body:
+        multipart/form-data:
+          description: The file to be uploaded.
+          required: true
+          type: file
+  /configuration:
+    displayName: Upload shape file
+    description: Send the shape file to the server.
+    post:
+      body:
+        text/turtle:
+          description: The config file to be uploaded.
+          required: true
+          type: file
+/classes:
+  displayName: Classes
+  description: Full list of all classes that TMQ could serve with their description.
+  get:
+    responses:
+      200:
+        body:
+          application/json:
+            example: |
+              {"accuracy":
+                {"Syntactic":"Ratio of closeness of the data values to a set of values defined in a domain",
+                "Semantic":"Ratio of closeness of the data values to a set of values defined in a domain",
+                "Data_Assurance":"Ratio of closeness of the data values to a set of values defined in a domain",
+                "Risk":"Ratio of closeness of the data values to a set of values defined in a domain"
+                },
+               "completness":
+                {"Record":"Record Ratio of closeness of the data values to a set of values defined in a domain",
+                "Attribute":"attribute Ratio of closeness of the data values to a set of values defined in a domain",
+                "Completness":"completness Ratio of closeness of the data values to a set of values defined in a domain",
+                "Category4":"category4 Ratio of closeness of the data values to a set of values defined in a domain"
+                },
+               "consistency":
+                {"Integrity":"For each value of one attribute of a table exists the same value of the same attribute in a different table; i.e there is a link between the same attribute represented in different tables and they contain te same values"},
+               "credibility":
+                {"Values":"Degree to wich information items are regarded as true, real and credible"},
+               "compliance":
+                {"Regulatory":"Degree to which data values and/or format comply with specific standards, conventions or regulations"}
+              }
+/configure:
+  displayName: Gauges
+  description: All you need to prepare the lauch of measures.
+  /allFields:
+    displayName: Fields list
+    description: Full list of field on which is possible to make a measure.
+    get:
+      responses:
+        200:
+          body:
+            application/json:
+              example: |
+                ["ID","NAME","DATE","EMAIL","CHART"]
+  /activeFields:
+    displayName: Active fields
+    description: Config object where for each class of measure are listed all the active fields.
+    get:
+      responses:
+        200:
+          body:
+            application/json:
+              example: |
+                {"accuracy":
+                  {"Syntactic":["ID","NAME","EMAIL"], "Semantic":["ID"], "Data_Assurance":["EMAIL"],"Risk":["NAME"]},
+                "completness":
+                  {"Record":["ID"], "Attribute":["EMAIL"],"Completness":["NAME"]},
+                "consistency":
+                  {"Integrity":["ID","NAME","EMAIL"]},
+                "credibility":
+                  {"Values":["ID"]},
+                "compliance":
+                  {"Regulatory":["ID"]}
+                };
+/measure:
+  displayName: Measure
+  description: Send to the server the order to make a measure and receive the result.
+  post:
+    responses:
+      200:
+        body:
+          application/json:
+            example: |
+              {"accuracy":
+                {"ID":{"Syntactic":10, "Semantic":12,"Data_Assurance":2,"Risk":4},
+                 "EMAIL":{"Syntactic":10, "Semantic":12,"Data_Assurance":2,"Risk":4},
+                 "DATA":{"Syntactic":10, "Semantic":12,"Data_Assurance":2,"Risk":4}
+               },
+               "completness":
+                {"ID":{"Syntactic":10, "Semantic":12,"Data_Assurance":2,"Risk":4},
+                 "EMAIL":{"Syntactic":10, "Semantic":12,"Data_Assurance":2,"Risk":4},
+                 "DATA":{"Syntactic":10, "Semantic":12,"Data_Assurance":2,"Risk":4}
+                }
+              }
