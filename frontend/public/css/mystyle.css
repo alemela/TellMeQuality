@@ -12,7 +12,7 @@
     margin-bottom:40px;
   }
   .left-buffer {
-     margin-left:-40px;
+     margin-left:-140px;
    }
    .right-buffer {
       margin-right:+40px;
@@ -80,7 +80,7 @@ h5
   color:white;
   font-size: 300%;
   position: absolute;
-  top: 20%;
+  top: 30%;
   bottom:150%;
   left: 0;
   right: 0;
@@ -236,3 +236,46 @@ body {
 font-variant: small-caps;
 text-transform: uppercase;
 }
+
+    .toolTip {
+        font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+        position: absolute;
+        display: none;
+        width: auto;
+        height: auto;
+        background: none repeat scroll 0 0 white;
+        border: 0 none;
+        border-radius: 8px 8px 8px 8px;
+        box-shadow: -3px 3px 15px #888888;
+        color: black;
+        font: 12px sans-serif;
+        padding: 5px;
+        text-align: center;
+    }
+    .odometer {
+      font-size: 40px;
+      font-family: 'Lato', sans-serif;
+      font-weight: 100;
+
+    }
+
+    .justified
+    {   font-family: 'Lato', sans-serif;
+        color: black;
+        font-weight: 200;
+        text-align: justify;
+   text-justify: inter-word;
+   font-weight: 300;
+   font-size: 180%;
+
+    }
+    .justified-small
+    {   font-family: 'Lato', sans-serif;
+        color: black;
+        font-weight: 200;
+        text-align: justify;
+   text-justify: inter-word;
+   font-weight: 300;
+   font-size: 120%;
+
+    }

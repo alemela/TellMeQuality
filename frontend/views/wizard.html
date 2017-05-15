@@ -62,11 +62,11 @@
       var file=sParameterName[1];
       sParameterName = sURLVariables[1].split('=');
       var shape=sParameterName[1];
-      var url = "location.href='/views/upload.html?file="+file+"&shape="+shape+"'";
+      var url = "/views/upload.html?file="+file+"&shape="+shape+"'";
     } else {
       sParameterName = sURLVariables[0].split('=');
       var file=sParameterName[1];
-      var url = "location.href='/views/upload.html?file="+file+"'";
+      var url = "/views/upload.html?file="+file+"'";
     }
     return url;
 

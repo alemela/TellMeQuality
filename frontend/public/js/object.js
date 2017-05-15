@@ -9,7 +9,7 @@ var fields=
 "credibility":
 {"Values":["ID"]},
 "compliance":
-{"Regulatory":["ID"]}
+{"Regulatory":["ID","NAME"]}
 };
 var list_field=["ID","NAME","DATE","EMAIL","CHART"]
 
@@ -36,4 +36,17 @@ var classes =
  "compliance":
   {"Regulatory":"Degree to which data values and/or format comply with specific standards, conventions or regulations"
   }
+};
+
+var definition=
+{"accuracy":
+  "Accuracy measures provide the degree to which data has attributes that correctly represent the true value of the intended attribute of a concept or event in a specific context of use." ,
+ "completness":
+  "Completness measures provide the degree to which data associated with a target entity has expected values for all related properties of target entity in a specific context of use",
+ "consistency":
+  "Consistency measures provide the degree to which data has attributes that are free from contradiction and are coherent with other data in specific context of use. They can be either or both among data regarding one target entity and across similar data for comparable target entities",
+ "credibility":
+  "Credibility measures provie the degree to which data has attributes that are regarded as true and believable by users in a specific context of use. Credibility can be measured from the \"Inherent\" point of view only.",
+ "compliance":
+  "Compliance measures provide the degree to whic data has attributes that adhere to standards,conventions or regulations in force and similar rules relating to data quality in a specific context of use. Compliance is measured both from \"Inherent\" and \"System dependent\" point of view."
 };

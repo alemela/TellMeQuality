@@ -28,7 +28,7 @@
     <div id="new-home"></div>
     <div class="row top-buffer">
       <div class=" col-sm-offset-5 col-sm-2 down-buffer">
-        <button id="ok" type="button" onclick="" class="semi-transparent-button large lato ">OK</button>
+        <button id="ok" type="button" onclick="location.href='/views/measure.html'" class="semi-transparent-button large lato ">OK</button>
       </div>
     </div>
 
@@ -63,13 +63,14 @@ var current = window.location.pathname.replace("/measure/","");
 $("#title").append(current)
 //Object that will be sent with the POST
 var shapeResult={"accuracy":
-                            {"Syntactic":[], "Semantic":[], "Data Assurance":[],"Risk":[]},
+                            {"Syntactic":[], "Semantic":[], "Data_Assurance":[],"Risk":[]},
                 "completness":
                             {"Record":[], "Attribute":[],"Completness":[]},
                 "consistency":
                             {"Integrity":[]}
                 };
-
+  var session_data
+  var temp={"temp":[1,2,3]}
 //Function to draw all the checkboxes for every different available type of measurement.
 function drawTemplate () {
   $("#hidden-template").load("/views/template/field-tmp.html", function(res, status, xhr) {
@@ -99,6 +100,7 @@ function drawTemplate () {
 
   })
 }
+//SELECT ALL CHECKBOXES
 function drawTemplateAll () {
   $("#hidden-template-all").load("/views/template/field-tmp-all.html", function(res, status, xhr) {
     var temp = document.getElementById('field-tmp-all').innerHTML;
@@ -162,13 +164,22 @@ $("#ok").click(function(){
       shapeResult[current][value][field]=0;
     }
   }
-console.log("POST"+shapeResult)
+  var session_data_temp=shapeResult
+  console.log(session_data_temp)
+
+  //Save in session sessionStorage
   $.ajax({
     type: 'POST',
     url: 'http://localhost:8070/load',
     data: shapeResult,
     success: function(msg){
     }})
+
+    sessionStorage.setItem('session_data', JSON.stringify(session_data_temp));
+    session_data_temp=JSON.parse(sessionStorage.getItem('session_data'))
+    console.log(session_data_temp)
+
+
 
   });
 

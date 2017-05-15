@@ -10,11 +10,15 @@
   <link rel="stylesheet" type="text/css" href="/public/css/bootstrap.min.css">
   <link rel="stylesheet" type="text/css" href="/public/css/style_animation.css">
   <link rel="stylesheet" type="text/css" href="/public/css/mystyle.css">
+  <link rel="stylesheet" type="text/css" href="/public/css/icon.css">
+
+
 
   <link href="https://fonts.googleapis.com/css?family=Lato:200,200i,300,300i,400" rel="stylesheet">
 </head>
 <body>
   <div id="header-menu"></div>
+
 
   <div class="container-fluid" style="text-align:center;">
     <div class="lato">
@@ -50,43 +54,42 @@
         <div id="config-line" class="col-sm-offset-3 col-sm-3">
           <button id="upl-config" type="button" class="semi-transparent-button large lato ">UPLOAD CONFIGURATION</button>
           <input id="upload-input-config" style="display: none" type="file" name="uploads[]" multiple="multiple">
-
+          </div>
           <button id="remove-button-config" type="button" class="remove-button semi-transparent-button large lato hidden-menu">REMOVE</button>
-
-        </div>
         <div id="shape-line" class="col-sm-offset-0 col-sm-3">
           <button id="config-file" type="button" class="semi-transparent-button large lato ">CONFIGURE SHAPE FILE</button>
         </div>
-        <div class="col-sm-offset-0 col-sm-3">
-          <button id="remove-config-file" type="button" class="hidden-menu semi-transparent-button large lato ">REMOVE</button>
+        <div id="remove-config-file" class="col-sm-offset-0 col-sm-3 close hidden-menu left-buffer">
+          <a href="#" class="close"></a>
         </div>
 
-        </div>
       </div>
+    </div>
 
     <div id="start-measure" class="hidden-menu">
-    <div class="row top-buffer">
-      <div class="col-sm-12">
-        <div class="row">
-          <div class="col-sm-offset-4 col-sm-4">
-            <div class="hr"></div>
+      <div class="row top-buffer">
+        <div class="col-sm-12">
+          <div class="row">
+            <div class="col-sm-offset-4 col-sm-4">
+              <div class="hr"></div>
+            </div>
           </div>
+          <h2>Start the Measure</h2>
         </div>
-        <h2>Start the Measure</h2>
+      </div>
+      <center>
+        <h3>Click the button below when you're re ready to get your result!</h3>
+      </center>
+      <div class="row top-buffer down-buffer">
+        <div class="col-sm-12">
+          <button id="req_homepage1"  type="button" onclick="location.href='/views/measure.html';" class="semi-transparent-button large lato">RUN THE MEASUREMENT</button>
+        </div>
       </div>
     </div>
-    <center>
-      <h3>Click the button below when you're re ready to get your result!</h3>
-    </center>
-    <div class="row top-buffer down-buffer">
-      <div class="col-sm-12">
-        <button id="req_homepage1"  type="button" onclick="location.href='/views/measure.html';" class="semi-transparent-button large lato">RUN THE MEASUREMENT</button>
-      </div>
-    </div>
-  </div>
 
   </div>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.0.5/vue.min.js"></script>
   <script>
   var fileName=""
   $("#header-menu").load("/views/template/header.html", function() {
@@ -120,13 +123,15 @@
         file=string;
         $("#button-line").append('<div id="string" class="italic">'+ string +'</div>');
 
-        $("#remove-button").removeClass("hidden-menu");
-        $("#upload").addClass("hidden-menu");
-        $("#shape-file").removeClass("hidden-menu");
-        $("#string1").addClass("hidden-menu");
-        $("#remove-button-config").addClass("hidden-menu");
-        $("#upl-config").removeClass("hidden-menu");
-        $("#configured").addClass("hidden-menu");
+          $("#remove-button").removeClass("hidden-menu");
+          $("#upload").addClass("hidden-menu");
+          $("#shape-file").removeClass("hidden-menu");
+          $("#string1").addClass("hidden-menu");
+          $("#remove-button-config").addClass("hidden-menu");
+          $("#upl-config").removeClass("hidden-menu");
+          $("#configured").addClass("hidden-menu");
+
+
 
 
 
@@ -199,7 +204,7 @@
     }
   });
 
-/*('#config-file').on('click',function(){
+  /*('#config-file').on('click',function(){
   alert("YES")
   var fileName=$("#string").text()
   var shapeFile=$("#string1").text()
@@ -208,100 +213,95 @@
 });*/
 
 function getUrlParameter () {
-    var sPageURL = decodeURIComponent(window.location.search.substring(1)),
-        sURLVariables = sPageURL.split('&'),
-        sParameterName,
-        i;
-        if(location.search.substr(1).length>0)
-        {
+  var sPageURL = decodeURIComponent(window.location.search.substring(1)),
+  sURLVariables = sPageURL.split('&'),
+  sParameterName,
+  i;
+  if(location.search.substr(1).length>0)
+  {
+    console.log(sURLVariables)
 
-            if(sURLVariables.length==2)
-            {
-              alert(sURLVariables.length + "Arguments")
-              sParameterName = sURLVariables[0].split('=');
-              var file=sParameterName[1];
-              sParameterName = sURLVariables[1].split('=');
-              var shape=sParameterName[1];
+    if(sURLVariables.length==2)
+    {
+      alert(sURLVariables.length + "Arguments")
+      sParameterName = sURLVariables[0].split('=');
+      var file=sParameterName[1];
+      sParameterName = sURLVariables[1].split('=');
+      var shape=sParameterName[1];
 
-                  $("#remove-button-config").removeClass("hidden-menu");
-                  $("#upl-config").addClass("hidden-menu");
-                  $("#remove-button").removeClass("hidden-menu");
-                  $("#upload").addClass("hidden-menu");
-                  $("#shape-file").removeClass("hidden-menu");
-                  $("#start-measure").removeClass("hidden-menu");
-                  $("#config-line").append('<div id="string1">'+ shape+"  Modified"+'</div>');
-                  $("#button-line").append('<div id="string">'+ file+'</div>');
-
-                  $("#shape-line").append('<div id="configured" class="italic">File configured</div>');
-
-
-
-                  var url = "location.href='/views/wizard.html?file="+file+"&shapefile="+shape+"'"
-                  $('#config-file').attr('onclick', url);
+      $("#remove-button-config").removeClass("hidden-menu");
+      $("#upl-config").addClass("hidden-menu");
+      $("#remove-button").removeClass("hidden-menu");
+      $("#upload").addClass("hidden-menu");
+      $("#shape-file").removeClass("hidden-menu");
+      $("#start-measure").removeClass("hidden-menu");
+      $("#config-line").append('<div id="string1">'+ shape+"  Modified"+'</div>');
+      $("#button-line").append('<div id="string">'+ file+'</div>');
+      $("#shape-line").append('<div id="configured" class="italic">File configured</div>');
+      console.log(shape)
+      var url = "location.href='/views/wizard.html?file="+file+"'"
+      $('#config-file').attr('onclick', url);
 
 
+    }
+    if(sURLVariables.length===1) {
+      alert(sURLVariables.length + "Arguments")
+      sParameterName = sURLVariables[0].split('=');
+      var file=sParameterName[1];
+      $("#remove-config-file").removeClass("hidden-menu");
+      $("#remove-button").removeClass("hidden-menu");
 
-            }
-              if(sURLVariables.length===1) {
-                alert(sURLVariables.length + "Arguments")
-              sParameterName = sURLVariables[0].split('=');
-              var file=sParameterName[1];
-              $("#remove-config-file").removeClass("hidden-menu");
-              $("#remove-button").removeClass("hidden-menu");
-
-              $("#upload").addClass("hidden-menu");
-              $("#shape-file").removeClass("hidden-menu");
-              $("#button-line").append('<div id="string">'+ file+'</div>');
-              $("#start-measure").removeClass("hidden-menu");
-              var url = "location.href='/views/wizard.html?file="+file+"'"
-              $('#config-file').attr('onclick', url);
-              $("#shape-line").append('<div id="configured" class="italic">File configured</div>');
-              $("#upl-config").addClass("hidden-menu");
-
-
-
-            }
-          }
+      $("#upload").addClass("hidden-menu");
+      $("#shape-file").removeClass("hidden-menu");
+      $("#button-line").append('<div id="string">'+ file+'</div>');
+      $("#start-measure").removeClass("hidden-menu");
+      var url = "location.href='/views/wizard.html"+file+"'";
+      $('#config-file').attr('onclick', url);
+      $("#shape-line").append('<div id="configured" class="italic">File configured</div>');
+      $("#upl-config").addClass("hidden-menu");
+    }
+  }
 
 };
 getUrlParameter();
 
 
-  //script per wizard.html
-  $('#remove-button').on('click', function (){
-    $("#remove-button").addClass("hidden-menu");
-    $("#upload").removeClass("hidden-menu");
-    $("#string").remove();
-    $("#shape-file").addClass("hidden-menu");
-    $("#start-measure").addClass("hidden-menu");
+//script per wizard.html
+$('#remove-button').on('click', function (){
+  $("#remove-button").addClass("hidden-menu");
+  $("#upload").removeClass("hidden-menu");
+  $("#string").remove();
+  $("#shape-file").addClass("hidden-menu");
+  $("#start-measure").addClass("hidden-menu");
 
 
 
-  });
-    $("#remove-config-file").on('click', function (){
-      $("#remove-button-config").addClass("hidden-menu");
-      $("#upl-config").removeClass("hidden-menu");
-      $("#string1").remove();
-      $("#start-measure").addClass("hidden-menu");
-      $("#configured").addClass("hidden-menu");
-      $("#remove-config-file").addClass("hidden-menu");
+});
+$("#remove-config-file").on('click', function (){
+  $("#remove-button-config").addClass("hidden-menu");
+  $("#upl-config").removeClass("hidden-menu");
+  $("#string1").remove();
+  $("#start-measure").addClass("hidden-menu");
+  $("#configured").addClass("hidden-menu");
+  $("#remove-config-file").addClass("hidden-menu");
 
 
-    });
-  $('#remove-button-config').on('click', function (){
-    $("#remove-button-config").addClass("hidden-menu");
-    $("#upl-config").removeClass("hidden-menu");
-    $("#string1").remove();
-    $("#start-measure").addClass("hidden-menu");
-    $("#configured").addClass("hidden-menu");
-    $('#config-file').removeAttr('onclick', url);
-    fileName=$("#string").text();
-    var url = "location.href='/views/wizard.html?file="+fileName+"'"
-    $('#config-file').attr('onclick', url);
+});
+
+$('#remove-button-config').on('click', function (){
+  $("#remove-button-config").addClass("hidden-menu");
+  $("#upl-config").removeClass("hidden-menu");
+  $("#string1").remove();
+  $("#start-measure").addClass("hidden-menu");
+  $("#configured").addClass("hidden-menu");
+  $('#config-file').removeAttr('onclick', url);
+  fileName=$("#string").text();
+  var url = "location.href='/views/wizard.html?file="+fileName+"'"
+  $('#config-file').attr('onclick', url);
 
 
-  });
+});
 
-  </script>
+</script>
 </body>
 </html>
