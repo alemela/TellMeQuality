@@ -1,7 +1,7 @@
 //MEASURES received from the server
 var measures=
 {"accuracy":
-  {"ID":{"Syntactic":25, "Semantic":60,"Data_Assurance":90,"Risk":100,"Data_Model":100},
+  {"ID":{"Syntactic":5, "Semantic":57,"Data_Assurance":90,"Risk":100,"Data_Model":100},
    "EMAIL":{"Syntactic":14, "Semantic":15,"Data_Assurance":16,"Risk":17},
    "DATA":{"Syntactic":18, "Semantic":19,"Data_Assurance":20,"Risk":21}
  },

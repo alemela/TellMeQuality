@@ -15,8 +15,54 @@
          stroke:#000;
          }
          #xaxis text, #yaxis text {
-         font-size: 12px;
+         font-size: 16px;
+         font-weight:300;
          }
+         svg {
+           width: 100%;
+           height: 100%;
+           position: center;
+         }
+
+         .toolTip {
+           font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+           position: absolute;
+           display: none;
+           width: auto;
+           height: auto;
+           background: none repeat scroll 0 0 white;
+           border: 0 none;
+           border-radius: 8px 8px 8px 8px;
+           box-shadow: -3px 3px 15px #888888;
+           color: black;
+           font: 12px sans-serif;
+           padding: 5px;
+           text-align: center;
+         }
+
+         text {
+           font-family: 'Lato', sans-serif;
+           color: white;
+         }
+         text.value {
+           font-size: 10%;
+           fill: white;
+         }
+
+         .axisHorizontal path{
+           fill: none;
+         }
+
+         .axisHorizontal .tick line {
+           stroke-width: 1;
+           stroke: rgba(0, 0, 0, 0.2);
+         }
+
+         .bar {
+           fill: steelblue;
+           fill-opacity: .9;
+         }
+
       </style>
    </head>
    <body>
@@ -28,7 +74,7 @@
       </center>
             <h2>FIELD MEASUREMENTS</h2>
         <h3>In this section every graph is dedicated to a different field. All the standards are reported on the Y axis.</h3>
-        <div class="row">
+        <div class="row top-buffer">
         <div class="col-sm-9">
       <u><div id="data-detail"><u>
       </div>
@@ -44,6 +90,8 @@
       </div>
 
     <div id="hidden-template" style="display:none" ></div>
+    <div id="hidden-odometer" ></div>
+
       <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
       <script src="/public/js/object.js"></script>
       <script src="/public/js/measures_result.js"></script>
@@ -82,6 +130,21 @@
 
     })
   }
+  function drawOdometer()
+  {
+    $("#hidden-odometer").load("/views/template/odometer-tmp.html", function(res, status, xhr) {
+      var temp = document.getElementById('odometer-tmp').innerHTML;
+      for (var i=0; i<Object.keys(measures[current]).length;i++){
+        var field=Object.keys(measures[current])[i]
+          var output = Mustache.render(temp,{"field":Object.keys(measures[current])[i]});
+          $("#odometer-"+field).append(output);
+        }
+      });
+
+
+
+
+  }
   odometer.innerHTML = 0;
 
   $('document').ready( function (){
@@ -89,6 +152,9 @@
     setTimeout(function(){
       odometer.innerHTML = 456;
   }, 1000);
+  setTimeout(function(){
+    odometerID.innerHTML = 456;
+}, 1000);
       })
 
 

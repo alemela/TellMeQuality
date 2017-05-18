@@ -1,21 +1,22 @@
 function drawGraph(field, dollars,categories){
-  var colors = ['#0000b4','#0082ca','#0094ff','#0d4bcf','#0066AE','#074285','#00187B','#285964','#405F83','#416545','#4D7069','#6E9985','#7EBC89','#0283AF','#79BCBF','#99C19E'];
-  var grid = d3.range(25).map(function(i){
-   return {'x1':0,'y1':0,'x2':0,'y2':480};
+  var maxHeight = 70 * categories.length;
+  var svgHeight = maxHeight + 50;
+  var colors = ['#3e7cb0'];
+  var grid = d3.range(11).map(function(i){
+    return {'x1':0,'y1':0,'x2':0,'y2':maxHeight};
   });
 
   var tickVals = grid.map(function(d,i){
-   if(i>0){ return i*10; }
-   else if(i===0){ return "100";}
+     return i*10;
   });
 
     var xscale = d3.scale.linear()
          .domain([0,100])
-         .range([0,722]);
+         .range([0,700]);
 
   var yscale = d3.scale.linear()
          .domain([0,categories.length])
-         .range([0,480]);
+         .range([0,maxHeight]);
 
   var colorScale = d3.scale.quantize()
          .domain([0,categories.length])
@@ -23,7 +24,7 @@ function drawGraph(field, dollars,categories){
 
             var canvas1 = d3.select("#graph-"+field)
                    .append('svg')
-                   .attr({'width':900,'height':550});
+                   .attr({'width':900,'height':svgHeight});
 
   var grids = canvas1.append('g')
            .attr('id','grid')
@@ -32,9 +33,9 @@ function drawGraph(field, dollars,categories){
            .data(grid)
            .enter()
            .append('line')
-           .attr({'x1':function(d,i){ return i*30; },
+           .attr({'x1':function(d,i){ return i*70; },
               'y1':function(d){ return d.y1; },
-              'x2':function(d,i){ return i*30; },
+              'x2':function(d,i){ return i*70; },
               'y2':function(d){ return d.y2; },
            })
            .style({'stroke':'#adadad','stroke-width':'1px'});
@@ -51,15 +52,15 @@ function drawGraph(field, dollars,categories){
      .scale(yscale)
      .tickSize(0)
      .tickFormat(function(d,i){ return categories[i]; })
-     .tickValues(d3.range(17));
+     .tickValues(d3.range(10));
 
   var y_xis = canvas1.append('g')
-           .attr("transform", "translate(150,85)")
+           .attr("transform", "translate(150,45)")
            .attr('id','yaxis')
            .call(yAxis);
 
   var x_xis = canvas1.append('g')
-           .attr("transform", "translate(150,480)")
+           .attr("transform", "translate(150,"+maxHeight+")")
            .attr('id','xaxis')
            .call(xAxis);
 
@@ -70,8 +71,8 @@ function drawGraph(field, dollars,categories){
            .data(dollars)
            .enter()
            .append('rect')
-           .attr('height',19)
-           .attr({'x':0,'y':function(d,i){ return yscale(i)+75; }})
+           .attr('height',29) //barra piu o meno grossa
+           .attr({'x':0,'y':function(d,i){ return yscale(i) + 30; }})
            .style('fill',function(d,i){ return colorScale(i); })
            .attr('width',function(d){ return 0; })
            .transition()
@@ -84,6 +85,7 @@ function drawGraph(field, dollars,categories){
            .data(dollars)
            .enter()
            .append('text')
-           .attr({'x':function(d) {return xscale(d)-40; },'y':function(d,i){ return yscale(i)+90; }})
-           .text(function(d){ return d+"%"; }).style({'fill':'#fff','font-size':'14px'});
+           .attr({'x':function(d) {return xscale(d)+5; },'y':function(d,i){ return yscale(i)+45; }})
+           .text(function(d){ return d+"%"; }).style({'fill':'#3d3d3d','font-size':'14px'});
+
 }

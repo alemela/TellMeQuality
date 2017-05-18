@@ -52,13 +52,12 @@
       </div>
 
       <div id="accuracy" class="row lato">
-        <div class="col-sm-offset-1 col-sm-6">
+        <div class="col-sm-offset-2 col-sm-5">
           <div  class="accuracy_graph left-buffer">
           </div>
         </div>
-        <div class="col-sm-offset-0 col-sm-4 lato">
-          <div id="accuracy-description" class="justified top-buffer">
-          </div>
+        <div class="col-sm-offset-0 col-sm-4 p">
+          <p id="accuracy-description" class="justified top-buffer"></p>
           <center><div id="odometer" class="odometer">
           </div></center>
           <center><h3>  MEASURED DATAPOINTS</h3></center>
@@ -85,17 +84,17 @@
         </div>
       </div>
       <div id="completness" class="row lato">
-        <div class="col-sm-offset-1 col-sm-4 lato">
-          <div id="completness-description" class="lato h2">
+        <div class="col-sm-offset-2 col-sm-5">
+          <div  class="completness_graph left-buffer">
           </div>
+        </div>
+        <div class="col-sm-offset-0 col-sm-4 lato">
+          <h3><div id="completness-description" class="top-buffer">
+          </div></h3>
           <div class="top-buffer">
             <center>
               <button type="button" onclick="location.href='/datavisualization/completness';" class="semi-transparent-button large lato upload ">SHOW VALUES FOR FIELDS</button>
             </center>
-          </div>
-        </div>
-        <div class="col-sm-offset-1 col-sm-6">
-          <div  class="completness_graph left-buffer">
           </div>
         </div>
       </div>
@@ -117,13 +116,13 @@
 
 
       <div id="consistency" class="row lato">
-        <div class="col-sm-offset-1 col-sm-6">
+        <div class="col-sm-offset-2 col-sm-5">
           <div  class="consistency_graph left-buffer">
           </div>
         </div>
         <div class="col-sm-offset-0 col-sm-4 lato">
-          <div id="consistency-description" class="lato h2">
-          </div>
+        <h3>  <div id="consistency-description" class="top-buffer">
+        </div></h3>
             <div class="top-buffer">
             <center>
               <button type="button" onclick="location.href='/datavisualization/consistency';"class="semi-transparent-button large lato upload ">SHOW VALUES FOR FIELDS</button>
@@ -147,17 +146,17 @@
         </div>
       </div>
       <div id="credibility" class="row lato">
-        <div class="col-sm-offset-1 col-sm-4 lato">
-          <div id="credibility-description" class="lato h2">
+        <div class="col-sm-offset-2 col-sm-5">
+          <div  class="credibility_graph left-buffer">
           </div>
+        </div>
+        <div class="col-sm-offset-0 col-sm-4 lato">
+          <h3><div id="credibility-description" class="top-buffer">
+          </div></h3>
           <div class="top-buffer">
             <center>
               <button type="button" onclick="location.href='/datavisualization/credibility';" class="semi-transparent-button large lato upload ">SHOW VALUES FOR FIELDS</button>
             </center>
-          </div>
-        </div>
-        <div class="col-sm-offset-1 col-sm-6">
-          <div  class="credibility_graph left-buffer">
           </div>
         </div>
       </div>
@@ -178,13 +177,13 @@
       </div>
 
       <div id="compliance" class="row lato">
-        <div class="col-sm-offset-1 col-sm-6">
+        <div class="col-sm-offset-2 col-sm-5">
           <div  class="compliance_graph left-buffer">
           </div>
         </div>
         <div class="col-sm-offset-0 col-sm-4 lato">
-          <div id="compliance-description" class="lato h2">
-          </div>
+          <h3><div id="compliance-description" class="lato h2">
+          </div></h3>
           <div class="top-buffer">
             <center>
               <button type="button" onclick="location.href='/datavisualization/compliance';" class="semi-transparent-button large lato upload ">SHOW VALUES FOR FIELDS</button>
@@ -202,87 +201,7 @@
 
 
 
-  <style>
-  #xaxis .domain {
-    fill:none;
-    stroke:#000;
-  }
-  #xaxis text, #yaxis text {
-    font-size: 12px;
-  }
-  .radar-chart .area {
-    fill-opacity: 0.7;
-  }
-  .radar-chart.focus .area {
-    fill-opacity: 0.3;
-  }
-  .radar-chart.focus .area.focused {
-    fill-opacity: 0.9;
-  }
-  .area.accuracy {
-    fill: blue;
-    stroke: none;
-  }
-  .area.completness{
-    fill: #ADD8E6;
-    stroke: none;
-  }
-  .area.credibility{
-    fill: #00ffbb;
-    stroke: none;
-  }
-  .area.consistency{
-    fill: #d2a5ff;
-    stroke: none;
-  }
 
-
-  svg {
-    width: 100%;
-    height: 100%;
-    position: center;
-  }
-
-  .toolTip {
-    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-    position: absolute;
-    display: none;
-    width: auto;
-    height: auto;
-    background: none repeat scroll 0 0 white;
-    border: 0 none;
-    border-radius: 8px 8px 8px 8px;
-    box-shadow: -3px 3px 15px #888888;
-    color: black;
-    font: 12px sans-serif;
-    padding: 5px;
-    text-align: center;
-  }
-
-  text {
-    font: 10px sans-serif;
-    color: white;
-  }
-  text.value {
-    font-size: 120%;
-    fill: white;
-  }
-
-  .axisHorizontal path{
-    fill: none;
-  }
-
-  .axisHorizontal .tick line {
-    stroke-width: 1;
-    stroke: rgba(0, 0, 0, 0.2);
-  }
-
-  .bar {
-    fill: steelblue;
-    fill-opacity: .9;
-  }
-
-  </style>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
   <script src="http://d3js.org/d3.v3.js"></script>
   <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
@@ -416,26 +335,113 @@
           var width = this.getBBox().width;
           return Math.max(width + valueMargin, scale(d.value));
         });
-
         bar
+                   .on("mousemove", function(d){
+                       div.style("left", d3.event.pageX+10+"px");
+                       div.style("top", d3.event.pageY-25+"px");
+                       div.style("display", "inline-block");
+                       div.html((d.label)+"<br>"+(d.value)+"%");
+                   });
+           bar
+                   .on("mouseout", function(d){
+                       div.style("display", "none");
+                   });
 
-        .on("mousemove", function(d){
-                div.style("left", d3.event.pageX+10+"px");
-                div.style("top", d3.event.pageY-25+"px");
-                div.style("display", "inline-block");
-                div.html((d.label)+"<br>"+(d.value)+"%");
-            });
-        bar
-        .on("mouseout", function(d){
-          div.style("display", "none");
-        });
+           svg.insert("g",":first-child")
+                   .attr("class", "axisHorizontal")
+                   .attr("transform", "translate(" + (margin + labelWidth) + ","+ (height - axisMargin - margin)+")")
+                   .call(xAxis);
 
-        svg.insert("g",":first-child")
-        .attr("class", "axisHorizontal")
-        .attr("transform", "translate(" + (margin + labelWidth) + ","+ (height - axisMargin - margin)+")")
-        .call(xAxis);
+
   }
 
 
 
   </script>
+  <style>
+  #xaxis .domain {
+    fill:none;
+    stroke:#000;
+  }
+  #xaxis text, #yaxis text {
+    font-size: 12px;
+  }
+  .radar-chart .area {
+    fill-opacity: 0.7;
+  }
+  .radar-chart.focus .area {
+    fill-opacity: 0.3;
+  }
+  .radar-chart.focus .area.focused {
+    fill-opacity: 0.9;
+  }
+  .area.accuracy {
+    fill: blue;
+    stroke: none;
+  }
+  .area.completness{
+    fill: #ADD8E6;
+    stroke: none;
+  }
+  .area.credibility{
+    fill: #00ffbb;
+    stroke: none;
+  }
+  .area.consistency{
+    fill: #d2a5ff;
+    stroke: none;
+  }
+
+
+  svg {
+    width: 100%;
+    height: 100%;
+    position: center;
+  }
+
+  .toolTip {
+    font-family: 'Lato', sans-serif;
+    position: absolute;
+    display: none;
+    width: auto;
+    height: auto;
+    background: none repeat scroll 0 0 white;
+    border: 0 none;
+    border-radius: 8px 8px 8px 8px;
+    box-shadow: -3px 3px 15px #888888;
+    color: black;
+    font: 12px sans-serif;
+    padding: 5px;
+    text-align: center;
+  }
+
+  text {
+    font-family: 'Lato', sans-serif;
+    color: white;
+  }
+  text.label{
+      font-family: 'Lato', sans-serif;
+      fill: black;
+      font-size: 18px;
+      font-weight: inherit;
+  }
+  text.value {
+    font-size: 120%;
+    fill: white;
+  }
+
+  .axisHorizontal path{
+    fill: none;
+  }
+
+  .axisHorizontal .tick line {
+    stroke-width: 1;
+    stroke: rgba(0, 0, 0, 0.2);
+  }
+
+  .bar {
+    fill: steelblue;
+    fill-opacity: .9;
+  }
+
+  </style>

@@ -56,31 +56,39 @@
 h2
 {   font-family: 'Lato', sans-serif;
     color: black;
-    font-weight: 200;
+    font-weight: 300;
+    font-size:22px;
 
 }
 h3
 {   font-family: 'Lato', sans-serif;
     color: black;
     font-weight: 300;
-    font-size: 130%;
+    font-size:18px;
+}
+p
+{   font-family: 'Lato', sans-serif;
+    color: black;
+    font-weight: 300;
+    font-size:18px;
 }
 
 h5
 {   font-family: 'Lato', sans-serif;
     color: black;
     font-weight: 200;
-    font-size: 200%;
+    font-size: 22px;
 
 
 }
+
 .text{
   font-family: 'Lato', sans-serif;
   font-weight: 200;
   color:white;
   font-size: 300%;
   position: absolute;
-  top: 30%;
+  top: 20%;
   bottom:150%;
   left: 0;
   right: 0;
@@ -260,13 +268,10 @@ text-transform: uppercase;
     }
 
     .justified
-    {   font-family: 'Lato', sans-serif;
-        color: black;
-        font-weight: 200;
-        text-align: justify;
+    {
    text-justify: inter-word;
-   font-weight: 300;
-   font-size: 180%;
+
+
 
     }
     .justified-small

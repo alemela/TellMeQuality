@@ -63,11 +63,11 @@ var current = window.location.pathname.replace("/measure/","");
 $("#title").append(current)
 //Object that will be sent with the POST
 var shapeResult={"accuracy":
-                            {"Syntactic":[], "Semantic":[], "Data_Assurance":[],"Risk":[]},
+                            {"Syntactic":{}, "Semantic":{}, "Data_Assurance":{},"Risk":{}},
                 "completness":
-                            {"Record":[], "Attribute":[],"Completness":[]},
+                            {"Record":{}, "Attribute":{},"Completness":{}},
                 "consistency":
-                            {"Integrity":[]}
+                            {"Integrity":{}}
                 };
   var session_data
   var temp={"temp":[1,2,3]}
@@ -174,7 +174,7 @@ $("#ok").click(function(){
     data: shapeResult,
     success: function(msg){
     }})
-
+console.log(JSON.stringify(session_data_temp))
     sessionStorage.setItem('session_data', JSON.stringify(session_data_temp));
     session_data_temp=JSON.parse(sessionStorage.getItem('session_data'))
     console.log(session_data_temp)
