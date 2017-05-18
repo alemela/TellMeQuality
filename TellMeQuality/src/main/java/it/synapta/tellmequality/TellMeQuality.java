@@ -16,7 +16,7 @@ public class TellMeQuality {
     public static Model mainGraph;
 
     public static void main(String[] args) throws IOException {
-       
+        
         System.out.println("Starting HTTPServer...\n");
         HttpServer HTTPServer = createHttpServer();
         HTTPServer.start();

@@ -82,7 +82,7 @@
       </center>
       <div class="row top-buffer down-buffer">
         <div class="col-sm-12">
-          <button id="req_homepage1"  type="button" onclick="location.href='/views/measure.html';" class="semi-transparent-button large lato">RUN THE MEASUREMENT</button>
+          <button id="req_homepage1"  type="button" class="semi-transparent-button large lato">RUN THE MEASUREMENT</button>
         </div>
       </div>
     </div>
@@ -90,7 +90,18 @@
   </div>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.0.5/vue.min.js"></script>
+  <script src="/public/js/config.js"></script>
   <script>
+
+  $("#req_homepage1").on("click", function (){
+    $.ajax({
+      url: TMQ_SERVER + '/upload/finish',
+      type: 'GET',
+      success: function(data){
+        location.href='/views/measure.html';
+      }
+    })
+  })
 
   var fileName="";
   $("#header-menu").load("/views/template/header.html", function() {
@@ -117,6 +128,7 @@
       // loop through all the selected files
       for (var i = 0; i < files.length; i++) {
         var file = files[i];
+        console.log(file)
 
         // add the files to formData object for the data payload
         formData.append('uploads[]', file, file.name);
@@ -145,11 +157,10 @@
 
       }
       $.ajax({
-        url: '/upload',
+        url: TMQ_SERVER + '/upload/data',
         type: 'POST',
-        data: formData,
-        processData: false,
-        contentType: false,
+        data: "../frontend/uploads/" + fileName,//formData,
+        contentType: "text/plain",
         success: function(data){
           console.log('upload successful!');
         }
@@ -192,11 +203,10 @@
 
       }
       $.ajax({
-        url: '/upload',
+        url: TMQ_SERVER + '/upload/configuration',
         type: 'POST',
-        data: formData,
-        processData: false,
-        contentType: false,
+        data: "../frontend/uploads/" + shapeFile,//formData,
+        contentType: "text/plain",
         success: function(data){
           console.log('upload successful!');
         }

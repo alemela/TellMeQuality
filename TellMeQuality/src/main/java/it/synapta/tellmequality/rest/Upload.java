@@ -12,18 +12,47 @@ import org.json.JSONObject;
  
 @Path("upload")
 public class Upload {
+    
+    String filePath;
+    String configPath;
  
     @POST
+    @Path("data")
     @Consumes(MediaType.TEXT_PLAIN)     
     @Produces(MediaType.TEXT_PLAIN)
-    public String save(String json) {
+    public String saveData(String json) {
+        
+        filePath = json;
+        
+        System.out.println(filePath);
+        return "OOOOK";
+    }
+    
+    @POST
+    @Path("configuration")
+    @Consumes(MediaType.TEXT_PLAIN)     
+    @Produces(MediaType.TEXT_PLAIN)
+    public String saveConfig(String json) {
+        
+        configPath = json;
+        
+        System.out.println(configPath);
+        return "OOOOK";
+    }
+    
+    @GET
+    @Path("finish")
+    @Consumes(MediaType.TEXT_PLAIN)     
+    @Produces(MediaType.TEXT_PLAIN)
+    public String start() {
+        
+        System.out.println("Finish!!!");
         
         Loader loader = new Loader();
-        Model inputData = loader.loadRdfData("src/main/resources/files/pay-example.ttl");
-        Model shape = loader.loadRdfShape("src/main/resources/files/shape.ttl");
+        Model inputData = loader.loadRdfData("../frontend/uploads/data.ttl");
+        Model shape = loader.loadRdfShape("../frontend/uploads/config.ttl");
         loader.mergeDataWithShape(inputData, shape);
         
-        System.out.println(json);
         return "OOOOK";
     }
  

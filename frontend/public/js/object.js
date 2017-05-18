@@ -1,7 +1,7 @@
 //Objects received by the server
 var fields = {
   "ACC":
-    {"ACC-I-1":["ID","NAME","EMAIL"], "ACC-I-2":["ID"], "ACC-I-3":["EMAIL"],"ACC-I-4":["NAME"]},
+    {"ACC-I-1":["ID","NAME","EMAIL"], "ACC-I-2":["ID"], "ACC-I-3":["EMAIL"]},
   "COM":
     {"COM-I-1":["ID"], "COM-I-2":["EMAIL"],"COM-I-3":["NAME"]},
   "CON":
@@ -11,7 +11,7 @@ var fields = {
   "CPL":
     {"CPL-I-1":["ID","NAME"]}
   };
-var list_field=["ID","NAME","DATE","EMAIL","CHART"]
+var list_field=["ID","NAME","DATE","EMAIL","TEST"]
 
 //Object already stored in the server(ALL the possible type of measurement)
 var classes = {

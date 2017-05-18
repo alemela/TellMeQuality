@@ -20,17 +20,18 @@ public class Configure {
     @Path("activeFields")
     @Produces(MediaType.APPLICATION_JSON)
     public String activeFields () {
-        return "{\"accuracy\":\n" +
-"  {\"Syntactic\":[\"ID\",\"NAME\",\"EMAIL\"], \"Semantic\":[\"ID\"], \"Data_Assurance\":[\"EMAIL\"],\"Risk\":[\"NAME\"]},\n" +
-"\"completness\":\n" +
-"  {\"Record\":[\"ID\"], \"Attribute\":[\"EMAIL\"],\"Completness\":[\"NAME\"]},\n" +
-"\"consistency\":\n" +
-"  {\"Integrity\":[\"ID\",\"NAME\",\"EMAIL\"]},\n" +
-"\"credibility\":\n" +
-"  {\"Values\":[\"ID\"]},\n" +
-"\"compliance\":\n" +
-"  {\"Regulatory\":[\"ID\"]}\n" +
-"};";
+        return "{" +
+"  \"ACC\":" +
+"    {\"ACC-I-1\":[\"ID\",\"NAME\",\"EMAIL\"], \"ACC-I-2\":[\"ID\"], \"ACC-I-3\":[\"EMAIL\"]}," +
+"  \"COM\":" +
+"    {\"COM-I-1\":[\"ID\"], \"COM-I-2\":[\"EMAIL\"],\"COM-I-3\":[\"NAME\"]}," +
+"  \"CON\":" +
+"    {\"CON-I-1\":[\"ID\",\"NAME\",\"EMAIL\"]}," +
+"  \"CRE\":" +
+"    {\"CRE-I-1\":[\"ID\"]}," +
+"  \"CPL\":" +
+"    {\"CPL-I-1\":[\"ID\",\"NAME\"]}" +
+"  }";
     }
  
 }

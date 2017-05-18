@@ -17,7 +17,7 @@ public class Measure {
     @Consumes(MediaType.TEXT_PLAIN)     
     @Produces(MediaType.TEXT_PLAIN)
     public String save(String json) {
-        JSONObject conf = new JSONObject("{\"Com-I-2\":[\"tmq:payment\"],\"Acc-I-1\":[\"tmq:payment\",\"tmq:id\"]}");
+        JSONObject conf = new JSONObject("{\"Com-I-2\":[\"tmq:payment\"],\"Acc -I-1\":[\"tmq:payment\",\"tmq:id\"]}");
         return schedule(conf).toString(4);
     }
  

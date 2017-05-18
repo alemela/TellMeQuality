@@ -33,13 +33,14 @@
       });</script>
       <script src="//cdnjs.cloudflare.com/ajax/libs/mustache.js/0.7.2/mustache.min.js"></script>
       <script src="/public/js/object.js"></script>
-      <script src="/public/js/global.js"></script>
 
 <script>
 
-$.getJSON("http://localhost:8070/measure/all", function( data ) {
-  console.log(data)
-})
+$.getJSON("/tmq/configure/allFields", function( list_field ) {
+
+  $.getJSON("/tmq/configure/activeFields", function( fields ) {
+
+
 var session_data=JSON.parse(sessionStorage.getItem('shapeResult'))
 
 
@@ -72,6 +73,8 @@ function drawTemplate () {
 $('document').ready( function (){
 
   drawTemplate();
+})
+})
 })
 </script>
 

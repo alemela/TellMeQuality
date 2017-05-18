@@ -231,11 +231,11 @@
     $("#consistency").addClass("hidden-menu")
     $("#credibility").addClass("hidden-menu")
     $("#compliance").addClass("hidden-menu")
-    $("#accuracy-description").append(definition.accuracy)
-    $("#completness-description").append(definition.completness)
-    $("#consistency-description").append(definition.consistency)
-    $("#credibility-description").append(definition.credibility)
-    $("#compliance-description").append(definition.compliance)
+    $("#accuracy-description").append(definition[initialDict.accuracy].description)
+    $("#completness-description").append(definition[initialDict.completness].description)
+    $("#consistency-description").append(definition[initialDict.consistency].description)
+    $("#credibility-description").append(definition[initialDict.credibility].description)
+    $("#compliance-description").append(definition[initialDict.compliance].description)
 
 
     for(t in data)

@@ -5,7 +5,7 @@ var bodyParser = require('body-parser');
 var path = require('path');
 var formidable = require('formidable');
 var fs = require('fs');
-var router = require ("./backend/router.js")
+var request = require('request');
 
 
 //NEXT TWO LINES FOR READ BODY FROM POST
@@ -49,9 +49,10 @@ app.get('/datavisualization/compliance', function (req, res) {
    res.sendFile( __dirname + "/views/datavisualization_detail.html"  );
 })
 
-app.get('/Tell_Me_Quality_Client', function (req, res) {
-   console.log("Got a Tell_Me_Quality_Client request");
-   res.sendFile( __dirname + "/" + "Tell_Me_Quality_Client.html" );
+app.get('/tmq/:path*', function (req, res) {
+   request('http://localhost:8085/'+ req.params.path + req.params[0], function (error, response, body) {
+       res.send(JSON.parse(body));
+   });
 })
 
 app.post('/file-upload', function(req, res) {

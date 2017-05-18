@@ -56,11 +56,14 @@
     <script>
 
 
-
     //take the value from the url to undertand the type of measurement
     var current = window.location.pathname.replace("/measure/","");
     current = initialDict[current];
 
+
+$.getJSON("/tmq/configure/allFields", function( list_field ) {
+
+  $.getJSON("/tmq/configure/activeFields", function( fields ) {
     //Appne the title
     $("#title").append(definition[current].title)
     //Object that will be sent with the POST
@@ -186,7 +189,8 @@
     });
 
 
-
+});
+});
     </script>
 
     <script src="/public/js/tmp-value.js"></script>
