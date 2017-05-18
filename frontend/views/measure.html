@@ -44,28 +44,21 @@ var session_data=JSON.parse(sessionStorage.getItem('shapeResult'))
 
 
 
-var objectData = {"accuracy":["syntactic","semantic"],
-                  "completness":["record","attribute","completness"],
-                  "consistency":["Integrity"],
-                  "credibility":["Values","Source credibility"],
-                  "compliance":["Regulatory"]}
-                ;
-
 //Number of possible measurement to perform and total number of possible measurement
-var n_of_measurement= {"accuracy":Object.keys(fields["accuracy"]).length,
-                       "completness":Object.keys(fields["completness"]).length,
-                       "consistency":Object.keys(fields["consistency"]).length,
-                       "credibility":Object.keys(fields["credibility"]).length,
-                       "compliance":Object.keys(fields["compliance"]).length,
-                       "total-accuracy":Object.keys(classes["accuracy"]).length,
-                       "total-completness":Object.keys(classes["completness"]).length,
-                       "total-consistency":Object.keys(classes["consistency"]).length,
-                       "total-credibility":Object.keys(classes["credibility"]).length,
-                       "total-compliance":Object.keys(classes["compliance"]).length};
+var n_of_measurement= {"accuracy":Object.keys(fields["ACC"]).length,
+                       "completness":Object.keys(fields["COM"]).length,
+                       "consistency":Object.keys(fields["CON"]).length,
+                       "credibility":Object.keys(fields["CRE"]).length,
+                       "compliance":Object.keys(fields["CPL"]).length,
+                       "total-accuracy":Object.keys(classes["ACC"]).length,
+                       "total-completness":Object.keys(classes["COM"]).length,
+                       "total-consistency":Object.keys(classes["CON"]).length,
+                       "total-credibility":Object.keys(classes["CRE"]).length,
+                       "total-compliance":Object.keys(classes["CPL"]).length};
 
 
 function drawTemplate () {
-  $("#av-measurement").load("/views/template/available.html", function(res, status, xhr) {
+  $("#av-measurement").load("/views/template/measure_available.html", function(res, status, xhr) {
       var template = document.getElementById('available').innerHTML;
 
       var output = Mustache.render(template, n_of_measurement);

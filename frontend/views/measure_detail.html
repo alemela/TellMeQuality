@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Accuracy Detail</title>
+
+  <link rel="stylesheet" type="text/css" href="/public/css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="/public/css/style_animation.css">
+  <link rel="stylesheet" type="text/css" href="/public/css/mystyle.css">
+
+  <link href="https://fonts.googleapis.com/css?family=Lato:100,100i,300,300i,400" rel="stylesheet">
+</head>
+<body>
+  <div id="header-menu"></div>
+  <div class="container-fluid ">
+    <div class="row top-buffer">
+      <div class="col-sm-4">
+        <h2>
+          <div id="title" class="allcaps">
+          </div>
+        </h2>
+      </div>
+      <div id="select-all">
+      </div>
+    </div>
+    <div id="new-home"></div>
+    <div class="row top-buffer">
+      <div class=" col-sm-offset-5 col-sm-2 down-buffer">
+        <button id="ok" type="button" onclick="location.href='/views/measure.html'" class="semi-transparent-button large lato ">OK</button>
+      </div>
+    </div>
+
+    <div id="hidden-template" style="display:none">
+    </div>
+    <div id="hidden-template-all" style="display:none" >
+    </div>
+
+    <!--End of container !-->
+    <div id="hidden-field-template" style="display:none"></div>
+
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script>  $("#header-menu").load("/views/template/header.html", function() {
+      $("#menu-upload").removeClass("hidden-menu");
+      $("#menu-measure").removeClass("hidden-menu");
+    });
+
+    </script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/mustache.js/0.7.2/mustache.min.js"></script>
+    <script src="/public/js/object.js"></script>
+
+
+    <script>
+
+
+
+    //take the value from the url to undertand the type of measurement
+    var current = window.location.pathname.replace("/measure/","");
+    current = initialDict[current];
+
+    //Appne the title
+    $("#title").append(definition[current].title)
+    //Object that will be sent with the POST
+    var shapeResult={"ACC":
+    {"ACC-I-1":{}, "ACC-I-2":{}, "ACC-I-3":{},"ACC-I-4":{}},
+    "COM":
+    {"COM-I-1":{}, "COM-I-2":{},"COM-I-3":{}},
+    "CON":
+    {"CON-I-1":{}}
+  };
+  var session_data
+  var temp={"temp":[1,2,3]}
+  //Function to draw all the checkboxes for every different available type of measurement.
+  function drawTemplate () {
+    $("#hidden-template").load("/views/template/measure_field-tmp.html", function(res, status, xhr) {
+      var template = document.getElementById('field-tmp').innerHTML;
+      //LOOP that cycles on different type of measurements (Syntactic, Semanc)
+      for (var k=0; k<Object.keys(fields[current]).length; k++){
+
+        var field = Object.keys(fields[current])[k]
+        for(var i=0; i<list_field.length; i++)
+        {
+          var output = Mustache.render(template,{"value":list_field[i],"field":field});
+          $("#field-render-"+field).append(output);
+          var target="#"+field+"_"+list_field[i]
+          //Remove opacity for fields that can't be measured and for the others add the title
+          if(fields[current][field].includes(list_field[i]))
+          {
+            $(target).removeClass("opacity")
+            $(target+"_box").prop("disabled", false)
+
+          }
+          else {
+            $(target).prop('title', 'Can\'t choose this option');
+
+          }
+        }
+      }
+
+    })
+  }
+  //SELECT ALL CHECKBOXES
+  function drawTemplateAll () {
+    $("#hidden-template-all").load("/views/template/measure_field-tmp-all.html", function(res, status, xhr) {
+      var temp = document.getElementById('field-tmp-all').innerHTML;
+      for(var i=0; i<list_field.length; i++)
+      {
+        var output = Mustache.render(temp,{"value":list_field[i]});
+        $("#select-all").append(output);
+      }
+
+    })
+  }
+  $('document').ready( function (){
+
+    drawTemplate();
+    drawTemplateAll();
+
+
+  })
+  //Press a select-all button
+  $("#select-all").on('click',".select-all",function(){
+    var name=$(this).closest('div').attr('id')
+    name=name.split("_")[0]
+    var tocheck=$("body").find(".check_"+name)
+
+    if($('#_'+name+'_box_ALL').is(":checked"))
+    {
+      for(t in tocheck)
+      {
+        if(!tocheck[t].disabled)
+        tocheck[t].checked=true
+      }
+    }
+    else {
+      for(t in tocheck)
+      {
+        if(!tocheck[t].disabled)
+        tocheck[t].checked=false
+      }
+    }
+  })
+
+
+  var value;
+  //Check all the values in the checkbox and modify the shapeResult object
+  $("#ok").click(function(){
+    var tocheck=$("#new-home").find("input[type=checkbox]")
+    var field;
+    var temp;
+    for(var t=0; t<tocheck.length; t++)
+    {
+      var id=tocheck[t].id
+      if($("#"+id).is(":checked")){
+        temp=id.split("_")
+        value=temp[0]
+        field=temp[1]
+        shapeResult[current][value][field]=1;
+      } else if (!tocheck[t].disabled) {
+        temp=id.split("_")
+        value=temp[0]
+        field=temp[1]
+        shapeResult[current][value][field]=0;
+      }
+    }
+    var session_data_temp=shapeResult
+    console.log(session_data_temp)
+
+    //Save in session sessionStorage
+    $.ajax({
+      type: 'POST',
+      url: 'http://localhost:8070/load',
+      data: shapeResult,
+      success: function(msg){
+      }})
+      console.log(JSON.stringify(session_data_temp))
+      sessionStorage.setItem('session_data', JSON.stringify(session_data_temp));
+      session_data_temp=JSON.parse(sessionStorage.getItem('session_data'))
+      console.log(session_data_temp)
+
+
+
+    });
+
+
+
+    </script>
+
+    <script src="/public/js/tmp-value.js"></script>
+
+  </body>
+  </html>

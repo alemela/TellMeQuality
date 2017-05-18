@@ -78,7 +78,7 @@
 
 
   function drawTemplate () {
-    $("#shape-fields-hidden").load("/views/template/shape-field.html", function(res, status, xhr) {
+    $("#shape-fields-hidden").load("/views/template/wizard_shape-field.html", function(res, status, xhr) {
       var template = document.getElementById('form-template').innerHTML;
       for (var i=0; i<objectData.length; i++)
       {
@@ -91,7 +91,7 @@
   }
 
   function drawForm (section,listID) {
-    $("#metadata-lines-hidden").load("/views/template/metadata-line.html", function(res, status, xhr) {
+    $("#metadata-lines-hidden").load("/views/template/wizard_metadata-line.html", function(res, status, xhr) {
       var template = document.getElementById('form-block').innerHTML;
       var output = Mustache.render(template, {"name": section + "§" + counter++,"form":"id","List":ListID});
       $("#form-" + section).append(output);

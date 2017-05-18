@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Available Measurements</title>
+  <link rel="stylesheet" type="text/css" href="/public/css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="/public/css/style_animation.css">
+  <link rel="stylesheet" type="text/css" href="/public/css/mystyle.css">
+  <link href="https://fonts.googleapis.com/css?family=Lato:100,100i,300,300i,400" rel="stylesheet">
+  <style>
+  #xaxis .domain {
+    fill:none;
+    stroke:#000;
+  }
+  #xaxis text, #yaxis text {
+    font-size: 16px;
+    font-weight:300;
+  }
+  svg {
+    width: 100%;
+    height: 100%;
+    position: center;
+  }
+
+  .toolTip {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    position: absolute;
+    display: none;
+    width: auto;
+    height: auto;
+    background: none repeat scroll 0 0 white;
+    border: 0 none;
+    border-radius: 8px 8px 8px 8px;
+    box-shadow: -3px 3px 15px #888888;
+    color: black;
+    font: 12px sans-serif;
+    padding: 5px;
+    text-align: center;
+  }
+
+  text {
+    font-family: 'Lato', sans-serif;
+    color: white;
+  }
+  text.value {
+    font-size: 10%;
+    fill: white;
+  }
+
+  .axisHorizontal path{
+    fill: none;
+  }
+
+  .axisHorizontal .tick line {
+    stroke-width: 1;
+    stroke: rgba(0, 0, 0, 0.2);
+  }
+
+  .bar {
+    fill: steelblue;
+    fill-opacity: .9;
+  }
+
+  </style>
+</head>
+<body>
+  <div id="header-menu"></div>
+  <div class="container-fluid ">
+    <center>
+      <h2><div id="title" class="allcaps"></h2>
+        <h3><div id="description"></h3>
+        </center>
+        <h2>FIELD MEASUREMENTS</h2>
+        <h3>In this section every graph is dedicated to a different field. All the standards are reported on the Y axis.</h3>
+        <div class="row top-buffer">
+          <div class="col-sm-9">
+            <u><div id="data-detail"><u>
+            </div>
+          </div>
+          <div class="col-sm-3">
+            <div class="top-buffer">
+              <center><div id="odometer" class="odometer top-buffer">
+              </div></center>
+              <center><h3>  MEASURED DATAPOINTS</h3></center>
+            </div>
+          </div>
+
+        </div>
+
+        <div id="hidden-template" style="display:none" ></div>
+        <div id="hidden-odometer" ></div>
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+        <script src="/public/js/object.js"></script>
+        <script src="/public/js/measures_result.js"></script>
+        <script src="/public/js/bar_chart_detail.js"></script>
+        <link rel="stylesheet" href="http://github.hubspot.com/odometer/themes/odometer-theme-default.css" />
+        <script src="http://github.hubspot.com/odometer/odometer.js"></script>
+
+
+        <script>  $("#header-menu").load("/views/template/header.html", function() {
+          $("#menu-upload").removeClass("hidden-menu");
+          $("#menu-measure").removeClass("hidden-menu");
+          $("#data-visualization").removeClass("hidden-menu");
+        });
+        </script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/mustache.js/0.7.2/mustache.min.js"></script>
+        <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+        <script src="/public/js/measures_result.js"></script>
+
+        <script>
+
+        var current = window.location.pathname.replace("/datavisualization/","");
+
+        $("#description").append(definition[current])
+        function drawTemplate () {
+          $("#hidden-template").load("/views/template/dataviz_detail-tmp.html", function(res, status, xhr) {
+            var temp = document.getElementById('data-detail-template').innerHTML;
+            for (var i=0; i<Object.keys(measures[current]).length;i++){
+              var output = Mustache.render(temp,{"field":Object.keys(measures[current])[i]});
+              $("#data-detail").append(output);
+              var field=Object.keys(measures[current])[i]
+              var list=Object.values(measures[current][field])
+              console.log(list)
+              var categories= Object.keys(measures[current][field])
+              var dollars = list;
+              drawGraph(field, dollars, categories);
+            }
+
+          })
+        }
+        function drawOdometer()
+        {
+          $("#hidden-odometer").load("/views/template/dataviz_odometer-tmp.html", function(res, status, xhr) {
+            var temp = document.getElementById('odometer-tmp').innerHTML;
+            for (var i=0; i<Object.keys(measures[current]).length;i++){
+              var field=Object.keys(measures[current])[i]
+              var output = Mustache.render(temp,{"field":Object.keys(measures[current])[i]});
+              $("#odometer-"+field).append(output);
+            }
+          });
+
+
+
+
+        }
+        odometer.innerHTML = 0;
+
+        $('document').ready( function (){
+          $("#title").append(current)
+          setTimeout(function(){
+            odometer.innerHTML = 456;
+          }, 1000);
+          setTimeout(function(){
+            odometerID.innerHTML = 456;
+          }, 1000);
+        })
+
+
+        var field=Object.keys(measures[current])[0]
+
+        drawTemplate()
+
+
+
+
+        </script>
+        <script>
+
+        </script>
+
+      </body>
+      </html>

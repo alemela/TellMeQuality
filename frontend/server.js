@@ -14,42 +14,39 @@ app.use(bodyParser.json());
 
 app.use(express.static(__dirname + '/.'));
 app.use(morgan('common'))
-// This responds with LICENSE when asking LICENSE
-/*app.get('/', function(req, res){
-  res.sendFile(path.join(__dirname, '/Tell_Me_Quality_Client.html'));
-});*/
+
 
 app.get('/measure/accuracy', function (req, res) {
-   res.sendFile( __dirname + "/views/detail/detail_fields.html" );
+   res.sendFile( __dirname + "/views/measure_detail.html" );
 })
 app.get('/measure/completness', function (req, res) {
-   res.sendFile( __dirname + "/views/detail/detail_fields.html" );
+   res.sendFile( __dirname + "/views/measure_detail.html" );
 })
 app.get('/measure/consistency', function (req, res) {
-   res.sendFile( __dirname + "/views/detail/detail_fields.html" );
+   res.sendFile( __dirname + "/views/measure_detail.html" );
 })
 app.get('/measure/credibility', function (req, res) {
-   res.sendFile( __dirname + "/views/detail/detail_fields.html" );
+   res.sendFile( __dirname + "/views/measure_detail.html" );
 })
 app.get('/measure/compliance', function (req, res) {
-   res.sendFile( __dirname + "/views/detail/detail_fields.html" );
+   res.sendFile( __dirname + "/views/measure_detail.html" );
 })
 
 
 app.get('/datavisualization/accuracy', function (req, res) {
-   res.sendFile( __dirname + "/views/data_detail.html" );
+   res.sendFile( __dirname + "/views/datavisualization_detail.html" );
 })
 app.get('/datavisualization/completness', function (req, res) {
-   res.sendFile( __dirname + "/views/data_detail.html"  );
+   res.sendFile( __dirname + "/views/datavisualization_detail.html"  );
 })
 app.get('/datavisualization/consistency', function (req, res) {
-   res.sendFile( __dirname + "/views/data_detail.html" );
+   res.sendFile( __dirname + "/views/datavisualization_detail.html" );
 })
 app.get('/datavisualization/credibility', function (req, res) {
-   res.sendFile( __dirname + "/views/data_detail.html"  );
+   res.sendFile( __dirname + "/views/datavisualization_detail.html"  );
 })
 app.get('/datavisualization/compliance', function (req, res) {
-   res.sendFile( __dirname + "/views/data_detail.html"  );
+   res.sendFile( __dirname + "/views/datavisualization_detail.html"  );
 })
 
 app.get('/Tell_Me_Quality_Client', function (req, res) {
