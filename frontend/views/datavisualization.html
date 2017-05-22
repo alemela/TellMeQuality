@@ -51,17 +51,23 @@
         </div>
       </div>
 
-      <div id="accuracy" class="row lato">
-        <div class="col-sm-offset-2 col-sm-5">
+      <div id="accuracy" class="transition">
+        <div  class="row lato">
+        <div class="col-sm-offset-1 col-sm-8">
           <div  class="accuracy_graph left-buffer">
           </div>
         </div>
-        <div class="col-sm-offset-0 col-sm-4 p">
-          <p id="accuracy-description" class="justified top-buffer"></p>
+        <div class="col-sm-offset-0 col-sm-2 p top-buffer">
           <center><div id="odometer" class="odometer">
           </div></center>
           <center><h3>  MEASURED DATAPOINTS</h3></center>
-          <div class="top-buffer">
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-offset-1 col-sm-4 p">
+          <p id="accuracy-description" class="justified top-buffer"></p>
+        </div>
+          <div class=" col-sm-offset-0 col-sm-3 top-buffer">
             <center>
               <button type="button" onclick="location.href='/datavisualization/accuracy';" class="semi-transparent-button large lato upload ">SHOW VALUES FOR FIELDS</button>
             </center>
@@ -207,7 +213,6 @@
   <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
   <script src="https://rawgit.com/tpreusse/radar-chart-d3/master/src/radar-chart.js"></script>
   <script type="text/javascript" src="../public/js/radar.js"></script>
-  <script type="text/javascript" src="/public/js/measures_result.js"></script>
   <script type="text/javascript" src="/public/js/bar_chart.js"></script>
   <script type="text/javascript" src="/public/js/object.js"></script>
   <!-- Odometr includes -->
@@ -238,6 +243,21 @@
     $("#compliance-description").append(definition[initialDict.compliance].description)
 
 
+  var data = {"accuracy":{"Syntactic":5, "Semantic":57,"Data_Assurance":90,"Risk":100,"Data_Model":100},
+              "completness":{"Syntactic":5, "Semantic":57,"Data_Assurance":90,"Risk":100,"Data_Model":100},
+              "consistency":{"Syntactic":25, "Semantic":57,"Data_Assurance":90,"Risk":100,"Data_Model":100}
+             };
+
+  for(t in data)
+  {
+    var field=t;
+    var list=Object.values(data[t]);
+    var categories= Object.keys(data[t])
+    var dollars = list;
+    drawGraph(field,dollars,categories);
+  }
+
+//Possible and impossible measurements
     for(t in data)
     {
         $("#"+t+"_show").removeClass("hidden-menu")
@@ -248,8 +268,11 @@
   $("body").on('click',".show-button",function(){
     var field=this.id.split("_")
     field=field[0]
-    $("#"+field).removeClass("hidden-menu").fadeIn( "slow" )
+    $("#"+field).removeClass("hidden-menu")
     $("#"+field+"_show").addClass("hidden-menu")
+    setTimeout(function () {
+     box.removeClass('visuallyhidden');
+   }, 20)
     $("#"+field+"_hide").removeClass("hidden-menu")
     setTimeout(function(){
       odometer.innerHTML = 456;
@@ -266,97 +289,101 @@
     odometer.innerHTML =0;
   })
 
-  for(var t in data)
-  {
-        var div = d3.select("body").append("div").attr("class", "toolTip");
-        var axisMargin = 20,
-        margin = 40,
-        valueMargin = 4,
-        width =550,
-        height =500,
-        barHeight = (height-axisMargin-margin*2)* 0.4/data[t].length,
-        barPadding = (height-axisMargin-margin*2)*0.6/data[t].length,
-        data, bar, svg, scale, xAxis, labelWidth = 0;
-
-        max = d3.max(data[t], function(d) { return d.value; });
-        svg = d3.select("."+t+"_graph")
-        .append("svg")
-        .attr("width", width)
-        .attr("height", height);
-
-
-        bar = svg.selectAll("g")
-        .data(data[t])
-        .enter()
-        .append("g");
-
-        bar.attr("class", "bar")
-        .attr("cx",0)
-        .attr("transform", function(d, i) {
-          return "translate(" + margin + "," + (i * (barHeight + barPadding) + barPadding) + ")";
-        });
-
-        bar.append("text")
-        .attr("class", "label")
-        .attr("y", barHeight / 2)
-        .attr("dy", ".35em") //vertical align middle
-        .text(function(d){
-          return d.label;
-        }).each(function() {
-          labelWidth = Math.ceil(Math.max(labelWidth, this.getBBox().width));
-        });
-
-        scale = d3.scale.linear()
-        .domain([0, 100])
-        .range([0, width - margin*2 - labelWidth]);
-
-        xAxis = d3.svg.axis()
-        .scale(scale)
-        .tickSize(-height + 2*margin + axisMargin)
-        .orient("bottom");
-
-        bar.append("rect")
-        .attr("transform", "translate("+labelWidth+", 0)")
-        .attr("height", barHeight)
-        .attr("width", function(d){
-          return scale(d.value);
-        });
-
-        bar.append("text")
-        .attr("class", "value")
-        .attr("y", barHeight / 2)
-        .attr("dx", -valueMargin + labelWidth) //margin right
-        .attr("dy", ".35em") //vertical align middle
-        .attr("text-anchor", "end")
-        .text(function(d){
-          return (d.value+"%");
-        })
-        .attr("x", function(d){
-          var width = this.getBBox().width;
-          return Math.max(width + valueMargin, scale(d.value));
-        });
-        bar
-                   .on("mousemove", function(d){
-                       div.style("left", d3.event.pageX+10+"px");
-                       div.style("top", d3.event.pageY-25+"px");
-                       div.style("display", "inline-block");
-                       div.html((d.label)+"<br>"+(d.value)+"%");
-                   });
-           bar
-                   .on("mouseout", function(d){
-                       div.style("display", "none");
-                   });
-
-           svg.insert("g",":first-child")
-                   .attr("class", "axisHorizontal")
-                   .attr("transform", "translate(" + (margin + labelWidth) + ","+ (height - axisMargin - margin)+")")
-                   .call(xAxis);
-
-
-  }
 
 
 
+
+function drawGraph(field, dollars, categories)
+{
+  var maxHeight = 70 * categories.length;
+  var svgHeight = maxHeight + 50;
+  var colors = ['#3e7cb0'];
+  var grid = d3.range(11).map(function(i){
+    return {'x1':0,'y1':0,'x2':0,'y2':maxHeight};
+  });
+
+  var tickVals = grid.map(function(d,i){
+     return i*10;
+  });
+
+    var xscale = d3.scale.linear()
+         .domain([0,100])
+         .range([0,700]);
+
+  var yscale = d3.scale.linear()
+         .domain([0,categories.length])
+         .range([0,maxHeight]);
+
+  var colorScale = d3.scale.quantize()
+         .domain([0,categories.length])
+         .range(colors);
+
+            var canvas1 = d3.select("."+t+"_graph")
+                   .append('svg')
+                   .attr({'width':1000,'height':svgHeight});
+
+  var grids = canvas1.append('g')
+           .attr('id','grid')
+           .attr('transform','translate(150,10)')
+           .selectAll('line')
+           .data(grid)
+           .enter()
+           .append('line')
+           .attr({'x1':function(d,i){ return i*70; },
+              'y1':function(d){ return d.y1; },
+              'x2':function(d,i){ return i*70; },
+              'y2':function(d){ return d.y2; },
+           })
+           .style({'stroke':'#adadad','stroke-width':'1px'});
+
+  var	xAxis = d3.svg.axis();
+   xAxis
+     .orient('bottom')
+     .scale(xscale)
+     .tickValues(tickVals);
+
+  var	yAxis = d3.svg.axis();
+   yAxis
+     .orient('left')
+     .scale(yscale)
+     .tickSize(0)
+     .tickFormat(function(d,i){ return categories[i]; })
+     .tickValues(d3.range(10));
+
+  var y_xis = canvas1.append('g')
+           .attr("transform", "translate(150,45)")
+           .attr('id','yaxis')
+           .call(yAxis);
+
+  var x_xis = canvas1.append('g')
+           .attr("transform", "translate(150,"+maxHeight+")")
+           .attr('id','xaxis')
+           .call(xAxis);
+
+  var chart = canvas1.append('g')
+           .attr("transform", "translate(150,0)")
+           .attr('id','bars-'+field)
+           .selectAll('rect')
+           .data(dollars)
+           .enter()
+           .append('rect')
+           .attr('height',29) //barra piu o meno grossa
+           .attr({'x':0,'y':function(d,i){ return yscale(i) + 30; }})
+           .style('fill',function(d,i){ return colorScale(i); })
+           .attr('width',function(d){ return 0; })
+           .transition()
+           .duration(1000)
+           .attr("width", function(d) {return xscale(d); });
+
+
+  var transitext = d3.select('#bars-'+field)
+           .selectAll('text')
+           .data(dollars)
+           .enter()
+           .append('text')
+           .attr({'x':function(d) {return xscale(d)+5; },'y':function(d,i){ return yscale(i)+45; }})
+           .text(function(d){ return d+"%"; }).style({'fill':'#3d3d3d','font-size':'14px'});
+}
   </script>
   <style>
   #xaxis .domain {

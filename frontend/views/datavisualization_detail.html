@@ -111,7 +111,18 @@
         <script src="/public/js/measures_result.js"></script>
 
         <script>
-
+        var measures=
+        {"accuracy":
+          {"ID":{"Syntactic":5, "Semantic":57,"Data_Assurance":90,"Risk":100,"Data_Model":100},
+           "EMAIL":{"Syntactic":14, "Semantic":15,"Data_Assurance":16,"Risk":17},
+           "DATA":{"Syntactic":18, "Semantic":19,"Data_Assurance":20,"Risk":21}
+         },
+          "completness":
+            {"ID":{"Syntactic":22, "Semantic":23,"Data_Assurance":24,"Risk":25},
+             "EMAIL":{"Syntactic":26, "Semantic":27,"Data_Assurance":28,"Risk":29},
+             "DATA":{"Syntactic":30, "Semantic":31,"Data_Assurance":32,"Risk":33}
+            }
+        };
         var current = window.location.pathname.replace("/datavisualization/","");
 
         $("#description").append(definition[current])
@@ -140,11 +151,7 @@
               var output = Mustache.render(temp,{"field":Object.keys(measures[current])[i]});
               $("#odometer-"+field).append(output);
             }
-          });
-
-
-
-
+          })
         }
         odometer.innerHTML = 0;
 

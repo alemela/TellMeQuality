@@ -284,3 +284,8 @@ text-transform: uppercase;
    font-size: 120%;
 
     }
+.transition
+{
+  transition: all 2s linear;
+
+}

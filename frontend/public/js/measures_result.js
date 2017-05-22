@@ -13,10 +13,10 @@ var measures=
 };
 //Object with values for measurements
 var data={"accuracy":[
-  {label:"Syntactic", value:19},
-  {label:"Semantic", value:15},
-  {label:"Data Assurance", value:13},
-  {label:"Risk of data set inaccuracy", value:100}
+  {"Syntactic":19},
+  {"Semantic":15},
+  {"Data Assurance":13},
+  {"Risk of data set inaccuracy" value:100}
 ],
 "completness":[
   {label:"1", value:13},
