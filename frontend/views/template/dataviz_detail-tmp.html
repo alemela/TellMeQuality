@@ -1,8 +1,20 @@
 <div id="data-detail-template">
-<div id="{{field}}">
-<h3>{{field}}</h3>
-<div id="graph-{{field}}">
+  <div class="row">
+    <div class="col-sm-offset-1">
+    <div id="{{field}}">
+    <h3>{{field}}</h3>
+  </div>
 </div>
+</div>
+    <div class="row top-buffer">
+      <div class="col-sm-9">
+        <div id="graph-{{field}}">  </div>
+      </div>
+      <div class="col-sm-3">
+        <div id="odometer-{{field}}"></div>
+      </div>
+    </div>
+  </div>
 
 
 </div>

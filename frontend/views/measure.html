@@ -1,82 +1,77 @@
 <!DOCTYPE html>
 <html>
-   <head>
-      <meta charset="utf-8">
-      <meta http-equiv="X-UA-Compatible" content="IE=edge">
-      <meta name="viewport" content="width=device-width, initial-scale=1">
-      <title>Available Measurements</title>
-      <link rel="stylesheet" type="text/css" href="/public/css/bootstrap.min.css">
-      <link rel="stylesheet" type="text/css" href="/public/css/style_animation.css">
-      <link rel="stylesheet" type="text/css" href="/public/css/mystyle.css">
-      <link href="https://fonts.googleapis.com/css?family=Lato:100,100i,300,300i,400" rel="stylesheet">
-   </head>
-   <body>
-     <div id="header-menu"></div>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Available Measurements</title>
+  <link rel="stylesheet" type="text/css" href="/public/css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="/public/css/style_animation.css">
+  <link rel="stylesheet" type="text/css" href="/public/css/mystyle.css">
+  <link href="https://fonts.googleapis.com/css?family=Lato:100,100i,300,300i,400" rel="stylesheet">
+</head>
+<body>
+  <div id="header-menu"></div>
 
   <div class="container-fluid ">
     <div class="lato">
-       <h3>In this page you can find all the possible type of measurements you can perform.
-         <p>Click on the respective button to find more details. If you want to improve the performance of the measurement go back in the main page and add some more metadata</p></h3>
-    </div>
-    <div id="measurement"></div>
+      <h3>In this page you can find all the possible type of measurements you can perform.
+        <p>Click on the respective button to find more details. If you want to improve the performance of the measurement go back in the main page and add some more metadata</p></h3>
+      </div>
+      <div id="measurement"></div>
 
-    <div id="av-measurement" style="display:none"></div>
-
-
-  </div><!--Container!-->
+      <div id="av-measurement" style="display:none"></div>
 
 
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    </div><!--Container!-->
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script>  $("#header-menu").load("/views/template/header.html", function() {
-        $("#menu-upload").removeClass("hidden-menu");
-        $("#menu-measure").removeClass("hidden-menu");
-      });</script>
-      <script src="//cdnjs.cloudflare.com/ajax/libs/mustache.js/0.7.2/mustache.min.js"></script>
-      <script src="/public/js/object.js"></script>
+      $("#menu-upload").removeClass("hidden-menu");
+      $("#menu-measure").removeClass("hidden-menu");
+    });</script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/mustache.js/0.7.2/mustache.min.js"></script>
+    <script src="/public/js/object.js"></script>
 
-<script>
+    <script>
 
-$.getJSON("/tmq/configure/allFields", function( list_field ) {
-
-  $.getJSON("/tmq/configure/activeFields", function( fields ) {
-
-
-var session_data=JSON.parse(sessionStorage.getItem('shapeResult'))
-
-
-
-//Number of possible measurement to perform and total number of possible measurement
-var n_of_measurement= {"accuracy":Object.keys(fields["ACC"]).length,
-                       "completness":Object.keys(fields["COM"]).length,
-                       "consistency":Object.keys(fields["CON"]).length,
-                       "credibility":Object.keys(fields["CRE"]).length,
-                       "compliance":Object.keys(fields["CPL"]).length,
-                       "total-accuracy":Object.keys(classes["ACC"]).length,
-                       "total-completness":Object.keys(classes["COM"]).length,
-                       "total-consistency":Object.keys(classes["CON"]).length,
-                       "total-credibility":Object.keys(classes["CRE"]).length,
-                       "total-compliance":Object.keys(classes["CPL"]).length};
+    $.getJSON("/tmq/configure/allFields").done( function( list_field ) {
+      console.log("Valid JSON");
+      $.getJSON("/tmq/configure/activeFields", function( fields ) {
+        var session_data=JSON.parse(sessionStorage.getItem('shapeResult'))
+        //Number of possible measurement to perform and total number of possible measurement
+        var n_of_measurement= {"accuracy":Object.keys(fields["ACC"]).length,
+        "completness":Object.keys(fields["COM"]).length,
+        "consistency":Object.keys(fields["CON"]).length,
+        "credibility":Object.keys(fields["CRE"]).length,
+        "compliance":Object.keys(fields["CPL"]).length,
+        "total-accuracy":Object.keys(classes["ACC"]).length,
+        "total-completness":Object.keys(classes["COM"]).length,
+        "total-consistency":Object.keys(classes["CON"]).length,
+        "total-credibility":Object.keys(classes["CRE"]).length,
+        "total-compliance":Object.keys(classes["CPL"]).length};
 
 
-function drawTemplate () {
-  $("#av-measurement").load("/views/template/measure_available.html", function(res, status, xhr) {
-      var template = document.getElementById('available').innerHTML;
+        function drawTemplate () {
+          $("#av-measurement").load("/views/template/measure_available.html", function(res, status, xhr) {
+            var template = document.getElementById('available').innerHTML;
 
-      var output = Mustache.render(template, n_of_measurement);
-      $("#measurement").append(output);
+            var output = Mustache.render(template, n_of_measurement);
+            $("#measurement").append(output);
+          })
+        }
+        $('document').ready( function (){
 
+          drawTemplate();
+        })
+      })
+    }).fail( function(d, textStatus, error) {
+      console.error("getJSON failed, status: " + textStatus + ", error: "+error)
+      window.location.assign("/error");
+    })
 
+    </script>
 
-
-  })
-}
-$('document').ready( function (){
-
-  drawTemplate();
-})
-})
-})
-</script>
-
-</body>
-</html>
+  </body>
+  </html>

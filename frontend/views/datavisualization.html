@@ -1,252 +1,263 @@
-  <!DOCTYPE html>
-  <html>
-  <head>
-    <meta charset="utf-8">
-    <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.5.0/pure-min.css">
-    <link rel="stylesheet" href="https://rawgit.com/tpreusse/radar-chart-d3/master/src/radar-chart.css">
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Available Measurements</title>
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.5.0/pure-min.css">
+  <link rel="stylesheet" href="https://rawgit.com/tpreusse/radar-chart-d3/master/src/radar-chart.css">
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Available Measurements</title>
 
-    <link rel="stylesheet" type="text/css" href="/public/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="/public/css/style_animation.css">
-    <link rel="stylesheet" type="text/css" href="/public/css/mystyle.css">
-    <link href="https://fonts.googleapis.com/css?family=Lato:100,100i,300,300i,400" rel="stylesheet">
-  </head>
-  <body>
-    <div id="header-menu">
-    </div>
+  <link rel="stylesheet" type="text/css" href="/public/css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="/public/css/style_animation.css">
+  <link rel="stylesheet" type="text/css" href="/public/css/mystyle.css">
+  <link href="https://fonts.googleapis.com/css?family=Lato:100,100i,300,300i,400" rel="stylesheet">
+</head>
+<body>
+  <div id="header-menu">
+  </div>
 
 
-    <div class="container-fluid ">
+  <div class="container-fluid ">
 
-      <div class="row top-buffer">
-        <div class="col-sm-offset-1 col-sm-5">
-            <div class="radar-chart"></div>
-        </div>
-        <div class="col-sm-offset-1 col-sm-4">
-          <div class="lato justified-small">
+    <div class="row top-buffer">
+      <div class="col-sm-offset-1 col-sm-5">
+        <div class="radar-chart"></div>
+      </div>
+      <div class="col-sm-offset-1 col-sm-4">
+        <div class="lato justified-small">
           <h2> DATA VISUALIZATION </h2>
-            <h3>In this page you can find the reusults related to the measurements. The data length of a spoke is proportional to the magnitude of the variable for the data point relative to the maximum magnitude of the variable across all data points.. A line is drawn connecting the data values for each spoke.</h3>
-              <h3>Click on the details buttons  below to have more information:</h3>
-            </h3>
-          </div>
-        </div>
+          <h3>In this page you can find the reusults related to the measurements. The data length of a spoke is proportional to the magnitude of the variable for the data point relative to the maximum magnitude of the variable across all data points.. A line is drawn connecting the data values for each spoke.</h3>
+          <h3>Click on the details buttons  below to have more information:</h3>
       </div>
-      <div class="row">
-        <div class="col-sm-offset-1 col-sm-3">
-          <h2>ACCURACY</h2>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-sm-offset-1 col-sm-5">
-          <div class="hr"></div>
-        </div>
-        <div class="col-sm-offset-1 col-sm-4">
-          <div id="accuracy_npossible"><h3>MEASUREMENT IMPOSSIBLE TO PERFORM</h3></div>
-          <button id="accuracy_show" type="button"  class="semi-transparent-button large lato down-buffer show-button hidden-menu">SHOW DETAILS</button>
-          <button id="accuracy_hide" type="button"  class="semi-transparent-button large lato down-buffer hide-button hidden-menu">HIDE DETAILS</button>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-offset-1 col-sm-3">
+      <h2>ACCURACY</h2>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-offset-1 col-sm-5">
+      <div class="hr"></div>
+    </div>
+    <div class="col-sm-offset-2 col-sm-4">
+      <div id="accuracy_npossible"><h3>MEASUREMENT IMPOSSIBLE TO PERFORM</h3></div>
+      <button id="accuracy_show" type="button"  class="semi-transparent-button large lato down-buffer show-button hidden-menu">SHOW DETAILS</button>
+      <button id="accuracy_hide" type="button"  class="semi-transparent-button large lato down-buffer hide-button hidden-menu">HIDE DETAILS</button>
 
+    </div>
+  </div>
+
+  <div id="accuracy" class="transition">
+    <div  class="row lato">
+      <div class="col-sm-offset-1 col-sm-8">
+        <div  class="accuracy_graph left-buffer">
         </div>
+      </div>
+      <div class="col-sm-offset-0 col-sm-2  top-buffer">
+        <div class="top-buffer">
+        </div>
+        <div class="box"><a href="/datavisualization/accuracy"> SHOW VALUE FOR FIELDS </a></div>
+
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-offset-1 col-sm-4 p">
+        <p id="accuracy-description" class="justified top-buffer"></p>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-offset-1 col-sm-3">
+      <h2>COMPLETNESS</h2>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-offset-1 col-sm-5">
+      <div class="hr"></div>
+    </div>
+    <div class="col-sm-offset-2 col-sm-3">
+      <div id="completness_npossible"><h3>MEASUREMENT IMPOSSIBLE TO PERFORM</h3></div>
+      <button id="completness_show" type="button"  class="semi-transparent-button large lato down-buffer show-button hidden-menu">SHOW DETAILS</button>
+      <button id="completness_hide" type="button"  class="semi-transparent-button large lato down-buffer hide-button hidden-menu">HIDE DETAILS</button>
+    </div>
+  </div>
+  <div id="completness">
+    <div class="row">
+      <div class="col-sm-offset-1 col-sm-8">
+        <div  class="completness_graph left-buffer">
+        </div>
+      </div>
+      <div class="col-sm-offset-0 col-sm-2  top-buffer">
+        <div class="top-buffer">
+        </div>
+        <div class="box"><a href="/datavisualization/completness"> SHOW VALUE FOR FIELDS </a>
+        </div>
+      </div>
+    </div>
+      <div class="row">
+      <div class="col-sm-offset-1 col-sm-4 lato">
+        <h3><div id="completness-description" class="top-buffer">
+        </div></h3>
+      </div>
+    </div>
+    </div>
+  <div class="row">
+    <div class="col-sm-offset-1 col-sm-3">
+      <h2>CONSISTENCY</h2>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-offset-1 col-sm-5">
+      <div class="hr"></div>
+    </div>
+    <div class="col-sm-offset-2 col-sm-3">
+      <div id="consistency_npossible"><h3>MEASUREMENT IMPOSSIBLE TO PERFORM</h3></div>
+      <button id="consistency_show" type="button"  class="semi-transparent-button large lato down-buffer show-button hidden-menu">SHOW DETAILS</button>
+      <button id="consistency_hide" type="button"  class="semi-transparent-button large lato down-buffer hide-button hidden-menu">HIDE DETAILS</button>
+    </div>
+  </div>
+
+
+  <div id="consistency" class="lato">
+    <div class="row">
+      <div class="col-sm-offset-1 col-sm-8">
+        <div  class="consistency_graph left-buffer">
+        </div>
+      </div>
+      <div class="col-sm-offset-0 col-sm-3  top-buffer">
+        <div class="top-buffer">
+        </div>
+        <center>
+          <button type="button" onclick="location.href='/datavisualization/consistency';" class="semi-transparent-button large lato upload ">SHOW VALUES FOR FIELDS</button>
+        </center>
       </div>
 
-      <div id="accuracy" class="transition">
-        <div  class="row lato">
-        <div class="col-sm-offset-1 col-sm-8">
-          <div  class="accuracy_graph left-buffer">
-          </div>
-        </div>
-        <div class="col-sm-offset-0 col-sm-2 p top-buffer">
-          <center><div id="odometer" class="odometer">
-          </div></center>
-          <center><h3>  MEASURED DATAPOINTS</h3></center>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-sm-offset-1 col-sm-4 p">
-          <p id="accuracy-description" class="justified top-buffer"></p>
-        </div>
-          <div class=" col-sm-offset-0 col-sm-3 top-buffer">
-            <center>
-              <button type="button" onclick="location.href='/datavisualization/accuracy';" class="semi-transparent-button large lato upload ">SHOW VALUES FOR FIELDS</button>
-            </center>
-          </div>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-sm-offset-1 col-sm-3">
-          <h2>COMPLETNESS</h2>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-sm-offset-1 col-sm-5">
-          <div class="hr"></div>
-        </div>
-        <div class="col-sm-offset-1 col-sm-3">
-          <div id="completness_npossible"><h3>MEASUREMENT IMPOSSIBLE TO PERFORM</h3></div>
-          <button id="completness_show" type="button"  class="semi-transparent-button large lato down-buffer show-button hidden-menu">SHOW DETAILS</button>
-          <button id="completness_hide" type="button"  class="semi-transparent-button large lato down-buffer hide-button hidden-menu">HIDE DETAILS</button>
-        </div>
-      </div>
-      <div id="completness" class="row lato">
-        <div class="col-sm-offset-2 col-sm-5">
-          <div  class="completness_graph left-buffer">
-          </div>
-        </div>
-        <div class="col-sm-offset-0 col-sm-4 lato">
-          <h3><div id="completness-description" class="top-buffer">
-          </div></h3>
-          <div class="top-buffer">
-            <center>
-              <button type="button" onclick="location.href='/datavisualization/completness';" class="semi-transparent-button large lato upload ">SHOW VALUES FOR FIELDS</button>
-            </center>
-          </div>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-sm-offset-1 col-sm-3">
-          <h2>CONSISTENCY</h2>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-sm-offset-1 col-sm-5">
-          <div class="hr"></div>
-        </div>
-          <div class="col-sm-offset-1 col-sm-3">
-            <div id="consistency_npossible"><h3>MEASUREMENT IMPOSSIBLE TO PERFORM</h3></div>
-            <button id="consistency_show" type="button"  class="semi-transparent-button large lato down-buffer show-button hidden-menu">SHOW DETAILS</button>
-            <button id="consistency_hide" type="button"  class="semi-transparent-button large lato down-buffer hide-button hidden-menu">HIDE DETAILS</button>
-          </div>
-        </div>
-
-
-      <div id="consistency" class="row lato">
-        <div class="col-sm-offset-2 col-sm-5">
-          <div  class="consistency_graph left-buffer">
-          </div>
-        </div>
-        <div class="col-sm-offset-0 col-sm-4 lato">
+      <div class="col-sm-offset-1 col-sm-4 lato">
         <h3>  <div id="consistency-description" class="top-buffer">
         </div></h3>
-            <div class="top-buffer">
-            <center>
-              <button type="button" onclick="location.href='/datavisualization/consistency';"class="semi-transparent-button large lato upload ">SHOW VALUES FOR FIELDS</button>
-            </center>
-          </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-offset-1 col-sm-3">
+      <h2>CREDIBILITY</h2>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-offset-1 col-sm-5">
+      <div class="hr"></div>
+    </div>
+    <div class="col-sm-offset-2 col-sm-3">
+      <div id="credibility_npossible"><h3>MEASUREMENT IMPOSSIBLE TO PERFORM</h3></div>
+      <button id="credibility_show" type="button"  class="semi-transparent-button large lato down-buffer show-button hidden-menu">SHOW DETAILS</button>
+      <button id="credibility_hide" type="button"  class="semi-transparent-button large lato down-buffer hide-button hidden-menu">HIDE DETAILS</button>
+    </div>
+  </div>
+  <div id="credibility" class=" lato">
+    <div class="row">
+      <div class="col-sm-offset-1 col-sm-8">
+        <div  class="credibility_graph left-buffer">
         </div>
       </div>
-      <div class="row">
-        <div class="col-sm-offset-1 col-sm-3">
-          <h2>CREDIBILITY</h2>
+      <div class="col-sm-offset-0 col-sm-3  top-buffer">
+        <div class="top-buffer">
+        </div>
+        <center>
+          <button type="button" onclick="location.href='/datavisualization/credibility';" class="semi-transparent-button large lato upload ">SHOW VALUES FOR FIELDS</button>
+        </center>
+      </div>
+      <div class="col-sm-offset-1 col-sm-4 lato">
+        <h3><div id="credibility-description" class="top-buffer">
+        </div></h3>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-offset-1 col-sm-3">
+      <h2>COMPLIANCE</h2>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-offset-1 col-sm-5">
+      <div class="hr down-buffer"></div>
+    </div>
+    <div class="col-sm-offset-2 col-sm-3">
+      <div id="compliance_npossible"><h3>MEASUREMENT IMPOSSIBLE TO PERFORM</h3></div>
+      <button id="compliance_show" type="button"  class="semi-transparent-button large lato down-buffer show-button hidden-menu">SHOW DETAILS</button>
+      <button id="compliance_hide" type="button"  class="semi-transparent-button large lato down-buffer hide-button hidden-menu">HIDE DETAILS</button>
+    </div>
+  </div>
+
+  <div id="compliance" class="lato">
+    <div class="row">
+      <div class="col-sm-offset-1 col-sm-8">
+        <div  class="compliance_graph left-buffer">
         </div>
       </div>
-      <div class="row">
-        <div class="col-sm-offset-1 col-sm-5">
-          <div class="hr"></div>
+      <div class="col-sm-offset-0 col-sm-3  top-buffer">
+        <div class="top-buffer">
         </div>
-        <div class="col-sm-offset-1 col-sm-3">
-          <div id="credibility_npossible"><h3>MEASUREMENT IMPOSSIBLE TO PERFORM</h3></div>
-          <button id="credibility_show" type="button"  class="semi-transparent-button large lato down-buffer show-button hidden-menu">SHOW DETAILS</button>
-          <button id="credibility_hide" type="button"  class="semi-transparent-button large lato down-buffer hide-button hidden-menu">HIDE DETAILS</button>
-        </div>
+        <center>
+          <button type="button" onclick="location.href='/datavisualization/compliance';" class="semi-transparent-button large lato upload ">SHOW VALUES FOR FIELDS</button>
+        </center>
       </div>
-      <div id="credibility" class="row lato">
-        <div class="col-sm-offset-2 col-sm-5">
-          <div  class="credibility_graph left-buffer">
-          </div>
-        </div>
-        <div class="col-sm-offset-0 col-sm-4 lato">
-          <h3><div id="credibility-description" class="top-buffer">
-          </div></h3>
-          <div class="top-buffer">
-            <center>
-              <button type="button" onclick="location.href='/datavisualization/credibility';" class="semi-transparent-button large lato upload ">SHOW VALUES FOR FIELDS</button>
-            </center>
-          </div>
-        </div>
+      <div class="col-sm-offset-1 col-sm-4 lato">
+        <h3><div id="compliance-description" class="top-buffer">
+        </div></h3>
       </div>
-      <div class="row">
-        <div class="col-sm-offset-1 col-sm-3">
-          <h2>COMPLIANCE</h2>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-sm-offset-1 col-sm-5">
-          <div class="hr down-buffer"></div>
-        </div>
-        <div class="col-sm-offset-1 col-sm-3">
-          <div id="compliance_npossible"><h3>MEASUREMENT IMPOSSIBLE TO PERFORM</h3></div>
-          <button id="compliance_show" type="button"  class="semi-transparent-button large lato down-buffer show-button hidden-menu">SHOW DETAILS</button>
-          <button id="compliance_hide" type="button"  class="semi-transparent-button large lato down-buffer hide-button hidden-menu">HIDE DETAILS</button>
-        </div>
-      </div>
-
-      <div id="compliance" class="row lato">
-        <div class="col-sm-offset-2 col-sm-5">
-          <div  class="compliance_graph left-buffer">
-          </div>
-        </div>
-        <div class="col-sm-offset-0 col-sm-4 lato">
-          <h3><div id="compliance-description" class="lato h2">
-          </div></h3>
-          <div class="top-buffer">
-            <center>
-              <button type="button" onclick="location.href='/datavisualization/compliance';" class="semi-transparent-button large lato upload ">SHOW VALUES FOR FIELDS</button>
-            </center>
-          </div>
-        </div>
-      </div>
+    </div>
+  </div>
 
 
-    </div> <!--Container!-->
+</div> <!--Container!-->
 
 
-  </body>
-  </html>
+</body>
+</html>
 
 
 
 
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-  <script src="http://d3js.org/d3.v3.js"></script>
-  <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
-  <script src="https://rawgit.com/tpreusse/radar-chart-d3/master/src/radar-chart.js"></script>
-  <script type="text/javascript" src="../public/js/radar.js"></script>
-  <script type="text/javascript" src="/public/js/bar_chart.js"></script>
-  <script type="text/javascript" src="/public/js/object.js"></script>
-  <!-- Odometr includes -->
-  <link rel="stylesheet" href="http://github.hubspot.com/odometer/themes/odometer-theme-default.css" />
-  <script src="http://github.hubspot.com/odometer/odometer.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script src="http://d3js.org/d3.v3.js"></script>
+<script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+<script src="https://rawgit.com/tpreusse/radar-chart-d3/master/src/radar-chart.js"></script>
+<script type="text/javascript" src="../public/js/radar.js"></script>
+<script type="text/javascript" src="../public/js/measures_result.js"></script>
+<script type="text/javascript" src="/public/js/bar_chart.js"></script>
+<script type="text/javascript" src="/public/js/object.js"></script>
+<!-- Odometr includes -->
+<link rel="stylesheet" href="http://github.hubspot.com/odometer/themes/odometer-theme-default.css" />
+<script src="http://github.hubspot.com/odometer/odometer.js"></script>
 
 
-  <script>  $("#header-menu").load("/views/template/header.html", function() {
-    $("#menu-upload").removeClass("hidden-menu");
-    $("#menu-measure").removeClass("hidden-menu");
-    $("#data-visualization").removeClass("hidden-menu");
+<script>  $("#header-menu").load("/views/template/header.html", function() {
+  $("#menu-upload").removeClass("hidden-menu");
+  $("#menu-measure").removeClass("hidden-menu");
+  $("#data-visualization").removeClass("hidden-menu");
 
-  });</script>
-  <script src="//cdnjs.cloudflare.com/ajax/libs/mustache.js/0.7.2/mustache.min.js"></script>
-  <script src="http://d3js.org/d3.v3.min.js"></script>
-  <script>
+});</script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/mustache.js/0.7.2/mustache.min.js"></script>
+<script src="http://d3js.org/d3.v3.min.js"></script>
+<script>
 
-  $('document').ready( function (){
-    $("#accuracy").addClass("hidden-menu")
-    $("#completness").addClass("hidden-menu")
-    $("#consistency").addClass("hidden-menu")
-    $("#credibility").addClass("hidden-menu")
-    $("#compliance").addClass("hidden-menu")
-    $("#accuracy-description").append(definition[initialDict.accuracy].description)
-    $("#completness-description").append(definition[initialDict.completness].description)
-    $("#consistency-description").append(definition[initialDict.consistency].description)
-    $("#credibility-description").append(definition[initialDict.credibility].description)
-    $("#compliance-description").append(definition[initialDict.compliance].description)
+$('document').ready( function (){
+  $("#accuracy").addClass("hidden-menu")
+  $("#completness").addClass("hidden-menu")
+  $("#consistency").addClass("hidden-menu")
+  $("#credibility").addClass("hidden-menu")
+  $("#compliance").addClass("hidden-menu")
+  $("#accuracy-description").append(definition[initialDict.accuracy].description)
+  $("#completness-description").append(definition[initialDict.completness].description)
+  $("#consistency-description").append(definition[initialDict.consistency].description)
+  $("#credibility-description").append(definition[initialDict.credibility].description)
+  $("#compliance-description").append(definition[initialDict.compliance].description)
 
 
-  var data = {"accuracy":{"Syntactic":5, "Semantic":57,"Data_Assurance":90,"Risk":100,"Data_Model":100},
-              "completness":{"Syntactic":5, "Semantic":57,"Data_Assurance":90,"Risk":100,"Data_Model":100},
-              "consistency":{"Syntactic":25, "Semantic":57,"Data_Assurance":90,"Risk":100,"Data_Model":100}
-             };
+
 
   for(t in data)
   {
@@ -257,37 +268,36 @@
     drawGraph(field,dollars,categories);
   }
 
-//Possible and impossible measurements
-    for(t in data)
-    {
-        $("#"+t+"_show").removeClass("hidden-menu")
-        $("#"+t+"_npossible").addClass("hidden-menu")
-    }
-  })
+  //Possible and impossible measurements
+  for(t in data)
+  {
+    $("#"+t+"_show").removeClass("hidden-menu")
+    $("#"+t+"_npossible").addClass("hidden-menu")
+  }
+})
 
-  $("body").on('click',".show-button",function(){
-    var field=this.id.split("_")
-    field=field[0]
-    $("#"+field).removeClass("hidden-menu")
-    $("#"+field+"_show").addClass("hidden-menu")
-    setTimeout(function () {
-     box.removeClass('visuallyhidden');
-   }, 20)
-    $("#"+field+"_hide").removeClass("hidden-menu")
-    setTimeout(function(){
-      odometer.innerHTML = 456;
+$("body").on('click',".show-button",function(){
+  var field=this.id.split("_")
+  field=field[0]
+  $("#"+field).removeClass("hidden-menu")
+  $("#"+field+"_show").addClass("hidden-menu")
+  setTimeout(function () {
+    box.removeClass('visuallyhidden');
+  }, 20)
+  $("#"+field+"_hide").removeClass("hidden-menu")
+  setTimeout(function(){
+    odometer.innerHTML = 456;
   }, 100);
 
-  })
+})
 
-  $("body").on('click',".hide-button",function(){
-    var field=this.id.split("_")
-    field=field[0]
-    $("#"+field).addClass("hidden-menu")
-    $("#"+field+"_show").removeClass("hidden-menu")
-    $("#"+field+"_hide").addClass("hidden-menu")
-    odometer.innerHTML =0;
-  })
+$("body").on('click',".hide-button",function(){
+  var field=this.id.split("_")
+  field=field[0]
+  $("#"+field).addClass("hidden-menu")
+  $("#"+field+"_show").removeClass("hidden-menu")
+  $("#"+field+"_hide").addClass("hidden-menu")
+})
 
 
 
@@ -303,172 +313,172 @@ function drawGraph(field, dollars, categories)
   });
 
   var tickVals = grid.map(function(d,i){
-     return i*10;
+    return i*10;
   });
 
-    var xscale = d3.scale.linear()
-         .domain([0,100])
-         .range([0,700]);
+  var xscale = d3.scale.linear()
+  .domain([0,100])
+  .range([0,700]);
 
   var yscale = d3.scale.linear()
-         .domain([0,categories.length])
-         .range([0,maxHeight]);
+  .domain([0,categories.length])
+  .range([0,maxHeight]);
 
   var colorScale = d3.scale.quantize()
-         .domain([0,categories.length])
-         .range(colors);
+  .domain([0,categories.length])
+  .range(colors);
 
-            var canvas1 = d3.select("."+t+"_graph")
-                   .append('svg')
-                   .attr({'width':1000,'height':svgHeight});
+  var canvas1 = d3.select("."+t+"_graph")
+  .append('svg')
+  .attr({'width':1000,'height':svgHeight});
 
   var grids = canvas1.append('g')
-           .attr('id','grid')
-           .attr('transform','translate(150,10)')
-           .selectAll('line')
-           .data(grid)
-           .enter()
-           .append('line')
-           .attr({'x1':function(d,i){ return i*70; },
-              'y1':function(d){ return d.y1; },
-              'x2':function(d,i){ return i*70; },
-              'y2':function(d){ return d.y2; },
-           })
-           .style({'stroke':'#adadad','stroke-width':'1px'});
+  .attr('id','grid')
+  .attr('transform','translate(150,10)')
+  .selectAll('line')
+  .data(grid)
+  .enter()
+  .append('line')
+  .attr({'x1':function(d,i){ return i*70; },
+  'y1':function(d){ return d.y1; },
+  'x2':function(d,i){ return i*70; },
+  'y2':function(d){ return d.y2; },
+})
+.style({'stroke':'#adadad','stroke-width':'1px'});
 
-  var	xAxis = d3.svg.axis();
-   xAxis
-     .orient('bottom')
-     .scale(xscale)
-     .tickValues(tickVals);
+var	xAxis = d3.svg.axis();
+xAxis
+.orient('bottom')
+.scale(xscale)
+.tickValues(tickVals);
 
-  var	yAxis = d3.svg.axis();
-   yAxis
-     .orient('left')
-     .scale(yscale)
-     .tickSize(0)
-     .tickFormat(function(d,i){ return categories[i]; })
-     .tickValues(d3.range(10));
+var	yAxis = d3.svg.axis();
+yAxis
+.orient('left')
+.scale(yscale)
+.tickSize(0)
+.tickFormat(function(d,i){ return categories[i]; })
+.tickValues(d3.range(10));
 
-  var y_xis = canvas1.append('g')
-           .attr("transform", "translate(150,45)")
-           .attr('id','yaxis')
-           .call(yAxis);
+var y_xis = canvas1.append('g')
+.attr("transform", "translate(150,45)")
+.attr('id','yaxis')
+.call(yAxis);
 
-  var x_xis = canvas1.append('g')
-           .attr("transform", "translate(150,"+maxHeight+")")
-           .attr('id','xaxis')
-           .call(xAxis);
+var x_xis = canvas1.append('g')
+.attr("transform", "translate(150,"+maxHeight+")")
+.attr('id','xaxis')
+.call(xAxis);
 
-  var chart = canvas1.append('g')
-           .attr("transform", "translate(150,0)")
-           .attr('id','bars-'+field)
-           .selectAll('rect')
-           .data(dollars)
-           .enter()
-           .append('rect')
-           .attr('height',29) //barra piu o meno grossa
-           .attr({'x':0,'y':function(d,i){ return yscale(i) + 30; }})
-           .style('fill',function(d,i){ return colorScale(i); })
-           .attr('width',function(d){ return 0; })
-           .transition()
-           .duration(1000)
-           .attr("width", function(d) {return xscale(d); });
+var chart = canvas1.append('g')
+.attr("transform", "translate(150,0)")
+.attr('id','bars-'+field)
+.selectAll('rect')
+.data(dollars)
+.enter()
+.append('rect')
+.attr('height',29) //barra piu o meno grossa
+.attr({'x':0,'y':function(d,i){ return yscale(i) + 30; }})
+.style('fill',function(d,i){ return colorScale(i); })
+.attr('width',function(d){ return 0; })
+.transition()
+.duration(1000)
+.attr("width", function(d) {return xscale(d); });
 
 
-  var transitext = d3.select('#bars-'+field)
-           .selectAll('text')
-           .data(dollars)
-           .enter()
-           .append('text')
-           .attr({'x':function(d) {return xscale(d)+5; },'y':function(d,i){ return yscale(i)+45; }})
-           .text(function(d){ return d+"%"; }).style({'fill':'#3d3d3d','font-size':'14px'});
+var transitext = d3.select('#bars-'+field)
+.selectAll('text')
+.data(dollars)
+.enter()
+.append('text')
+.attr({'x':function(d) {return xscale(d)+5; },'y':function(d,i){ return yscale(i)+45; }})
+.text(function(d){ return d+"%"; }).style({'fill':'#3d3d3d','font-size':'14px'});
 }
-  </script>
-  <style>
-  #xaxis .domain {
-    fill:none;
-    stroke:#000;
-  }
-  #xaxis text, #yaxis text {
-    font-size: 12px;
-  }
-  .radar-chart .area {
-    fill-opacity: 0.7;
-  }
-  .radar-chart.focus .area {
-    fill-opacity: 0.3;
-  }
-  .radar-chart.focus .area.focused {
-    fill-opacity: 0.9;
-  }
-  .area.accuracy {
-    fill: blue;
-    stroke: none;
-  }
-  .area.completness{
-    fill: #ADD8E6;
-    stroke: none;
-  }
-  .area.credibility{
-    fill: #00ffbb;
-    stroke: none;
-  }
-  .area.consistency{
-    fill: #d2a5ff;
-    stroke: none;
-  }
+</script>
+<style>
+#xaxis .domain {
+  fill:none;
+  stroke:#000;
+}
+#xaxis text, #yaxis text {
+  font-size: 12px;
+}
+.radar-chart .area {
+  fill-opacity: 0.7;
+}
+.radar-chart.focus .area {
+  fill-opacity: 0.3;
+}
+.radar-chart.focus .area.focused {
+  fill-opacity: 0.9;
+}
+.area.accuracy {
+  fill: blue;
+  stroke: none;
+}
+.area.completness{
+  fill: #ADD8E6;
+  stroke: none;
+}
+.area.credibility{
+  fill: #00ffbb;
+  stroke: none;
+}
+.area.consistency{
+  fill: #d2a5ff;
+  stroke: none;
+}
 
 
-  svg {
-    width: 100%;
-    height: 100%;
-    position: center;
-  }
+svg {
+  width: 100%;
+  height: 100%;
+  position: center;
+}
 
-  .toolTip {
-    font-family: 'Lato', sans-serif;
-    position: absolute;
-    display: none;
-    width: auto;
-    height: auto;
-    background: none repeat scroll 0 0 white;
-    border: 0 none;
-    border-radius: 8px 8px 8px 8px;
-    box-shadow: -3px 3px 15px #888888;
-    color: black;
-    font: 12px sans-serif;
-    padding: 5px;
-    text-align: center;
-  }
+.toolTip {
+  font-family: 'Lato', sans-serif;
+  position: absolute;
+  display: none;
+  width: auto;
+  height: auto;
+  background: none repeat scroll 0 0 white;
+  border: 0 none;
+  border-radius: 8px 8px 8px 8px;
+  box-shadow: -3px 3px 15px #888888;
+  color: black;
+  font: 12px sans-serif;
+  padding: 5px;
+  text-align: center;
+}
 
-  text {
-    font-family: 'Lato', sans-serif;
-    color: white;
-  }
-  text.label{
-      font-family: 'Lato', sans-serif;
-      fill: black;
-      font-size: 18px;
-      font-weight: inherit;
-  }
-  text.value {
-    font-size: 120%;
-    fill: white;
-  }
+text {
+  font-family: 'Lato', sans-serif;
+  color: white;
+}
+text.label{
+  font-family: 'Lato', sans-serif;
+  fill: black;
+  font-size: 18px;
+  font-weight: inherit;
+}
+text.value {
+  font-size: 120%;
+  fill: white;
+}
 
-  .axisHorizontal path{
-    fill: none;
-  }
+.axisHorizontal path{
+  fill: none;
+}
 
-  .axisHorizontal .tick line {
-    stroke-width: 1;
-    stroke: rgba(0, 0, 0, 0.2);
-  }
+.axisHorizontal .tick line {
+  stroke-width: 1;
+  stroke: rgba(0, 0, 0, 0.2);
+}
 
-  .bar {
-    fill: steelblue;
-    fill-opacity: .9;
-  }
+.bar {
+  fill: steelblue;
+  fill-opacity: .9;
+}
 
-  </style>
+</style>

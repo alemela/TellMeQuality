@@ -60,12 +60,12 @@
     var current = window.location.pathname.replace("/measure/","");
     current = initialDict[current];
 
+    $("#title").append(definition[current].title)
+
 
 $.getJSON("/tmq/configure/allFields", function( list_field ) {
 
   $.getJSON("/tmq/configure/activeFields", function( fields ) {
-    //Appne the title
-    $("#title").append(definition[current].title)
     //Object that will be sent with the POST
     var shapeResult={"ACC":
     {"ACC-I-1":{}, "ACC-I-2":{}, "ACC-I-3":{},"ACC-I-4":{}},

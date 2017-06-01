@@ -29,6 +29,7 @@
     "morgan": "^1.8.1",
     "mustache": "^2.3.0",
     "path": "^0.12.7",
-    "request": "^2.81.0"
+    "request": "^2.81.0",
+    "apicache":"^0.8.6"
   }
 }

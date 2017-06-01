@@ -289,3 +289,36 @@ text-transform: uppercase;
   transition: all 2s linear;
 
 }
+.menu_simple ul {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+    background-color: #ffff;
+
+
+}
+
+.menu_simple ul li a {
+    text-decoration: none;
+    color: white;
+    padding: 10.5px 11px;
+    background-color: #3e7cb0;
+    display:block;
+    float:none !important;
+}
+
+.menu_simple ul li a:visited {
+    color: white;
+}
+
+.menu_simple ul li a:hover, .menu_simple ul li .current {
+    color: white;
+    background-color: #234ea3;
+}
+.box {
+    background-color: white;/*#3e7cb0;*/
+    box-shadow: 5px 5px 2px grey;
+    padding: 25px;
+    margin: 25px;
+    border: 1px solid black;
+}

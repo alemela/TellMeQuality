@@ -5,99 +5,83 @@ var bodyParser = require('body-parser');
 var path = require('path');
 var formidable = require('formidable');
 var fs = require('fs');
+var compression = require('compression');
 var request = require('request');
+var apicache = require('apicache').options({debug:false}).middleware
 
 
 //NEXT TWO LINES FOR READ BODY FROM POST
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json());
+app.use(compression());
 
-app.use(express.static(__dirname + '/.'));
+app.use('/',express.static('.', { maxAge: 86400000 }));
 app.use(morgan('common'))
 
-
+app.get('/measure', function (req, res) {
+  res.sendFile( __dirname + "/views/measure.html" );
+})
 app.get('/measure/accuracy', function (req, res) {
-   res.sendFile( __dirname + "/views/measure_detail.html" );
+  res.sendFile( __dirname + "/views/measure_detail.html" );
 })
 app.get('/measure/completness', function (req, res) {
-   res.sendFile( __dirname + "/views/measure_detail.html" );
+  res.sendFile( __dirname + "/views/measure_detail.html" );
 })
 app.get('/measure/consistency', function (req, res) {
-   res.sendFile( __dirname + "/views/measure_detail.html" );
+  res.sendFile( __dirname + "/views/measure_detail.html" );
 })
 app.get('/measure/credibility', function (req, res) {
-   res.sendFile( __dirname + "/views/measure_detail.html" );
+  res.sendFile( __dirname + "/views/measure_detail.html" );
 })
 app.get('/measure/compliance', function (req, res) {
-   res.sendFile( __dirname + "/views/measure_detail.html" );
+  res.sendFile( __dirname + "/views/measure_detail.html" );
 })
 
+app.get('/result', function (req, res) {
+  res.sendFile( __dirname + "/views/datavisualization.html"  );
+})
+app.get('/result/accuracy', function (req, res) {
+  res.sendFile( __dirname + "/views/datavisualization_detail.html" );
+})
+app.get('/result/completness', function (req, res) {
+  res.sendFile( __dirname + "/views/datavisualization_detail.html"  );
+})
+app.get('/result/consistency', function (req, res) {
+  res.sendFile( __dirname + "/views/datavisualization_detail.html" );
+})
+app.get('/result/credibility', function (req, res) {
+  res.sendFile( __dirname + "/views/datavisualization_detail.html"  );
+})
+app.get('/result/compliance', function (req, res) {
+  res.sendFile( __dirname + "/views/datavisualization_detail.html"  );
+})
 
-app.get('/datavisualization/accuracy', function (req, res) {
-   res.sendFile( __dirname + "/views/datavisualization_detail.html" );
-})
-app.get('/datavisualization/completness', function (req, res) {
-   res.sendFile( __dirname + "/views/datavisualization_detail.html"  );
-})
-app.get('/datavisualization/consistency', function (req, res) {
-   res.sendFile( __dirname + "/views/datavisualization_detail.html" );
-})
-app.get('/datavisualization/credibility', function (req, res) {
-   res.sendFile( __dirname + "/views/datavisualization_detail.html"  );
-})
-app.get('/datavisualization/compliance', function (req, res) {
-   res.sendFile( __dirname + "/views/datavisualization_detail.html"  );
+app.get('/upload', function (req, res) {
+  res.sendFile( __dirname + "/views/upload.html"  );
 })
 
+app.get('/wizard', function (req, res) {
+  res.sendFile( __dirname + "/views/wizard.html"  );
+})
+app.get('/error', apicache('1 day'), function (req, res) {
+  res.sendFile( __dirname + "/views/error.html" );
+})
 app.get('/tmq/:path*', function (req, res) {
-   request('http://localhost:8085/'+ req.params.path + req.params[0], function (error, response, body) {
-       res.send(JSON.parse(body));
-   });
+  request('http://localhost:8085/'+ req.params.path + req.params[0], function (error, response, body) {
+    if(error)
+    {
+      console.log("Invalid JSON file");
+      res.send("JSON.parse(body)")
+    }
+    else
+    {res.send(JSON.parse(body))};
+  });
 })
-
-app.post('/file-upload', function(req, res) {
-    console.log("File Uploaded");
-    console.log(req.body);
-    console.log(req.files);
-    res.send();
-});
-
-app.post('/upload', function(req, res){
-
-  // create an incoming form object
-  var form = new formidable.IncomingForm();
-
-  // specify that we want to allow the user to upload multiple files in a single request
-  form.multiples = true;
-
-  // store all uploads in the /uploads directory
-  form.uploadDir = path.join(__dirname, '/uploads');
-
-  // every time a file has been uploaded successfully,
-  // rename it to it's orignal name
-  form.on('file', function(field, file) {
-    fs.rename(file.path, path.join(form.uploadDir, file.name));
-  });
-
-  // log any errors that occur
-  form.on('error', function(err) {
-    console.log('An error has occured: \n' + err);
-  });
-
-  // once all the files have been uploaded, send a response to the client
-  form.on('end', function() {
-    res.end('success');
-  });
-
-  // parse the incoming request containing the form data
-  form.parse(req);
-
-});
 
 var server = app.listen(8080, function () {
 
-   var host = server.address().address
-   var port = server.address().port
+  var host = server.address().address
+  var port = server.address().port
 
-   console.log("Example app listening at http://%s:%s", host, port)
+  console.log("Example app listening at http://%s:%s", host, port)
 });

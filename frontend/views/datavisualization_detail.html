@@ -62,40 +62,51 @@
     fill: steelblue;
     fill-opacity: .9;
   }
+  html {
+      scroll-behavior: smooth;
+    }
+    .tornasu
+    {
+      position: fixed;
+      z-index: 999;
+      bottom:10px;
+      right:20px;
+      border:1px solid;
+      padding:3px 6px 3px 6px;
+    }
 
   </style>
 </head>
 <body>
   <div id="header-menu"></div>
   <div class="container-fluid ">
-    <center>
-      <h2><div id="title" class="allcaps"></h2>
-        <h3><div id="description"></h3>
-        </center>
+      <h2><center><div id="title" class="allcaps"></div></center></h2>
+        <h3><div id="description"></div></h3>
         <h2>FIELD MEASUREMENTS</h2>
         <h3>In this section every graph is dedicated to a different field. All the standards are reported on the Y axis.</h3>
-        <div class="row top-buffer">
-          <div class="col-sm-9">
-            <u><div id="data-detail"><u>
-            </div>
+        <div class="menu_simple">
+        <h3>INDEX</h3>
+            <ul>
+              <div id="anchor-menu">
+              </div>
+            </ul>
           </div>
-          <div class="col-sm-3">
-            <div class="top-buffer">
-              <center><div id="odometer" class="odometer top-buffer">
-              </div></center>
-              <center><h3>  MEASURED DATAPOINTS</h3></center>
+            <u><div id="data-detail"></div></u>
+            <div class="tornasu">
+              <a href="#header-menu"><i class="fa fa-arrow-up" aria-hidden="true"></i></a>
             </div>
-          </div>
+      </div>
 
-        </div>
 
         <div id="hidden-template" style="display:none" ></div>
-        <div id="hidden-odometer" ></div>
+        <div id="hidden-odometer" style="display:none"></div>
+        <div id="hidden-anchor-menu"  style="display:none" ></div>
 
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
         <script src="/public/js/object.js"></script>
         <script src="/public/js/measures_result.js"></script>
         <script src="/public/js/bar_chart_detail.js"></script>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
         <link rel="stylesheet" href="http://github.hubspot.com/odometer/themes/odometer-theme-default.css" />
         <script src="http://github.hubspot.com/odometer/odometer.js"></script>
 
@@ -111,18 +122,7 @@
         <script src="/public/js/measures_result.js"></script>
 
         <script>
-        var measures=
-        {"accuracy":
-          {"ID":{"Syntactic":5, "Semantic":57,"Data_Assurance":90,"Risk":100,"Data_Model":100},
-           "EMAIL":{"Syntactic":14, "Semantic":15,"Data_Assurance":16,"Risk":17},
-           "DATA":{"Syntactic":18, "Semantic":19,"Data_Assurance":20,"Risk":21}
-         },
-          "completness":
-            {"ID":{"Syntactic":22, "Semantic":23,"Data_Assurance":24,"Risk":25},
-             "EMAIL":{"Syntactic":26, "Semantic":27,"Data_Assurance":28,"Risk":29},
-             "DATA":{"Syntactic":30, "Semantic":31,"Data_Assurance":32,"Risk":33}
-            }
-        };
+
         var current = window.location.pathname.replace("/datavisualization/","");
 
         $("#description").append(definition[current])
@@ -134,7 +134,6 @@
               $("#data-detail").append(output);
               var field=Object.keys(measures[current])[i]
               var list=Object.values(measures[current][field])
-              console.log(list)
               var categories= Object.keys(measures[current][field])
               var dollars = list;
               drawGraph(field, dollars, categories);
@@ -142,6 +141,18 @@
 
           })
         }
+        function drawMenu()
+        {
+          $("#hidden-anchor-menu").load("/views/template/anchor-menu-tmp.html", function(res, status, xhr) {
+            var temp = document.getElementById('anchor-menu-tmp').innerHTML;
+            for (var i=0; i<Object.keys(measures[current]).length;i++){
+              console.log(temp);
+              var output = Mustache.render(temp,{"field":Object.keys(measures[current])[i]});
+              $("#anchor-menu").append(output);
+            }
+          })
+        }
+
         function drawOdometer()
         {
           $("#hidden-odometer").load("/views/template/dataviz_odometer-tmp.html", function(res, status, xhr) {
@@ -153,22 +164,24 @@
             }
           })
         }
-        odometer.innerHTML = 0;
+        drawTemplate()
+        drawOdometer();
+        drawMenu();
 
         $('document').ready( function (){
           $("#title").append(current)
           setTimeout(function(){
-            odometer.innerHTML = 456;
-          }, 1000);
-          setTimeout(function(){
-            odometerID.innerHTML = 456;
-          }, 1000);
-        })
+            odometerID.innerHTML = 42;
+            odometerEMAIL.innerHTML = 42;
+            odometerDATA.innerHTML = 42;
 
+          }, 1000);
+
+        })
 
         var field=Object.keys(measures[current])[0]
 
-        drawTemplate()
+
 
 
 
