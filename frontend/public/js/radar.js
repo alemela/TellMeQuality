@@ -1,21 +1,15 @@
-
-
-
-
 var data = [
   {
-    className: 'accuracy', // optional can be used for styling
     axes: [
       {axis: "Accuracy", value: 42},
       {axis: "Completness", value: 61},
       {axis: "Consistency", value: 55},
       {axis: "Credibility", value: 98},
-      {axis: "Compliance", value: 94},
-      {axis: "Correctness", value: 79},
-      {axis: "Accessibility", value: 99},
-      {axis: "Confidentiality", value: 37},
-      {axis: "Efficiency", value: 87},
-
+      {axis: "Currentness", value: 94},
+      {axis: "Compliance", value: 79},
+      {axis: "Confidentiality", value: 100},
+      {axis: "Precision", value: 87},
+      {axis: "Understandability", value: 12},
     ]
   }
 ];
