@@ -1,4 +1,3 @@
-
 # Tell Me Quality
 Tell Me Quality is a Tool that is able to measure the standard of quality of a data according to ISI/IEC 25/024
 ## Usage
@@ -18,4 +17,3 @@ In order to allow the most efficient way to compare different measurements we im
 
 ![alt text](https://github.com/MarcoBerlot/TellMeQuality/blob/master/images/2.png)
 ![alt text](https://github.com/MarcoBerlot/TellMeQuality/blob/master/images/3.png)
-

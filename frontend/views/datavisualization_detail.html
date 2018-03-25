@@ -124,7 +124,7 @@
         <script>
 
         var current = window.location.pathname.replace("/datavisualization/","");
-
+        current=current.replace("/","")
         $("#description").append(definition[current])
         function drawTemplate () {
           $("#hidden-template").load("/views/template/dataviz_detail-tmp.html", function(res, status, xhr) {

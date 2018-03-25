@@ -36,9 +36,12 @@
 
     <script>
 
+    data={
+      "completness":["COM"]
+    }
     $.getJSON("/tmq/configure/allFields").done( function( list_field ) {
       console.log("Valid JSON");
-      $.getJSON("/tmq/configure/activeFields", function( fields ) {
+      $.getJSON("/tmq/configure/activeFields", function( data ) {
         var session_data=JSON.parse(sessionStorage.getItem('shapeResult'))
         //Number of possible measurement to perform and total number of possible measurement
         var n_of_measurement= {"accuracy":Object.keys(fields["ACC"]).length,
@@ -66,9 +69,6 @@
           drawTemplate();
         })
       })
-    }).fail( function(d, textStatus, error) {
-      console.error("getJSON failed, status: " + textStatus + ", error: "+error)
-      window.location.assign("/error");
     })
 
     </script>

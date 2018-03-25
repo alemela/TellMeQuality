@@ -234,7 +234,6 @@ function getUrlParameter () {
 
     if(sURLVariables.length==2)
     {
-      alert(sURLVariables.length + "Arguments")
       sParameterName = sURLVariables[0].split('=');
       var file=sParameterName[1];
       sParameterName = sURLVariables[1].split('=');
@@ -256,7 +255,6 @@ function getUrlParameter () {
 
     }
     if(sURLVariables.length===1) {
-      alert(sURLVariables.length + "Arguments")
       sParameterName = sURLVariables[0].split('=');
       var file=sParameterName[1];
       $("#remove-config-file").removeClass("hidden-menu");

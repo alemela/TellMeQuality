@@ -40,7 +40,7 @@ app.get('/measure/compliance', function (req, res) {
 app.get('/result', function (req, res) {
   res.sendFile( __dirname + "/views/datavisualization.html"  );
 })
-app.get('/result/accuracy', function (req, res) {
+app.get('/accuracy', function (req, res) {
   res.sendFile( __dirname + "/views/datavisualization_detail.html" );
 })
 app.get('/result/completness', function (req, res) {
